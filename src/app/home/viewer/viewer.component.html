@@ -1,0 +1,8 @@
+<div class="w-100 h-100">
+  <div [ngSwitch]="conditionExpression">
+    <div *ngSwitchCase="true">
+      <app-user-info></app-user-info>
+    </div>
+    <div *ngSwitchDefault>Default</div>
+  </div>
+</div>
