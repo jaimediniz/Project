@@ -11,6 +11,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material.module";
 import { HomeComponent } from "./home/home.component";
 import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
+import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
+import { NgxMaskModule, IConfig } from "ngx-mask";
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   declarations: [
@@ -21,12 +25,14 @@ import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
     ViewerComponent,
     HomeComponent,
     UserInfoComponent,
+    CreateInviteComponent,
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxMaskModule.forRoot(options),
   ],
   providers: [],
   bootstrap: [AppComponent],
