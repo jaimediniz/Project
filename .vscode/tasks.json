@@ -1,19 +1,26 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "ngrok",
-			"problemMatcher": [],
-			"label": "npm: ngrok",
-			"detail": "/ngrok start --all"
-		},
-		{
-			"type": "npm",
-			"script": "f-end",
-			"problemMatcher": [],
-			"label": "npm: f-end",
-			"detail": "ng serve"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "ngrok",
+      "problemMatcher": [],
+      "label": "npm: ngrok",
+      "detail": "/ngrok start --all"
+    },
+    {
+      "type": "npm",
+      "script": "f-end",
+      "problemMatcher": [],
+      "label": "npm: f-end",
+      "detail": "ng serve"
+    },
+    {
+      "type": "npm",
+      "script": "b-end",
+      "problemMatcher": [],
+      "label": "npm: b-end",
+      "detail": "nodemon index.js"
+    }
+  ]
 }
