@@ -1,0 +1,26 @@
+@mixin changeStyle($bgColor, $color, $width) {
+  background-color: $bgColor;
+  border: $width solid $color;
+}
+
+$font-sizes: (
+  "small": 12px,
+  "normal": 18px,
+  "large": 24px,
+);
+
+.header {
+  background-color: var(--main-header-color);
+}
+
+.body {
+  padding: var(--main-padding);
+}
+
+@media (max-width: 769px) {
+  .header {
+    @include changeStyle(blue, black, 2px);
+
+    font-size: map-get($font-sizes, "small");
+  }
+}

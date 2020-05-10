@@ -8,14 +8,14 @@ import { LoggerService } from "src/app/services/logger.service";
   styleUrls: ["./viewer.component.scss"],
 })
 export class ViewerComponent implements OnInit, OnDestroy {
-  conditionExpression: boolean = false;
+  conditionExpression: any = false;
   selectedUserSub: any;
 
   constructor(private userService: userService, private logger: LoggerService) {
     this.selectedUserSub = this.userService.selectedUserSub
       .asObservable()
       .subscribe((selectedUser) => {
-        this.conditionExpression = selectedUser ? true : false;
+        this.conditionExpression = selectedUser ? "user" : false;
       });
     this.logger.infoLog("Viewer", "constructor", "Subscribed!");
   }

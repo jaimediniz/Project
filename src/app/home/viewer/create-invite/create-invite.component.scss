@@ -1,0 +1,7 @@
+.fieldDiscription {
+  color: var(--main-txt-color);
+  font: var(--main-txt-font);
+  &.hidden {
+    color: var(--main-bg-color);
+  }
+}

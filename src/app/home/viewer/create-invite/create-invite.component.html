@@ -1,0 +1,50 @@
+<div class="d-flex flex-column w-100 h-100">
+  <div class="header">
+    Header
+  </div>
+  <form action="none" class="d-flex flex-row" #form>
+    <div class="col-6">
+      <span class="fieldDiscription">First Name</span>
+      <input class="w-100" type="text" required mask="" />
+      <span class="fieldDiscription">Last Name</span>
+      <input class="w-100" type="text" required />
+      <span class="fieldDiscription">E-mail</span>
+      <input class="w-100" type="email" name="" id="" required />
+      <div *ngIf="false">
+        <span class="fieldDiscription">Telephone</span>
+        <input
+          class="w-100"
+          type="tel"
+          name=""
+          id=""
+          mask="+00 (000) 0000-00000"
+          [specialCharacters]="['+', '(', ')', '-', ' ']"
+          placeholder="+49 (000) 0000-0000"
+          pattern="([+][0-9]{2}|0|)[0-9]{3}[0-9]{8}"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-6">
+      <span class="fieldDiscription">Date</span>
+      <input
+        class="w-100"
+        type="text"
+        name=""
+        id=""
+        mask="00.00.0000"
+        required
+      />
+      <span class="fieldDiscription">Time</span>
+      <input
+        class="w-100"
+        type="text"
+        mask="Hh:m0"
+        pattern="([0-1][0-9]|[2][0-3]|[0-9]):([0-5][0-9])"
+        required
+      />
+      <span class="fieldDiscription hidden">-</span>
+      <input [disabled]="!form.valid" class="w-100" type="button" value="" />
+    </div>
+  </form>
+</div>
