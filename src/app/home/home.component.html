@@ -1,11 +1,32 @@
 <div class="d-flex w-100 h-100">
   <mat-drawer-container class="w-100 h-100">
-    <mat-drawer mode="side" class="drawer border-right" opened>
+    <mat-drawer
+      mode="side"
+      class="drawer border-right"
+      opened
+      #sidenav
+      [class.closed]="!opened"
+    >
+      <button mat-button (click)="opened = !opened" class="menu">
+        <mat-icon>
+          {{ opened ? "close" : "menu" }}
+        </mat-icon>
+      </button>
       <app-drawer
+        *ngIf="opened"
         class="d-flex p-0"
         (selectedUser)="selectTarget($event)"
       ></app-drawer>
+      <app-side-bar
+        *ngIf="!opened"
+        class="d-flex h-100 sideBar"
+        [class.closed]="!opened"
+      ></app-side-bar>
     </mat-drawer>
-    <app-viewer class="p-0"></app-viewer>
+    <mat-drawer-content class="viewer" [class.closed]="!opened">
+      <app-viewer class="p-0">
+        <button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button>
+      </app-viewer>
+    </mat-drawer-content>
   </mat-drawer-container>
 </div>

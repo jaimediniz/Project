@@ -1,3 +1,39 @@
+:host {
+  --transition-duration: 300ms;
+}
+
 .drawer {
-  min-width: 300px !important;
+  min-width: var(--main-drawer-min-width) !important;
+  transition: min-width ease var(--transition-duration);
+  .menu {
+    position: absolute;
+    height: var(--main-header-height);
+    right: 0;
+  }
+  &.closed {
+    min-width: var(--main-drawer-width-closed) !important;
+    width: var(--main-drawer-width-closed) !important;
+  }
+  .sideBar {
+    width: calc(var(--main-drawer-width-closed) - 1px);
+    &.closed {
+      animation: background-fade var(--transition-duration) forwards;
+    }
+  }
+}
+
+.viewer {
+  transition: margin-left ease var(--transition-duration);
+  &.closed {
+    margin-left: var(--main-drawer-width-closed) !important;
+  }
+}
+
+@keyframes background-fade {
+  40% {
+    background: var(--main-bg-color);
+  }
+  100% {
+    background: var(--main-header-color);
+  }
 }

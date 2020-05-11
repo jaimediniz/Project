@@ -8,6 +8,7 @@ import { userService } from "../services/user.service";
 })
 export class HomeComponent implements OnInit {
   users: Array<{ id: number; name: string }>;
+  opened = true;
 
   constructor(private userService: userService) {
     this.userService.usersSub.asObservable().subscribe((users) => {
