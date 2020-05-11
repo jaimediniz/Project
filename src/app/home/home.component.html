@@ -1,7 +1,11 @@
 <div class="d-flex w-100 h-100">
-  <app-drawer
-    class="col-4 border-right p-0"
-    (selectedUser)="selectTarget($event)"
-  ></app-drawer>
-  <app-viewer class="col-8 p-0"></app-viewer>
+  <mat-drawer-container class="w-100 h-100">
+    <mat-drawer mode="side" class="drawer border-right" opened>
+      <app-drawer
+        class="d-flex p-0"
+        (selectedUser)="selectTarget($event)"
+      ></app-drawer>
+    </mat-drawer>
+    <app-viewer class="p-0"></app-viewer>
+  </mat-drawer-container>
 </div>
