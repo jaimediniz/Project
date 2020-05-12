@@ -4,8 +4,8 @@
     mat-button
     (click)="open.emit(0)"
     class="menuButton"
-    matTooltip="Open Menu"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon>
       home
@@ -19,6 +19,7 @@
     class="contactsButton"
     matTooltip="Contacts"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon
       [matBadge]="contactsUnreadMessages"
@@ -37,6 +38,7 @@
     class="groupsButton"
     matTooltip="Groups"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon
       [matBadge]="groupsUnreadMessages"
@@ -55,6 +57,7 @@
     class="invitesButton"
     matTooltip="Invites"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon
       [matBadge]="invitesUnreadMessages"
@@ -73,6 +76,7 @@
     class="mt-auto calendarButton"
     matTooltip="Calendar"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon>
       calendar_today
@@ -86,6 +90,7 @@
     class="settingsButton"
     matTooltip="Settings"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon>
       settings
@@ -95,10 +100,11 @@
   <!-- Mute Button -->
   <button
     mat-button
-    (click)="mute = !mute"
+    (click)="toggleMute()"
     class="muteButton"
     [matTooltip]="mute ? 'Activate notifications' : 'Mute notifications'"
     matTooltipPosition="after"
+    disableRipple
   >
     <mat-icon
       [matBadge]="'!'"
