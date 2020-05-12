@@ -1,4 +1,4 @@
-ROLES = {
+const ROLES = {
   superAdmin: 3,
   admin: 2,
   basic: 1,
