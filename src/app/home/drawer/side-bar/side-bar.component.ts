@@ -5,6 +5,7 @@ import {
   EventEmitter,
   OnDestroy,
 } from "@angular/core";
+import { OpenViewerService } from "src/app/services/open-viewer.service";
 
 @Component({
   selector: "app-side-bar",
@@ -18,9 +19,13 @@ export class SideBarComponent implements OnInit, OnDestroy {
   public groupsUnreadMessages: number = 9;
   public invitesUnreadMessages: number = 5;
 
-  constructor() {}
+  constructor(private openViewerService: OpenViewerService) {}
 
   ngOnInit(): void {}
+
+  emitView(view) {
+    this.openViewerService.emitView(view);
+  }
 
   ngOnDestroy(): void {}
 }

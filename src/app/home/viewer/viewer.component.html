@@ -1,10 +1,13 @@
 <div class="w-100 h-100">
   <div [ngSwitch]="conditionExpression">
-    <div *ngSwitchCase="'user'">
+    <div *ngSwitchCase="'userInfo'">
       <app-user-info></app-user-info>
     </div>
-    <div *ngSwitchCase="false">
+    <div *ngSwitchCase="'createInvite'">
       <app-create-invite></app-create-invite>
+    </div>
+    <div *ngSwitchCase="'calendar'">
+      <app-calendar></app-calendar>
     </div>
     <div *ngSwitchDefault>Default</div>
   </div>

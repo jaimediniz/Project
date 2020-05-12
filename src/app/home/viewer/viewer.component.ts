@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { userService } from "src/app/services/user.service";
+import { OpenViewerService } from "../../services/open-viewer.service";
 import { LoggerService } from "src/app/services/logger.service";
 
 @Component({
@@ -9,13 +9,16 @@ import { LoggerService } from "src/app/services/logger.service";
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   conditionExpression: any = false;
-  selectedUserSub: any;
+  selectedViewerSub: any;
 
-  constructor(private userService: userService, private logger: LoggerService) {
-    this.selectedUserSub = this.userService.selectedUserSub
+  constructor(
+    private openViewerService: OpenViewerService,
+    private logger: LoggerService
+  ) {
+    this.selectedViewerSub = this.openViewerService.selectedViewerSub
       .asObservable()
-      .subscribe((selectedUser) => {
-        this.conditionExpression = selectedUser ? "userInfo" : false;
+      .subscribe((selectedViewer) => {
+        this.conditionExpression = selectedViewer;
       });
     this.logger.infoLog({
       component: "Viewer",
@@ -28,7 +31,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this.selectedUserSub.unsubscribe();
+    this.selectedViewerSub.unsubscribe();
     this.logger.infoLog({
       component: "Viewer",
       codePart: "ngOnDestroy",
