@@ -1,0 +1,12 @@
+.sideBar {
+  transition: background-color var(--transition-duration) linear;
+  -webkit-transition: background-color var(--transition-duration) linear;
+  -ms-transition: background-color var(--transition-duration) linear;
+  background-color: var(--main-header-color);
+  &.mute {
+    background-color: var(--main-color-faded);
+  }
+  [class*="Button"] {
+    height: var(--main-header-height);
+  }
+}

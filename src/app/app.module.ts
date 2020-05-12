@@ -13,6 +13,7 @@ import { HomeComponent } from "./home/home.component";
 import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
 import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
+import { SideBarComponent } from "./home/drawer/side-bar/side-bar.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -26,6 +27,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     HomeComponent,
     UserInfoComponent,
     CreateInviteComponent,
+    SideBarComponent,
   ],
   imports: [
     BrowserModule,

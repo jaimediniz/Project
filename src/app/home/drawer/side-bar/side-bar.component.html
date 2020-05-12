@@ -1,0 +1,91 @@
+<div class="d-flex flex-column w-100 h-100 sideBar" [ngClass]="{ mute: mute }">
+  <!-- Open Menu Button -->
+  <button
+    mat-button
+    (click)="open.emit(0)"
+    class="menuButton"
+    matTooltip="Open Menu"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      menu
+    </mat-icon>
+  </button>
+  <!-- Contacts -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="contactsButton"
+    matTooltip="Contacts"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      contacts
+    </mat-icon>
+  </button>
+
+  <!-- Groups -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="groupsButton"
+    matTooltip="Groups"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      group
+    </mat-icon>
+  </button>
+
+  <!-- Invites -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="invitesButton"
+    matTooltip="Invites"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      insert_invitation
+    </mat-icon>
+  </button>
+
+  <!-- Calendar -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="mt-auto calendarButton"
+    matTooltip="Calendar"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      calendar_today
+    </mat-icon>
+  </button>
+
+  <!-- Settings -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="settingsButton"
+    matTooltip="Settings"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      settings
+    </mat-icon>
+  </button>
+
+  <!-- Mute Button -->
+  <button
+    mat-button
+    (click)="mute = !mute"
+    class="muteButton"
+    [matTooltip]="mute ? 'Activate notifications' : 'Mute notifications'"
+    matTooltipPosition="after"
+  >
+    <mat-icon>
+      {{ mute ? "volume_up" : "volume_off" }}
+    </mat-icon>
+  </button>
+</div>
