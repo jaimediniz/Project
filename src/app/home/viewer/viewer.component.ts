@@ -15,15 +15,25 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.selectedUserSub = this.userService.selectedUserSub
       .asObservable()
       .subscribe((selectedUser) => {
-        this.conditionExpression = selectedUser ? "user" : false;
+        this.conditionExpression = selectedUser ? "userInfo" : false;
       });
-    this.logger.infoLog("Viewer", "constructor", "Subscribed!");
+    this.logger.infoLog({
+      component: "Viewer",
+      codePart: "constructor",
+      variable: "Subscribed!",
+      color: "blue",
+    });
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.selectedUserSub.unsubscribe();
-    this.logger.infoLog("Viewer", "ngOnDestroy", "Unsubscribed!");
+    this.logger.infoLog({
+      component: "Viewer",
+      codePart: "ngOnDestroy",
+      variable: "Unsubscribed!",
+      color: "red",
+    });
   }
 }

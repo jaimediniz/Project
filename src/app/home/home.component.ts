@@ -24,7 +24,11 @@ export class HomeComponent implements OnInit {
   }
 
   handleOpening(selectTab) {
-    this.logger.infoLog("Home", "handleOpening", `Select Tab: ${selectTab}`);
+    this.logger.infoLog({
+      component: "Home",
+      codePart: "handleOpening",
+      variable: `Select Tab: ${selectTab}`,
+    });
     this.opened = true;
   }
 }

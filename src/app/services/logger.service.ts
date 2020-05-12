@@ -9,6 +9,14 @@ declare global {
   }
 }
 
+const COLORS = {
+  black: "#000000",
+  blue: "#007bff",
+  green: "#28a745",
+  yellow: "#ffd740",
+  red: "#dc3545",
+};
+
 @Injectable({
   providedIn: "root",
 })
@@ -35,24 +43,63 @@ export class LoggerService {
 
   setVerbosity(verbosity: number): string {
     window.verbosity = verbosity;
-    return `Verbositz set to -> ${window.verbosity}`;
+    return `Verbosity set to -> ${window.verbosity}`;
   }
 
-  infoLog(component: string, codePart: string, variable: any): void {
+  infoLog({
+    component,
+    codePart,
+    variable,
+    color = "black",
+  }: {
+    component: string;
+    codePart: string;
+    variable: any;
+    color?: string;
+  }): void {
     if (window.verbosity === 0 || window.verbosity === 2) {
-      console.dir(`${component} -> ${codePart}, ${variable}`);
+      console.log(
+        `%c ${component} -> ${codePart}, ${variable}`,
+        `color: ${COLORS[color]}`
+      );
     }
   }
 
-  warnLog(component: string, codePart: string, variable: any): void {
+  warnLog({
+    component,
+    codePart,
+    variable,
+    color = "black",
+  }: {
+    component: string;
+    codePart: string;
+    variable: any;
+    color?: string;
+  }): void {
     if (window.verbosity === 0 || window.verbosity === 3) {
-      console.warn(`${component} -> ${codePart}, ${variable}`);
+      console.warn(
+        `%c ${component} -> ${codePart}, ${variable}`,
+        `color: ${COLORS[color]}`
+      );
     }
   }
 
-  errorLog(component: string, codePart: string, variable: any): void {
+  errorLog({
+    component,
+    codePart,
+    variable,
+    color = "black",
+  }: {
+    component: string;
+    codePart: string;
+    variable: any;
+    color?: string;
+  }): void {
     if (window.verbosity === 0 || window.verbosity === 4) {
-      console.error(`${component} -> ${codePart}, ${variable}`);
+      console.error(
+        `%c${component} -> ${codePart}, ${variable}`,
+        `color: ${COLORS[color]}`
+      );
     }
   }
 }

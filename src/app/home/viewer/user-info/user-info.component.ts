@@ -18,13 +18,23 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       .subscribe((selectedUser) => {
         this.user = selectedUser;
       });
-    this.logger.infoLog("User-info", "constructor", "Subscribed!");
+    this.logger.infoLog({
+      component: "User-info",
+      codePart: "constructor",
+      variable: "Subscribed!",
+      color: "blue",
+    });
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
-    this.logger.infoLog("User-info", "ngOnDestroy", "Unsubscribed!");
+    this.logger.infoLog({
+      component: "User-info",
+      codePart: "ngOnDestroy",
+      variable: "Unsubscribed!",
+      color: "red",
+    });
   }
 }
