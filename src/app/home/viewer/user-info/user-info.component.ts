@@ -12,7 +12,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/home/viewer/user-info/user-info.component.ts";
 
   user: { id: number; name: string };
-  userSub: Subscription;
+  userSub: any; // Subscription
 
   constructor(private userService: UserService, private logger: LoggerService) {
     this.user = this.userService.selectedUser;

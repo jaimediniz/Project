@@ -14,7 +14,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   conditionExpression: any = false;
   selectedViewerSub: any;
-  activatedRoute: Subscription;
+  activatedRoute: any; // Subscription
 
   constructor(
     private logger: LoggerService,
@@ -38,7 +38,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.selectedViewerSub.unsubscribe();
     this.activatedRoute.unsubscribe();
 
     this.logger.functionLog({
