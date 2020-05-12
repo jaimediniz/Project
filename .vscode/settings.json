@@ -2,14 +2,13 @@
   "rest-client.environmentVariables": {
     "$shared": {
       "version": "v0",
-      "prodToken": "foo",
-      "nonProdToken": "bar"
+      "prodToken": "foo"
     },
     "local": {
       "version": "v0",
       "host": "localhost:3000",
-      "token": "{{$shared nonProdToken}}",
-      "secretKey": "devSecret"
+      "token": "b775f131cd461195e82174a7ef236d50",
+      "secretKey": "9C?Dgg9CiQJPmPD4'MQgO7;iZUsQ+uIg|>}O-/8~Yo1JFfM*"
     },
     "production": {
       "host": "localhost:3000",
