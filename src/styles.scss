@@ -37,6 +37,10 @@ $font-sizes: (
   }
 }
 
+.mat-button-focus-overlay {
+  background-color: transparent;
+}
+
 .mat-icon {
   height: map-get($font-sizes, big) !important;
   width: map-get($font-sizes, big) !important;
