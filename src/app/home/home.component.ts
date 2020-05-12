@@ -18,11 +18,12 @@ import { Subscription } from "rxjs";
 export class HomeComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/home/home.component.ts";
 
-  usersSubscription: Subscription;
+  usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }>;
   opened = true;
 
   constructor(private userService: UserService, private logger: LoggerService) {
+    this.users = this.userService.users;
     this.usersSubscription = this.userService.usersSub
       .asObservable()
       .subscribe((users) => {
