@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  Input,
+  EventEmitter,
+  OnDestroy,
+} from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { OpenViewerService } from "src/app/services/open-viewer.service";
 import { LoggerService } from "src/app/services/logger.service";
@@ -9,13 +16,15 @@ import { Subscription } from "rxjs";
   templateUrl: "./drawer.component.html",
   styleUrls: ["./drawer.component.scss"],
 })
-export class DrawerComponent implements OnInit {
+export class DrawerComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/home/drawer/drawer.component.ts";
 
   @Output("selectedUser") selected = new EventEmitter<number>();
 
-  usersSubscription: Subscription;
+  usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }> = [];
+
+  selectUserSubscription: any; // Subscription
   selectedUserId: number;
 
   constructor(
@@ -23,6 +32,7 @@ export class DrawerComponent implements OnInit {
     private openViewerService: OpenViewerService,
     private logger: LoggerService
   ) {
+    this.users = this.userService.users ? this.userService.users : [];
     this.usersSubscription = this.userService.usersSub
       .asObservable()
       .subscribe((users) => {
@@ -30,11 +40,21 @@ export class DrawerComponent implements OnInit {
       });
     this.usersSubscription.subscriberName = "DrawerComponent";
 
+    this.selectedUserId = this.userService.selectedUser
+      ? this.userService.selectedUser.id
+      : undefined;
+    this.selectUserSubscription = this.userService.selectedUserSub
+      .asObservable()
+      .subscribe((selectedUserId) => {
+        this.selectedUserId = selectedUserId.id;
+      });
+    this.selectUserSubscription.subscriberName = "DrawerComponent";
+
     this.logger.functionLog({
       webPackage: this.webPackage,
       className: "DrawerComponent",
       functionName: "constructor",
-      values: ["Subscribed to users list"],
+      values: ["Subscribed to users list", "Subscribed to selected user"],
     });
   }
 
@@ -59,5 +79,20 @@ export class DrawerComponent implements OnInit {
     this.openViewerService.emitView("userInfo");
     this.selected.emit(user.id);
     this.selectedUserId = user.id;
+  }
+
+  ngOnDestroy(): void {
+    this.usersSubscription.unsubscribe();
+    this.selectUserSubscription.unsubscribe();
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "UserInfoComponent",
+      functionName: "ngOnDestroy",
+      values: [
+        "Unsubscribed from users list",
+        "Unsubscribed from selected user",
+      ],
+    });
   }
 }
