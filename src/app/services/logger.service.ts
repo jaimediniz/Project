@@ -12,9 +12,15 @@ declare global {
 const COLORS = {
   black: "#000000",
   blue: "#007bff",
-  green: "#28a745",
   yellow: "#ffd740",
   red: "#dc3545",
+  subscriptionChanged: "#28a745",
+  functions: {
+    constructor: "#ea44d5",
+    ngOnInit: "#007bff",
+    ngOnAfterInitialView: "#ffd740",
+    ngOnDestroy: "#dc3545",
+  },
 };
 
 @Injectable({
@@ -38,7 +44,7 @@ export class LoggerService {
 
   checkVerbosity(): string {
     console.dir(window.logLevel);
-    return `Verbositz is -> ${window.logLevel[window.verbosity]}`;
+    return `Verbosity is -> ${window.logLevel[window.verbosity]}`;
   }
 
   setVerbosity(verbosity: number): string {
@@ -47,58 +53,132 @@ export class LoggerService {
   }
 
   infoLog({
-    component,
-    codePart,
+    className,
+    functionName,
+    description,
     variable,
+    value,
     color = "black",
   }: {
-    component: string;
-    codePart: string;
-    variable: any;
+    className: string;
+    functionName: string;
+    description: string;
+    variable: string;
+    value: string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 2) {
       console.log(
-        `%c ${component} -> ${codePart}, ${variable}`,
-        `color: ${COLORS[color]}`
+        `%c ${className} -> ${functionName}:\n    Description: ${description}\n    Variable: ${variable} |`,
+        `color: ${COLORS[color]}`,
+        value
       );
     }
   }
 
   warnLog({
-    component,
-    codePart,
+    className,
+    functionName,
+    description,
     variable,
+    value,
     color = "black",
   }: {
-    component: string;
-    codePart: string;
-    variable: any;
+    className: string;
+    functionName: string;
+    description: string;
+    variable: string;
+    value: string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 3) {
       console.warn(
-        `%c ${component} -> ${codePart}, ${variable}`,
-        `color: ${COLORS[color]}`
+        `%c ${className} -> ${functionName}:\n    Description: ${description}\n    Variable: ${variable} |`,
+        `color: ${COLORS[color]}`,
+        value
       );
     }
   }
 
   errorLog({
-    component,
-    codePart,
+    className,
+    functionName,
+    description,
     variable,
+    value,
     color = "black",
   }: {
-    component: string;
-    codePart: string;
-    variable: any;
+    className: string;
+    functionName: string;
+    description: string;
+    variable: string;
+    value: string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 4) {
       console.error(
-        `%c${component} -> ${codePart}, ${variable}`,
-        `color: ${COLORS[color]}`
+        `%c ${className} -> ${functionName}:\n    Description: ${description}\n    Variable: ${variable} |`,
+        `color: ${COLORS[color]}`,
+        value
+      );
+    }
+  }
+
+  emitLog({
+    className,
+    functionName,
+    description,
+    variable,
+    value,
+    subscribers,
+  }: {
+    className: string;
+    functionName: string;
+    description: string;
+    variable: string;
+    value: string | number | object;
+    subscribers: Array<any>;
+  }): void {
+    if (window.verbosity === 0) {
+      let compiledString = "";
+      subscribers.forEach((element) => {
+        compiledString += `        - ${element.subscriberName};\n`;
+      });
+      if (compiledString) {
+        compiledString = `${compiledString.slice(0, -2)}.`;
+      }
+
+      console.log(
+        `%c ${className} -> ${functionName}:\n    Description: ${description}\n    Subscribers:\n${compiledString}\n    Variable: ${variable} |`,
+        `color: ${COLORS.subscriptionChanged}`,
+        value
+      );
+    }
+  }
+
+  functionLog({
+    webPackage,
+    className,
+    functionName,
+    values,
+  }: {
+    webPackage: string;
+    className: string;
+    functionName: string;
+    values: Array<string>;
+  }): void {
+    if (window.verbosity === 0) {
+      let compiledString = "";
+      values.forEach((element) => {
+        compiledString += `    - ${element};\n`;
+      });
+      if (compiledString) {
+        compiledString = `${compiledString.slice(0, -2)}.`;
+      }
+
+      console.log(
+        `%c ${className} -> webpack:///${webPackage}\n  ${functionName}:\n${compiledString}`,
+        `color: ${COLORS.functions[functionName]}`
       );
     }
   }
