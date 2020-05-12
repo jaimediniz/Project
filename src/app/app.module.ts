@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -14,6 +15,9 @@ import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
 import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { SideBarComponent } from "./home/drawer/side-bar/side-bar.component";
+import { CalendarModule, DateAdapter } from "angular-calendar";
+import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -28,13 +32,19 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     UserInfoComponent,
     CreateInviteComponent,
     SideBarComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxMaskModule.forRoot(options),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
