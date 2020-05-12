@@ -3,22 +3,16 @@
 }
 
 .drawer {
-  min-width: var(--main-drawer-min-width) !important;
+  min-width: calc(var(--main-drawer-min-width) + 1px) !important;
   transition: min-width ease var(--transition-duration);
-  .menu {
+  &.closed {
+    min-width: calc(var(--main-drawer-width-closed) + 1px) !important;
+    width: var(--main-drawer-width-closed) !important;
+  }
+  .menuButton {
     position: absolute;
     height: var(--main-header-height);
     right: 0;
-  }
-  &.closed {
-    min-width: var(--main-drawer-width-closed) !important;
-    width: var(--main-drawer-width-closed) !important;
-  }
-  .sideBar {
-    width: calc(var(--main-drawer-width-closed) - 1px);
-    &.closed {
-      animation: background-fade var(--transition-duration) forwards;
-    }
   }
 }
 
@@ -26,14 +20,5 @@
   transition: margin-left ease var(--transition-duration);
   &.closed {
     margin-left: var(--main-drawer-width-closed) !important;
-  }
-}
-
-@keyframes background-fade {
-  40% {
-    background: var(--main-bg-color);
-  }
-  100% {
-    background: var(--main-header-color);
   }
 }

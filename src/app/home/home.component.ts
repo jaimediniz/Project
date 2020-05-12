@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { userService } from "../services/user.service";
+import { LoggerService } from "../services/logger.service";
 
 @Component({
   selector: "app-home",
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   users: Array<{ id: number; name: string }>;
   opened = true;
 
-  constructor(private userService: userService) {
+  constructor(private userService: userService, private logger: LoggerService) {
     this.userService.usersSub.asObservable().subscribe((users) => {
       this.users = users;
     });
@@ -20,5 +21,10 @@ export class HomeComponent implements OnInit {
 
   selectTarget(userID): void {
     this.userService.emitSelected(this.users[userID]);
+  }
+
+  handleOpening(selectTab) {
+    this.logger.infoLog("Home", "handleOpening", `Select Tab: ${selectTab}`);
+    this.opened = true;
   }
 }
