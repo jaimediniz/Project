@@ -10,3 +10,9 @@
     height: var(--main-header-height);
   }
 }
+
+.warningBadge {
+  ::ng-deep span {
+    font-size: 16px;
+  }
+}

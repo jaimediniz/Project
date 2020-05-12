@@ -100,7 +100,13 @@
     [matTooltip]="mute ? 'Activate notifications' : 'Mute notifications'"
     matTooltipPosition="after"
   >
-    <mat-icon>
+    <mat-icon
+      [matBadge]="'!'"
+      matBadgeColor="accent"
+      matBadgeSize="small"
+      [matBadgeHidden]="!mute"
+      class="warningBadge"
+    >
       {{ mute ? "volume_up" : "volume_off" }}
     </mat-icon>
   </button>
