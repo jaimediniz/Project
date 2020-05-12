@@ -1,15 +1,26 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from "@angular/core";
 
 @Component({
   selector: "app-side-bar",
   templateUrl: "./side-bar.component.html",
   styleUrls: ["./side-bar.component.scss"],
 })
-export class SideBarComponent implements OnInit {
+export class SideBarComponent implements OnInit, OnDestroy {
   @Output() open = new EventEmitter<number>();
   public mute = false;
+  public contactsUnreadMessages: number = 8;
+  public groupsUnreadMessages: number = 9;
+  public invitesUnreadMessages: number = 5;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {}
 }

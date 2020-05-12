@@ -11,15 +11,21 @@
       menu
     </mat-icon>
   </button>
+
   <!-- Contacts -->
   <button
     mat-button
-    (click)="mute = !mute"
+    (click)="open.emit(0)"
     class="contactsButton"
     matTooltip="Contacts"
     matTooltipPosition="after"
   >
-    <mat-icon>
+    <mat-icon
+      [matBadge]="contactsUnreadMessages"
+      matBadgeColor="warn"
+      matBadgeSize="small"
+      [matBadgeHidden]="mute"
+    >
       contacts
     </mat-icon>
   </button>
@@ -27,12 +33,17 @@
   <!-- Groups -->
   <button
     mat-button
-    (click)="mute = !mute"
+    (click)="open.emit(1)"
     class="groupsButton"
     matTooltip="Groups"
     matTooltipPosition="after"
   >
-    <mat-icon>
+    <mat-icon
+      [matBadge]="groupsUnreadMessages"
+      matBadgeColor="warn"
+      matBadgeSize="small"
+      [matBadgeHidden]="mute"
+    >
       group
     </mat-icon>
   </button>
@@ -40,12 +51,17 @@
   <!-- Invites -->
   <button
     mat-button
-    (click)="mute = !mute"
+    (click)="open.emit(2)"
     class="invitesButton"
     matTooltip="Invites"
     matTooltipPosition="after"
   >
-    <mat-icon>
+    <mat-icon
+      [matBadge]="invitesUnreadMessages"
+      matBadgeColor="warn"
+      matBadgeSize="small"
+      [matBadgeHidden]="mute"
+    >
       insert_invitation
     </mat-icon>
   </button>
