@@ -64,7 +64,7 @@ export class LoggerService {
     functionName: string;
     description: string;
     variable: string;
-    value: string | number | object;
+    value: boolean | string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 2) {
@@ -88,7 +88,7 @@ export class LoggerService {
     functionName: string;
     description: string;
     variable: string;
-    value: string | number | object;
+    value: boolean | string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 3) {
@@ -112,7 +112,7 @@ export class LoggerService {
     functionName: string;
     description: string;
     variable: string;
-    value: string | number | object;
+    value: boolean | string | number | object;
     color?: string;
   }): void {
     if (window.verbosity === 0 || window.verbosity === 4) {
@@ -136,7 +136,7 @@ export class LoggerService {
     functionName: string;
     description: string;
     variable: string;
-    value: string | number | object;
+    value: boolean | string | number | object;
     subscribers: Array<any>;
   }): void {
     if (window.verbosity === 0) {
