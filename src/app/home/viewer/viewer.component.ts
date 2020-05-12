@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OpenViewerService } from "../../services/open-viewer.service";
 import { LoggerService } from "src/app/services/logger.service";
+import { Subscription } from "rxjs";
+import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 @Component({
   selector: "app-viewer",
@@ -8,35 +10,42 @@ import { LoggerService } from "src/app/services/logger.service";
   styleUrls: ["./viewer.component.scss"],
 })
 export class ViewerComponent implements OnInit, OnDestroy {
+  webPackage = "./src/app/home/viewer/viewer.component.ts";
+
   conditionExpression: any = false;
   selectedViewerSub: any;
+  activatedRoute: Subscription;
 
   constructor(
-    private openViewerService: OpenViewerService,
-    private logger: LoggerService
-  ) {
-    this.selectedViewerSub = this.openViewerService.selectedViewerSub
+    private logger: LoggerService,
+    private route: RouteExtensionService
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute = this.route.queryParamsSubject
       .asObservable()
-      .subscribe((selectedViewer) => {
-        this.conditionExpression = selectedViewer;
+      .subscribe((params) => {
+        this.conditionExpression = params["name"];
       });
-    this.logger.infoLog({
-      component: "Viewer",
-      codePart: "constructor",
-      variable: "Subscribed!",
-      color: "blue",
+    this.activatedRoute.subscriberName = "ViewerComponent";
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "ViewerComponent",
+      functionName: "ngOnInit",
+      values: ["Subscribed to route"],
     });
   }
 
-  ngOnInit(): void {}
-
   ngOnDestroy(): void {
-    this.selectedViewerSub.unsubscribe();
-    this.logger.infoLog({
-      component: "Viewer",
-      codePart: "ngOnDestroy",
-      variable: "Unsubscribed!",
-      color: "red",
+    // this.selectedViewerSub.unsubscribe();
+    this.activatedRoute.unsubscribe();
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "ViewerComponent",
+      functionName: "ngOnDestroy",
+      values: ["Unsubscribed from route"],
     });
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { OpenViewerService } from "src/app/services/open-viewer.service";
+import { LoggerService } from "src/app/services/logger.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-drawer",
@@ -8,17 +10,31 @@ import { OpenViewerService } from "src/app/services/open-viewer.service";
   styleUrls: ["./drawer.component.scss"],
 })
 export class DrawerComponent implements OnInit {
-  users: Array<{ id: number; name: string }> = [];
+  webPackage = "./src/app/home/drawer/drawer.component.ts";
+
   @Output("selectedUser") selected = new EventEmitter<number>();
 
+  usersSubscription: Subscription;
+  users: Array<{ id: number; name: string }> = [];
   selectedUserId: number;
 
   constructor(
     private userService: UserService,
-    private openViewerService: OpenViewerService
+    private openViewerService: OpenViewerService,
+    private logger: LoggerService
   ) {
-    this.userService.usersSub.asObservable().subscribe((users) => {
-      this.users = users;
+    this.usersSubscription = this.userService.usersSub
+      .asObservable()
+      .subscribe((users) => {
+        this.users = users;
+      });
+    this.usersSubscription.subscriberName = "DrawerComponent";
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "DrawerComponent",
+      functionName: "constructor",
+      values: ["Subscribed to users list"],
     });
   }
 
