@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { userService } from "../services/user.service";
+import { UserService } from "../services/user.service";
 import { LoggerService } from "../services/logger.service";
 
 @Component({
@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   users: Array<{ id: number; name: string }>;
   opened = true;
 
-  constructor(private userService: userService, private logger: LoggerService) {
+  constructor(private userService: UserService, private logger: LoggerService) {
     this.userService.usersSub.asObservable().subscribe((users) => {
       this.users = users;
     });

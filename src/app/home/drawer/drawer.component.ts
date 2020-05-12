@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
-import { userService } from "src/app/services/user.service";
+import { UserService } from "src/app/services/user.service";
+import { OpenViewerService } from "src/app/services/open-viewer.service";
 
 @Component({
   selector: "app-drawer",
@@ -12,7 +13,10 @@ export class DrawerComponent implements OnInit {
 
   selectedUserId: number;
 
-  constructor(private userService: userService) {
+  constructor(
+    private userService: UserService,
+    private openViewerService: OpenViewerService
+  ) {
     this.userService.usersSub.asObservable().subscribe((users) => {
       this.users = users;
     });
@@ -36,6 +40,7 @@ export class DrawerComponent implements OnInit {
   }
 
   emitSelected(user): void {
+    this.openViewerService.emitView("userInfo");
     this.selected.emit(user.id);
     this.selectedUserId = user.id;
   }

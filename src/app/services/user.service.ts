@@ -4,7 +4,7 @@ import { Subject } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class userService {
+export class UserService {
   users: Array<{ id: number; name: string }>;
   usersSub = new Subject<Array<{ id: number; name: string }>>();
 

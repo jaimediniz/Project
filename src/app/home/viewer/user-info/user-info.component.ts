@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { userService } from "src/app/services/user.service";
+import { UserService } from "src/app/services/user.service";
 import { LoggerService } from "src/app/services/logger.service";
 
 @Component({
@@ -11,7 +11,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   user: { id: number; name: string };
   userSub: any;
 
-  constructor(private userService: userService, private logger: LoggerService) {
+  constructor(private userService: UserService, private logger: LoggerService) {
     this.user = this.userService.selectedUser;
     this.userSub = this.userService.selectedUserSub
       .asObservable()
