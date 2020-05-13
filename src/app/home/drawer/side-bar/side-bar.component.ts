@@ -1,14 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  OnDestroy,
-} from "@angular/core";
-import { OpenViewerService } from "src/app/services/open-viewer.service";
-import { NotificationsService } from "src/app/services/notifications.service";
-import { Subject } from "rxjs";
-import { LoggerService } from "src/app/services/logger.service";
+import { Subject } from 'rxjs';
+import { LoggerService } from 'src/app/services/logger.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
+import { OpenViewerService } from 'src/app/services/open-viewer.service';
+
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: "app-side-bar",

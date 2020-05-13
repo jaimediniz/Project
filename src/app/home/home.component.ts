@@ -1,14 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  OnDestroy,
-} from "@angular/core";
-import { UserService } from "../services/user.service";
-import { LoggerService } from "../services/logger.service";
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
+
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
+import { LoggerService } from '../services/logger.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: "app-home",

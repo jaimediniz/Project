@@ -1,12 +1,13 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { InvitesComponent } from "./home/drawer/invites/invites.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { UserInfoComponent } from './home/viewer/user-info/user-info.component';
 
 const routes: Routes = [
-  { path: "home", component: InvitesComponent },
+  { path: "home", component: UserInfoComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "chat", component: InvitesComponent },
-  { path: 'chat', loadChildren: () => import('./routes/chat/chat.module').then(m => m.ChatModule) },
+  { path: "userInfo", component: UserInfoComponent },
+  { path: "userInfo/:id", component: UserInfoComponent },
 ];
 
 @NgModule({

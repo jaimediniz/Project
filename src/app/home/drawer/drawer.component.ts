@@ -1,16 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  Input,
-  EventEmitter,
-  OnDestroy,
-} from "@angular/core";
-import { UserService } from "src/app/services/user.service";
-import { OpenViewerService } from "src/app/services/open-viewer.service";
-import { LoggerService } from "src/app/services/logger.service";
-import { Subscription } from "rxjs";
-import { NotificationsService } from "src/app/services/notifications.service";
+import { Subscription } from 'rxjs';
+import { LoggerService } from 'src/app/services/logger.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
+import { OpenViewerService } from 'src/app/services/open-viewer.service';
+import { UserService } from 'src/app/services/user.service';
+
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: "app-drawer",
