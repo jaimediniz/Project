@@ -60,7 +60,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
       .subscribe((muteAudio) => {
         this.mute = muteAudio;
       });
-    this.muteAudioSub.subscriberName = "SideBarComponent";
+    this.muteAudioSub.subscriberName = "DrawerComponent";
 
     this.logger.functionLog({
       webPackage: this.webPackage,

@@ -5,14 +5,26 @@
 .drawer {
   min-width: calc(var(--main-drawer-min-width) + 1px) !important;
   transition: min-width ease var(--transition-duration);
+  background-color: var(--main-body-color);
   &.closed {
     min-width: calc(var(--main-drawer-width-closed) + 1px) !important;
     width: var(--main-drawer-width-closed) !important;
   }
-  .menuButton {
+  .view {
+    width: calc(100% - var(--main-drawer-width-closed));
+    height: 100%;
+    .menuButton {
+      position: absolute;
+      height: var(--main-header-height);
+      right: var(--main-drawer-width-closed);
+    }
+  }
+  .side-bar {
+    width: var(--main-drawer-width-closed);
     position: absolute;
-    height: var(--main-header-height);
+    top: 0;
     right: 0;
+    height: 100%;
   }
 }
 

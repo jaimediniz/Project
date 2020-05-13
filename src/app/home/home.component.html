@@ -8,30 +8,22 @@
       #sidenav
       [class.closed]="!opened"
     >
-      <!-- Close Menu Button -->
-      <button
-        mat-button
-        (click)="opened = !opened"
-        *ngIf="opened"
-        class="menuButton"
-        disableRipple
-      >
-        <mat-icon>
-          {{ opened ? "close" : "menu" }}
-        </mat-icon>
-      </button>
-      <app-drawer
-        *ngIf="opened"
-        class="d-flex p-0"
-        (selectedUser)="selectTarget($event)"
-      ></app-drawer>
-
-      <!-- Side Bar Component -->
-      <app-side-bar
-        *ngIf="!opened"
-        class="d-flex h-100"
-        (open)="handleOpening($event)"
-      ></app-side-bar>
+      <div class="view">
+        <app-drawer
+          *ngIf="opened"
+          class="d-flex p-0 h-100"
+          (selectedUser)="selectTarget($event)"
+        ></app-drawer>
+      </div>
+      <div class="side-bar">
+        <!-- Side Bar Component -->
+        <app-side-bar
+          class="d-flex h-100"
+          [opened]="opened"
+          (open)="handleOpening($event)"
+          (close)="opened = false"
+        ></app-side-bar>
+      </div>
     </mat-drawer>
 
     <!-- Viewer -->

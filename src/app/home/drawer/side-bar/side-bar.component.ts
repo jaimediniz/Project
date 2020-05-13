@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Input,
 } from "@angular/core";
 
 @Component({
@@ -18,7 +19,9 @@ import {
 export class SideBarComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/home/drawer/side-bar/side-bar.component.ts";
 
+  @Input() opened: boolean;
   @Output() open = new EventEmitter<number>();
+  @Output() close = new EventEmitter<number>();
 
   private muteAudioSub: any; // Subject
   public mute = false;
@@ -29,27 +32,13 @@ export class SideBarComponent implements OnInit, OnDestroy {
   constructor(
     private notificationsService: NotificationsService,
     private logger: LoggerService
-  ) {
-    this.mute = this.notificationsService.muteAudio;
-    this.muteAudioSub = this.notificationsService.muteAudioSub
-      .asObservable()
-      .subscribe((muteAudio) => {
-        this.mute = muteAudio;
-      });
-    this.muteAudioSub.subscriberName = "SideBarComponent";
-
-    this.logger.functionLog({
-      webPackage: this.webPackage,
-      className: "SideBarComponent",
-      functionName: "constructor",
-      values: ["Subscribed to audio status"],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {}
 
   toggleMute() {
-    this.notificationsService.emitAudioMuted(!this.mute);
+    this.mute = !this.mute;
+    this.notificationsService.emitAudioMuted(this.mute);
   }
 
   ngOnDestroy(): void {

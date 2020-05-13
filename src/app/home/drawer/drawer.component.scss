@@ -12,13 +12,22 @@ $font-sizes: (
 .header {
   background-color: var(--main-header-color);
   height: var(--main-header-height);
+  transition: background-color var(--transition-duration) linear;
+  -webkit-transition: background-color var(--transition-duration) linear;
+  -ms-transition: background-color var(--transition-duration) linear;
   &.mute {
     background-color: var(--main-color-faded);
   }
 }
 
 .body {
+  height: calc(100% - var(--main-header-height)) !important;
   padding: var(--main-padding);
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @media (max-width: 769px) {
