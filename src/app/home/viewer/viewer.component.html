@@ -1,14 +1,3 @@
 <div class="w-100 h-100">
-  <div [ngSwitch]="conditionExpression">
-    <div *ngSwitchCase="'userInfo'">
-      <app-user-info></app-user-info>
-    </div>
-    <div *ngSwitchCase="'createInvite'">
-      <app-create-invite></app-create-invite>
-    </div>
-    <div *ngSwitchCase="'calendar'">
-      <app-calendar></app-calendar>
-    </div>
-    <div *ngSwitchDefault>Default</div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
