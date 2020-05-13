@@ -1,17 +1,22 @@
 import { Subscription } from "rxjs";
 
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 
 import { LoggerService } from "../services/logger.service";
 import { UserService } from "../services/user.service";
 
+export const rootVariables: Object = {
+  "--main-bg-color": "white",
+  "--main-txt-color": "rgb(0, 0, 0)",
+  "--main-header-color": "rgb(92, 187, 128)",
+  "--main-body-color": "white",
+  "--main-color-faded": "rgba(0, 0, 0, 0.12)",
+  "--main-drawer-width": "300px",
+  "--main-drawer-width-closed": "50px",
+  "--main-header-height": "50px",
+  "--main-padding": "16px",
+  "--main-txt-font": '400 14px/20px Roboto, "Helvetica Neue", sans-serif',
+};
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -25,6 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   opened = true;
 
   constructor(private userService: UserService, private logger: LoggerService) {
+    for (const key in rootVariables) {
+      document.documentElement.style.setProperty(key, rootVariables[key]);
+    }
+
     this.users = this.userService.users;
     this.usersSubscription = this.userService.usersSub
       .asObservable()
@@ -42,10 +51,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
-
-  selectTarget(userID): void {
-    this.userService.emitSelected(this.users[userID]);
-  }
 
   handleOpening(selectTab) {
     this.logger.infoLog({
