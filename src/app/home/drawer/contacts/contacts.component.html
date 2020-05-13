@@ -1,1 +1,16 @@
-<p>contacts works!</p>
+<div class="d-flex flex-column">
+  <mat-card
+    class="contactDiv"
+    *ngFor="let user of users"
+    [ngStyle]="{
+      'background-color': selectedUserId === user.id ? 'lightblue' : 'white'
+    }"
+    [routerLink]="['/userInfo', user.id]"
+    routerLinkActive="active"
+    (click)="selectTarget($event)"
+  >
+    <mat-card-content>
+      <mat-card-title> {{ user.name }}</mat-card-title>
+    </mat-card-content>
+  </mat-card>
+</div>

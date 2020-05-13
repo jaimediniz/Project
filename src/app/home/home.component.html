@@ -8,15 +8,12 @@
       #sidenav
       [class.closed]="!opened"
     >
-      <div class="view">
-        <app-drawer
-          class="d-flex p-0 h-100"
-          (selectedUser)="selectTarget($event)"
-          [opened]="opened"
-          (open)="handleOpening($event)"
-          (close)="opened = false"
-        ></app-drawer>
-      </div>
+      <app-drawer
+        class="d-flex p-0 h-100"
+        [opened]="opened"
+        (open)="handleOpening($event)"
+        (close)="opened = false"
+      ></app-drawer>
     </mat-drawer>
 
     <!-- Viewer -->

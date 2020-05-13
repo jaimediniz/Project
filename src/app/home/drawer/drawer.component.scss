@@ -24,7 +24,6 @@ $font-sizes: (
 .body {
   width: calc(100% - var(--main-drawer-width-closed));
   height: calc(100% - var(--main-header-height)) !important;
-  padding: var(--main-padding);
   overflow-y: scroll;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {

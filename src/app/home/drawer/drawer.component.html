@@ -7,35 +7,32 @@
     <app-side-bar
       class="d-flex h-100"
       [opened]="opened"
-      (open)="open.emit($event)"
+      (open)="handleOpening($event)"
       (close)="close.emit(false)"
     ></app-side-bar>
   </div>
   <div class="body">
-    <div [ngSwitch]="tab">
-      <div *ngSwitchCase="1"></div>
-      <div *ngSwitchCase="2"></div>
-      <div *ngSwitchDefault>
-        <button (click)="addUser()">
-          Add User
-        </button>
-        <div class="d-flex flex-column">
-          <mat-card
-            class="shadow"
-            *ngFor="let user of users"
-            [ngStyle]="{
-              'background-color':
-                selectedUserId === user.id ? 'lightblue' : 'white'
-            }"
-            [routerLink]="['/userInfo', user.id]"
-            routerLinkActive="active"
-          >
-            <mat-card-content>
-              <mat-card-title> {{ user.name }}</mat-card-title>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-    </div>
+    <mat-tab-group
+      [(selectedIndex)]="tab"
+      class="invisible-tabs"
+      [@.disabled]="true"
+    >
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>contacts</mat-icon> Contacts
+        </ng-template>
+        <app-contacts></app-contacts>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>group</mat-icon> Groups
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_invitation</mat-icon> Invites
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

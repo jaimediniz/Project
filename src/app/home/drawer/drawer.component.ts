@@ -1,7 +1,6 @@
 import { Subscription } from "rxjs";
 import { LoggerService } from "src/app/services/logger.service";
 import { NotificationsService } from "src/app/services/notifications.service";
-import { UserService } from "src/app/services/user.service";
 
 import {
   Component,
@@ -25,40 +24,15 @@ export class DrawerComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter<boolean>();
   @Output("selectedUser") selected = new EventEmitter<number>();
 
-  usersSubscription: any; // Subscription
-  users: Array<{ id: number; name: string }> = [];
-
-  selectUserSubscription: any; // Subscription
-  selectedUserId: number;
-
   private muteAudioSub: any; // Subject
   public mute = false;
 
   tab: number = 0;
 
   constructor(
-    private userService: UserService,
     private logger: LoggerService,
     private notificationsService: NotificationsService
   ) {
-    this.users = this.userService.users ? this.userService.users : [];
-    this.usersSubscription = this.userService.usersSub
-      .asObservable()
-      .subscribe((users) => {
-        this.users = users;
-      });
-    this.usersSubscription.subscriberName = "DrawerComponent";
-
-    this.selectedUserId = this.userService.selectedUser
-      ? this.userService.selectedUser.id
-      : undefined;
-    this.selectUserSubscription = this.userService.selectedUserSub
-      .asObservable()
-      .subscribe((selectedUserId) => {
-        this.selectedUserId = selectedUserId.id;
-      });
-    this.selectUserSubscription.subscriberName = "DrawerComponent";
-
     this.mute = this.notificationsService.muteAudio;
     this.muteAudioSub = this.notificationsService.muteAudioSub
       .asObservable()
@@ -71,56 +45,29 @@ export class DrawerComponent implements OnInit, OnDestroy {
       webPackage: this.webPackage,
       className: "DrawerComponent",
       functionName: "constructor",
-      values: [
-        "Subscribed to users list",
-        "Subscribed to selected user",
-        "Subscribed to audio status",
-      ],
+      values: ["Subscribed to audio status"],
     });
   }
 
   ngOnInit(): void {}
 
   handleOpening(selectTab) {
-    this.logger.infoLog({
-      className: "HomeComponent",
-      functionName: "handleOpening",
-      description: "Open drawer in selectTab",
-      variable: "selectTab",
-      value: selectTab,
-    });
+    this.tab = selectTab;
+    if (this.opened) {
+      return;
+    }
+    this.open.emit(selectTab);
     this.opened = true;
   }
 
-  addUser(): void {
-    this.users.push({
-      id: this.users.length,
-      name: `User ${this.users.length}`,
-    });
-    this.userService.emitUsers(this.users);
-  }
-
-  cleanList(): void {
-    this.users = [];
-    this.selectedUserId = undefined;
-    this.userService.emitUsers(this.users);
-    this.userService.emitSelected(undefined);
-  }
-
   ngOnDestroy(): void {
-    this.usersSubscription.unsubscribe();
-    this.selectUserSubscription.unsubscribe();
     this.muteAudioSub.unsubscribe();
 
     this.logger.functionLog({
       webPackage: this.webPackage,
       className: "UserInfoComponent",
       functionName: "ngOnDestroy",
-      values: [
-        "Unsubscribed from users list",
-        "Unsubscribed from selected user",
-        "Unsubscribed from audio status",
-      ],
+      values: ["Unsubscribed from audio status"],
     });
   }
 }
