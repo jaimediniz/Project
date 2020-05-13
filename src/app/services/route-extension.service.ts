@@ -15,7 +15,7 @@ import { LoggerService } from "./logger.service";
 })
 export class RouteExtensionService {
   lastRoute: string;
-  paramsSubject = new Subject();
+  paramsSubject = new Subject<string>();
 
   constructor(private logger: LoggerService, private route: Router) {
     this.route.onSameUrlNavigation = "reload";
@@ -24,7 +24,9 @@ export class RouteExtensionService {
         // Show loading indicator
 
         if (this.lastRoute === event.url) {
-          await this.route.navigate(["/home"]);
+          if (event.url !== "/home") {
+            this.route.navigate(["/home"]);
+          }
           return;
         }
       }
