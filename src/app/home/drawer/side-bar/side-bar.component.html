@@ -72,11 +72,12 @@
   <!-- Calendar -->
   <button
     mat-button
-    (click)="emitView('calendar')"
     class="mt-auto calendarButton"
     matTooltip="Calendar"
     matTooltipPosition="after"
     disableRipple
+    [routerLink]="['/calendar']"
+    routerLinkActive="active"
   >
     <mat-icon>
       calendar_today
@@ -86,7 +87,6 @@
   <!-- Settings -->
   <button
     mat-button
-    (click)="emitView('settings')"
     class="settingsButton"
     matTooltip="Settings"
     matTooltipPosition="after"

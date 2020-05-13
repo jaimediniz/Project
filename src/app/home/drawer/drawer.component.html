@@ -22,7 +22,6 @@
         [ngStyle]="{
           'background-color': selectedUserId === user.id ? 'lightblue' : 'white'
         }"
-        (click)="emitSelected(user)"
         [routerLink]="['/userInfo', user.id]"
         routerLinkActive="active"
       >

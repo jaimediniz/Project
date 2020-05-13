@@ -4,8 +4,6 @@ import { RouteExtensionService } from "src/app/services/route-extension.service"
 
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 
-import { OpenViewerService } from "../../services/open-viewer.service";
-
 @Component({
   selector: "app-viewer",
   templateUrl: "./viewer.component.html",

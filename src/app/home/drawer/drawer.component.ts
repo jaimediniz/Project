@@ -1,10 +1,16 @@
-import { Subscription } from 'rxjs';
-import { LoggerService } from 'src/app/services/logger.service';
-import { NotificationsService } from 'src/app/services/notifications.service';
-import { OpenViewerService } from 'src/app/services/open-viewer.service';
-import { UserService } from 'src/app/services/user.service';
+import { Subscription } from "rxjs";
+import { LoggerService } from "src/app/services/logger.service";
+import { NotificationsService } from "src/app/services/notifications.service";
+import { UserService } from "src/app/services/user.service";
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
 
 @Component({
   selector: "app-drawer",
@@ -27,7 +33,6 @@ export class DrawerComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private openViewerService: OpenViewerService,
     private logger: LoggerService,
     private notificationsService: NotificationsService
   ) {
@@ -69,7 +74,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   addUser(): void {
     this.users.push({
@@ -84,12 +89,6 @@ export class DrawerComponent implements OnInit, OnDestroy {
     this.selectedUserId = undefined;
     this.userService.emitUsers(this.users);
     this.userService.emitSelected(undefined);
-  }
-
-  emitSelected(user): void {
-    this.openViewerService.emitView("userInfo");
-    this.selected.emit(user.id);
-    this.selectedUserId = user.id;
   }
 
   ngOnDestroy(): void {

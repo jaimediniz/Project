@@ -1,9 +1,14 @@
-import { Subject } from 'rxjs';
-import { LoggerService } from 'src/app/services/logger.service';
-import { NotificationsService } from 'src/app/services/notifications.service';
-import { OpenViewerService } from 'src/app/services/open-viewer.service';
+import { Subject } from "rxjs";
+import { LoggerService } from "src/app/services/logger.service";
+import { NotificationsService } from "src/app/services/notifications.service";
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
 
 @Component({
   selector: "app-side-bar",
@@ -22,7 +27,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   public invitesUnreadMessages: number = 5;
 
   constructor(
-    private openViewerService: OpenViewerService,
     private notificationsService: NotificationsService,
     private logger: LoggerService
   ) {
@@ -43,10 +47,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
-
-  emitView(view) {
-    this.openViewerService.emitView(view);
-  }
 
   toggleMute() {
     this.notificationsService.emitAudioMuted(!this.mute);
