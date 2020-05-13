@@ -2,11 +2,9 @@ import { Subject } from "rxjs";
 
 import { Injectable } from "@angular/core";
 import {
-  ActivatedRoute,
   NavigationEnd,
   NavigationError,
   NavigationStart,
-  Params,
   Router,
 } from "@angular/router";
 
@@ -24,15 +22,16 @@ export class RouteExtensionService {
     this.route.events.subscribe(async (event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
+
+        if (this.lastRoute === event.url) {
+          await this.route.navigate(["/home"]);
+          return;
+        }
       }
 
       if (event instanceof NavigationEnd) {
         // Hide loading indicator
 
-        if (this.lastRoute === event.urlAfterRedirects) {
-          await this.route.navigate(["/home"]);
-          return;
-        }
         this.logger.emitLog({
           className: "RouteExtensionService",
           functionName: "constructor",
@@ -47,6 +46,7 @@ export class RouteExtensionService {
 
       if (event instanceof NavigationError) {
         // Hide loading indicator
+
         this.logger.errorLog({
           className: "RouteExtensionService",
           functionName: "constructor",
