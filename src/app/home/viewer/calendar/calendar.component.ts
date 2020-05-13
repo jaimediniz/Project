@@ -1,19 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { CalendarEvent, CalendarView } from "angular-calendar";
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {
-  isSameMonth,
-  isSameDay,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
-  endOfDay,
-  format,
-} from "date-fns";
-import { Observable } from "rxjs";
+    endOfDay, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfDay, startOfMonth,
+    startOfWeek
+} from 'date-fns';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 interface Film {
   id: number;
@@ -38,6 +32,8 @@ function getTimezoneOffsetString(date: Date): string {
   styleUrls: ["./calendar.component.scss"],
 })
 export class CalendarComponent implements OnInit {
+  calendarView = CalendarView;
+
   view: CalendarView = CalendarView.Month;
 
   viewDate: Date = new Date();

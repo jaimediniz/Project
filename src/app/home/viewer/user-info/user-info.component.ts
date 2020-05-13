@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { UserService } from "src/app/services/user.service";
-import { LoggerService } from "src/app/services/logger.service";
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
+import { LoggerService } from 'src/app/services/logger.service';
+import { UserService } from 'src/app/services/user.service';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: "app-user-info",

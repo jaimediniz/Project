@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { OpenViewerService } from "../../services/open-viewer.service";
-import { LoggerService } from "src/app/services/logger.service";
 import { Subscription } from "rxjs";
+import { LoggerService } from "src/app/services/logger.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
+
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+
+import { OpenViewerService } from "../../services/open-viewer.service";
 
 @Component({
   selector: "app-viewer",
@@ -22,10 +24,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute = this.route.queryParamsSubject
+    this.activatedRoute = this.route.paramsSubject
       .asObservable()
-      .subscribe((params) => {
-        this.conditionExpression = params["name"];
+      .subscribe((urlAfterRedirects) => {
+        this.conditionExpression = urlAfterRedirects;
       });
     this.activatedRoute.subscriberName = "ViewerComponent";
 
