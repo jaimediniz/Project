@@ -10,22 +10,6 @@
     min-width: calc(var(--main-drawer-width-closed) + 1px) !important;
     width: var(--main-drawer-width-closed) !important;
   }
-  .view {
-    width: calc(100% - var(--main-drawer-width-closed));
-    height: 100%;
-    .menuButton {
-      position: absolute;
-      height: var(--main-header-height);
-      right: var(--main-drawer-width-closed);
-    }
-  }
-  .side-bar {
-    width: var(--main-drawer-width-closed);
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-  }
 }
 
 .viewer {

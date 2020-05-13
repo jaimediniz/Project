@@ -10,6 +10,7 @@ import {
   Output,
   Input,
 } from "@angular/core";
+import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 @Component({
   selector: "app-side-bar",
@@ -29,12 +30,30 @@ export class SideBarComponent implements OnInit, OnDestroy {
   public groupsUnreadMessages: number = 9;
   public invitesUnreadMessages: number = 5;
 
+  private activatedRoute: any; // Subject<string>;
+  public settingsPanel = false;
+
   constructor(
     private notificationsService: NotificationsService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private route: RouteExtensionService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute = this.route.paramsSubject
+      .asObservable()
+      .subscribe((urlAfterRedirects) => {
+        this.settingsPanel = urlAfterRedirects.includes("/settings");
+      });
+    this.activatedRoute.subscriberName = "ViewerComponent";
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "ViewerComponent",
+      functionName: "ngOnInit",
+      values: ["Subscribed to route"],
+    });
+  }
 
   toggleMute() {
     this.mute = !this.mute;
@@ -42,7 +61,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.muteAudioSub.unsubscribe();
     // this.notificationsService.emitAudioMuted(false);
 
     this.logger.functionLog({

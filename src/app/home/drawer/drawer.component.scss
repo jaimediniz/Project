@@ -28,6 +28,26 @@ $font-sizes: (
   &::-webkit-scrollbar {
     display: none;
   }
+  ::ng-deep .mat-tab-body-wrapper {
+    height: inherit;
+  }
+}
+
+.view {
+  width: calc(100% - var(--main-drawer-width-closed));
+  height: 100%;
+  .menuButton {
+    position: absolute;
+    height: var(--main-header-height);
+    right: var(--main-drawer-width-closed);
+  }
+}
+.side-bar {
+  width: var(--main-drawer-width-closed);
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
 }
 
 @media (max-width: 769px) {

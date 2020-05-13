@@ -108,8 +108,9 @@
     matTooltip="Settings"
     matTooltipPosition="after"
     disableRipple
+    (click)="settingsPanel = !settingsPanel"
   >
-    <mat-icon>
+    <mat-icon [class.active]="settingsPanel">
       settings
     </mat-icon>
   </button>

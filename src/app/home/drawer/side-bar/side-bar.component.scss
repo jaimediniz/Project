@@ -16,3 +16,12 @@
     font-size: 16px;
   }
 }
+
+.settingsButton {
+  mat-icon {
+    transition: all 200ms ease-out !important;
+    &.active {
+      transform: rotate(45deg);
+    }
+  }
+}

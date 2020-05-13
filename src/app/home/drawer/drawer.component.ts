@@ -20,6 +20,9 @@ import {
 export class DrawerComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/home/drawer/drawer.component.ts";
 
+  @Input() opened: boolean;
+  @Output() open = new EventEmitter<number>();
+  @Output() close = new EventEmitter<boolean>();
   @Output("selectedUser") selected = new EventEmitter<number>();
 
   usersSubscription: any; // Subscription
@@ -30,6 +33,8 @@ export class DrawerComponent implements OnInit, OnDestroy {
 
   private muteAudioSub: any; // Subject
   public mute = false;
+
+  tab: number = 0;
 
   constructor(
     private userService: UserService,
@@ -75,6 +80,17 @@ export class DrawerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
+
+  handleOpening(selectTab) {
+    this.logger.infoLog({
+      className: "HomeComponent",
+      functionName: "handleOpening",
+      description: "Open drawer in selectTab",
+      variable: "selectTab",
+      value: selectTab,
+    });
+    this.opened = true;
+  }
 
   addUser(): void {
     this.users.push({
