@@ -59,7 +59,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.muteAudioSub.unsubscribe();
-    this.notificationsService.emitAudioMuted(false);
+    // this.notificationsService.emitAudioMuted(false);
 
     this.logger.functionLog({
       webPackage: this.webPackage,
