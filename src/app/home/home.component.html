@@ -10,19 +10,12 @@
     >
       <div class="view">
         <app-drawer
-          *ngIf="opened"
           class="d-flex p-0 h-100"
           (selectedUser)="selectTarget($event)"
-        ></app-drawer>
-      </div>
-      <div class="side-bar">
-        <!-- Side Bar Component -->
-        <app-side-bar
-          class="d-flex h-100"
           [opened]="opened"
           (open)="handleOpening($event)"
           (close)="opened = false"
-        ></app-side-bar>
+        ></app-drawer>
       </div>
     </mat-drawer>
 
