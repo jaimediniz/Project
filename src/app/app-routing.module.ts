@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: "userInfo", component: UserInfoComponent },
   { path: "userInfo/:id", component: UserInfoComponent },
   { path: "calendar", component: CalendarComponent },
+  { path: "**", redirectTo: "/home" },
 ];
 
 @NgModule({
