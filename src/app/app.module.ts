@@ -20,6 +20,7 @@ import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite
 import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
 import { ViewerComponent } from "./home/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
+import { SettingsComponent } from "./home/viewer/settings/settings.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -35,6 +36,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CreateInviteComponent,
     SideBarComponent,
     CalendarComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
