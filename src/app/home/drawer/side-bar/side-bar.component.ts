@@ -21,7 +21,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   @Input() opened: boolean;
   @Output() open = new EventEmitter<number>();
-  @Output() close = new EventEmitter<number>();
+  @Output() close = new EventEmitter<boolean>();
 
   private muteAudioSub: any; // Subject
   public mute = false;
