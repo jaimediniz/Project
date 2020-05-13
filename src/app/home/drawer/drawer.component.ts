@@ -10,6 +10,7 @@ import { UserService } from "src/app/services/user.service";
 import { OpenViewerService } from "src/app/services/open-viewer.service";
 import { LoggerService } from "src/app/services/logger.service";
 import { Subscription } from "rxjs";
+import { NotificationsService } from "src/app/services/notifications.service";
 
 @Component({
   selector: "app-drawer",
@@ -27,10 +28,14 @@ export class DrawerComponent implements OnInit, OnDestroy {
   selectUserSubscription: any; // Subscription
   selectedUserId: number;
 
+  private muteAudioSub: any; // Subject
+  public mute = false;
+
   constructor(
     private userService: UserService,
     private openViewerService: OpenViewerService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private notificationsService: NotificationsService
   ) {
     this.users = this.userService.users ? this.userService.users : [];
     this.usersSubscription = this.userService.usersSub
@@ -50,11 +55,23 @@ export class DrawerComponent implements OnInit, OnDestroy {
       });
     this.selectUserSubscription.subscriberName = "DrawerComponent";
 
+    this.mute = this.notificationsService.muteAudio;
+    this.muteAudioSub = this.notificationsService.muteAudioSub
+      .asObservable()
+      .subscribe((muteAudio) => {
+        this.mute = muteAudio;
+      });
+    this.muteAudioSub.subscriberName = "SideBarComponent";
+
     this.logger.functionLog({
       webPackage: this.webPackage,
       className: "DrawerComponent",
       functionName: "constructor",
-      values: ["Subscribed to users list", "Subscribed to selected user"],
+      values: [
+        "Subscribed to users list",
+        "Subscribed to selected user",
+        "Subscribed to audio status",
+      ],
     });
   }
 
@@ -84,6 +101,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.usersSubscription.unsubscribe();
     this.selectUserSubscription.unsubscribe();
+    this.muteAudioSub.unsubscribe();
 
     this.logger.functionLog({
       webPackage: this.webPackage,
@@ -92,6 +110,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
       values: [
         "Unsubscribed from users list",
         "Unsubscribed from selected user",
+        "Unsubscribed from audio status",
       ],
     });
   }
