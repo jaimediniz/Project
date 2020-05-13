@@ -3,9 +3,10 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
 import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
+import { HomeViewerComponent } from "./home/viewer/home-viewer/home-viewer.component";
 
 const routes: Routes = [
-  { path: "home", component: UserInfoComponent },
+  { path: "home", component: HomeViewerComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "userInfo", component: UserInfoComponent },
   { path: "userInfo/:id", component: UserInfoComponent },
