@@ -23,6 +23,8 @@
           'background-color': selectedUserId === user.id ? 'lightblue' : 'white'
         }"
         (click)="emitSelected(user)"
+        [routerLink]="['/userInfo', user.id]"
+        routerLinkActive="active"
       >
         <mat-card-content>
           <mat-card-title> {{ user.name }}</mat-card-title>

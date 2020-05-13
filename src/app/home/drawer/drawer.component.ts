@@ -69,12 +69,12 @@ export class DrawerComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   addUser(): void {
     this.users.push({
       id: this.users.length,
-      name: `User ${this.users.length + 1}`,
+      name: `User ${this.users.length}`,
     });
     this.userService.emitUsers(this.users);
   }
