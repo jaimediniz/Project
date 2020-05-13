@@ -1,4 +1,4 @@
-<div class="px-3">
+<div class="h-100 px-3">
   <ng-template #loading>
     <div class="text-center">
       <i class="fas fa-spin fa-spinner fa-5x"></i> <br />
@@ -35,7 +35,13 @@
     </div>
   </div>
 
-  <div *ngIf="events$ | async; else loading; let events" class="calendar">
+  <div
+    *ngIf="events$ | async; else loading; let events"
+    class="calendar"
+    [class.month]="view === 'month'"
+    [class.week]="view === 'week'"
+    [class.day]="view === 'day'"
+  >
     <div [ngSwitch]="view">
       <mwl-calendar-month-view
         *ngSwitchCase="'month'"
