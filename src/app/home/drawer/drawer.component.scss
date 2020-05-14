@@ -10,7 +10,7 @@ $font-sizes: (
 );
 
 .header {
-  width: calc(100% - var(--main-drawer-width-closed));
+  width: calc(100% - var(--main-drawer1-width-closed));
   background-color: var(--main-header-color);
   height: var(--main-header-height);
   transition: background-color var(--transition-duration) linear;
@@ -22,7 +22,7 @@ $font-sizes: (
 }
 
 .body {
-  width: calc(100% - var(--main-drawer-width-closed));
+  width: calc(100% - var(--main-drawer1-width-closed));
   height: calc(100% - var(--main-header-height)) !important;
   overflow-y: scroll;
   -ms-overflow-style: none;
@@ -35,16 +35,16 @@ $font-sizes: (
 }
 
 .view {
-  width: calc(100% - var(--main-drawer-width-closed));
+  width: calc(100% - var(--main-drawer1-width-closed));
   height: 100%;
   .menuButton {
     position: absolute;
     height: var(--main-header-height);
-    right: var(--main-drawer-width-closed);
+    right: var(--main-drawer1-width-closed);
   }
 }
 .side-bar {
-  width: var(--main-drawer-width-closed);
+  width: var(--main-drawer1-width-closed);
   position: absolute;
   top: 0;
   right: 0;
@@ -55,6 +55,6 @@ $font-sizes: (
   .header {
     @include changeStyle(blue, black, 2px);
 
-    font-size: map-get($font-sizes, "small");
+    font-size: var(--font-size-big);
   }
 }
