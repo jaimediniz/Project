@@ -5,18 +5,28 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { LoggerService } from "../services/logger.service";
 import { UserService } from "../services/user.service";
 
-export const rootVariables: Object = {
-  "--main-bg-color": "white",
-  "--main-txt-color": "rgb(0, 0, 0)",
-  "--main-header-color": "rgb(92, 187, 128)",
-  "--main-body-color": "white",
-  "--main-color-faded": "rgba(0, 0, 0, 0.12)",
-  "--main-drawer-width": "300px",
-  "--main-drawer-width-closed": "50px",
-  "--main-header-height": "50px",
-  "--main-padding": "16px",
-  "--main-txt-font": '400 14px/20px Roboto, "Helvetica Neue", sans-serif',
-};
+export const rootVariables: Array<{ key: string; value: string }> = [
+  { key: "--main-bg-color", value: "white" },
+  { key: "--main-txt-color", value: "rgb(0, 0, 0)" },
+  { key: "--main-header-color", value: "rgb(92, 187, 128)" },
+  { key: "--main-body-color", value: "white" },
+  { key: "--main-color-faded", value: "rgba(0, 0, 0, 0.12)" },
+  { key: "--main-drawer1-width", value: "300px" },
+  { key: "--main-drawer1-width-closed", value: "55px" },
+  { key: "--main-drawer2-width", value: "600px" },
+  { key: "--main-drawer2-width-closed", value: "0px" },
+  { key: "--main-header-height", value: "50px" },
+  { key: "--main-padding", value: "16px" },
+  { key: "--font-size-small", value: "12px" },
+  { key: "--font-size-normal", value: "18px" },
+  { key: "--font-size-big", value: "20px" },
+  { key: "--font-size-large", value: "24px" },
+  { key: "--font-size-icons", value: "24px" },
+  {
+    key: "--main-txt-font",
+    value: '400 14px/20px Roboto, "Helvetica Neue", sans-serif',
+  },
+];
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -27,11 +37,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }>;
-  opened = true;
+  drawer1 = true;
+  drawer2 = false;
 
   constructor(private userService: UserService, private logger: LoggerService) {
-    for (const key in rootVariables) {
-      document.documentElement.style.setProperty(key, rootVariables[key]);
+    for (const property of rootVariables) {
+      document.documentElement.style.setProperty(property.key, property.value);
     }
 
     this.users = this.userService.users;
@@ -52,15 +63,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  handleOpening(selectTab) {
+  handleOpening(drawer, selectTab) {
     this.logger.infoLog({
       className: "HomeComponent",
       functionName: "handleOpening",
-      description: "Open drawer in selectTab",
+      description: `Open drawer ${drawer} in selectTab`,
       variable: "selectTab",
       value: selectTab,
     });
-    this.opened = true;
+    this[`drawer${drawer}`] = true;
   }
 
   ngOnDestroy() {

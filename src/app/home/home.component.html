@@ -1,26 +1,26 @@
-<div class="d-flex w-100 h-100" matRipple>
-  <mat-drawer-container class="w-100 h-100">
-    <!-- Drawer -->
-    <mat-drawer
-      mode="side"
-      class="drawer border-right"
-      opened
-      #sidenav
-      [class.closed]="!opened"
-    >
-      <app-drawer
-        class="d-flex p-0 h-100"
-        [opened]="opened"
-        (open)="handleOpening($event)"
-        (close)="opened = false"
-      ></app-drawer>
-    </mat-drawer>
+<!-- Drawer 1 -->
+<div class="drawer1 h-100" [class.firstDrawerClosed]="!drawer1">
+  <app-drawer
+    [opened]="drawer1"
+    (open)="handleOpening(1, $event)"
+    (close)="drawer1 = false"
+  ></app-drawer>
+</div>
 
-    <!-- Viewer -->
-    <mat-drawer-content class="viewer" [class.closed]="!opened">
-      <app-viewer class="p-0">
-        <button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button>
-      </app-viewer>
-    </mat-drawer-content>
-  </mat-drawer-container>
+<!-- Viewer -->
+<div
+  class="viewer h-100"
+  [class.firstDrawerClosed]="!drawer1"
+  [class.secondDrawerClosed]="!drawer2"
+>
+  <app-viewer> </app-viewer>
+</div>
+
+<!-- Drawer 1 -->
+<div class="drawer2 h-100" [class.secondDrawerClosed]="!drawer2">
+  <app-drawer
+    [opened]="drawer2"
+    (open)="handleOpening(2, $event)"
+    (close)="drawer2 = false"
+  ></app-drawer>
 </div>
