@@ -16,7 +16,6 @@
   <!-- Home Button -->
   <button
     mat-button
-    (click)="open.emit(0)"
     class="menuButton"
     matTooltip="Home"
     matTooltipPosition="after"
@@ -39,9 +38,8 @@
     disableRipple
   >
     <mat-icon
-      [matBadge]="contactsUnreadMessages"
+      [matBadge]="contactsUnreadMessages > 99 ? '+99' : contactsUnreadMessages"
       matBadgeColor="warn"
-      matBadgeSize="small"
       [matBadgeHidden]="mute"
     >
       contacts
@@ -58,9 +56,8 @@
     disableRipple
   >
     <mat-icon
-      [matBadge]="groupsUnreadMessages"
+      [matBadge]="groupsUnreadMessages > 99 ? '+99' : groupsUnreadMessages"
       matBadgeColor="warn"
-      matBadgeSize="small"
       [matBadgeHidden]="mute"
     >
       group
@@ -77,9 +74,8 @@
     disableRipple
   >
     <mat-icon
-      [matBadge]="invitesUnreadMessages"
+      [matBadge]="invitesUnreadMessages > 99 ? '+99' : invitesUnreadMessages"
       matBadgeColor="warn"
-      matBadgeSize="small"
       [matBadgeHidden]="mute"
     >
       insert_invitation
@@ -108,9 +104,11 @@
     matTooltip="Settings"
     matTooltipPosition="after"
     disableRipple
-    (click)="settingsPanel = !settingsPanel"
+    (click)="this.settingsPanel = !this.settingsPanel"
+    [routerLink]="['/settings']"
+    routerLinkActive="active"
   >
-    <mat-icon [class.active]="settingsPanel">
+    <mat-icon [class.spinOpen]="this.settingsPanel">
       settings
     </mat-icon>
   </button>
@@ -127,7 +125,6 @@
     <mat-icon
       [matBadge]="'!'"
       matBadgeColor="accent"
-      matBadgeSize="small"
       [matBadgeHidden]="!mute"
       class="warningBadge"
     >

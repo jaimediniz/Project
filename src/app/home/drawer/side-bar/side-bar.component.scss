@@ -19,9 +19,11 @@
 
 .settingsButton {
   mat-icon {
-    transition: all 200ms ease-out !important;
-    &.active {
-      transform: rotate(45deg);
+    &.spinOpen {
+      -webkit-transition: -webkit-transform 500ms;
+      transition: transform 500ms;
+      -webkit-transform: rotateZ(60deg);
+      transform: rotateZ(60deg);
     }
   }
 }

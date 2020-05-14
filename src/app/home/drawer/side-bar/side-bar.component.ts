@@ -24,10 +24,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
   @Output() open = new EventEmitter<number>();
   @Output() close = new EventEmitter<boolean>();
 
-  private muteAudioSub: any; // Subject
   public mute = false;
   public contactsUnreadMessages: number = 8;
-  public groupsUnreadMessages: number = 9;
+  public groupsUnreadMessages: number = 100;
   public invitesUnreadMessages: number = 5;
 
   private activatedRoute: any; // Subject<string>;
