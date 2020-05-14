@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoggerService } from "src/app/services/logger.service";
 import { rootVariables } from "../../home.component";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-settings",
@@ -10,11 +11,9 @@ import { rootVariables } from "../../home.component";
 export class SettingsComponent implements OnInit {
   webPackage = "./src/app/home/viewer/settings/settings.component.ts";
 
-  constructor(private logger: LoggerService) {
-    for (const key in rootVariables) {
-      document.documentElement.style.setProperty(key, rootVariables[key]);
-    }
+  public rootVariables = rootVariables;
 
+  constructor(private logger: LoggerService) {
     this.logger.infoLog({
       className: "SettingsComponent",
       functionName: "constructor",
@@ -32,4 +31,11 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  saveProperties(event): void {
+    console.log(event);
+    for (const property in event) {
+      document.documentElement.style.setProperty(property, event[property]);
+    }
+  }
 }
