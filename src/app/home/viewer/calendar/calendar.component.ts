@@ -1,13 +1,21 @@
-import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarView } from "angular-calendar";
 import {
-    endOfDay, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfDay, startOfMonth,
-    startOfWeek
-} from 'date-fns';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+  endOfDay,
+  endOfMonth,
+  endOfWeek,
+  format,
+  isSameDay,
+  isSameMonth,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { LoggerService } from "src/app/services/logger.service";
 
 interface Film {
   id: number;
@@ -42,10 +50,40 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private logger: LoggerService) {}
 
   ngOnInit(): void {
     this.fetchEvents();
+  }
+
+  async test(multiplier) {
+    let newDate: Date;
+    if (this.view === "month") {
+      newDate = new Date(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth() + 1 * multiplier,
+        this.viewDate.getDate()
+      );
+    } else if (this.view === "week") {
+      newDate = new Date(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth(),
+        this.viewDate.getDate() + 7 * multiplier
+      );
+    } else {
+      newDate = new Date(
+        this.viewDate.getFullYear(),
+        this.viewDate.getMonth(),
+        this.viewDate.getDate() + 1 * multiplier
+      );
+    }
+    console.log(newDate.getMonth(), this.viewDate.getMonth());
+    if (newDate.getMonth() !== this.viewDate.getMonth()) {
+      this.viewDate = newDate;
+      this.fetchEvents();
+      return;
+    }
+    this.viewDate = newDate;
   }
 
   fetchEvents(): void {

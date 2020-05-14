@@ -3,10 +3,15 @@
   overflow: hidden;
 }
 
+.date {
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
 .btn {
   margin-right: 5px;
   margin-left: 5px;
-  min-width: 80px;
+  min-width: 75px;
 }
 
 .btn-primary {
@@ -20,43 +25,10 @@
 .calendar {
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: calc(100% - 76px - 1rem);
+  max-height: calc(100% - 146px - 1rem);
+  transition: all ease var(--transition-duration);
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
-  }
-  &.week {
-    ::ng-deep .cal-day-headers {
-      position: absolute;
-      width: calc(100% - 2rem - 70px);
-      background: white;
-      padding: 0;
-      margin-left: 70px;
-      margin-top: -52px;
-      border: 1px solid;
-      z-index: 3;
-    }
-    ::ng-deep .cal-all-day-events {
-      margin-top: 52px;
-      border: solid 1px #e1e1e1;
-      border-bottom-width: 1px;
-      border-top-width: 1px;
-    }
-    ::ng-deep .cal-week-view {
-      border-top: solid 0px #e1e1e1;
-    }
-  }
-  &.month {
-    ::ng-deep .cal-header {
-      position: absolute;
-      width: calc(100% - 2rem);
-      background: white;
-      padding: 0;
-      border: 1px solid;
-      z-index: 3;
-    }
-    ::ng-deep .cal-days > div:first-of-type {
-      margin-top: 32px;
-    }
   }
 }
