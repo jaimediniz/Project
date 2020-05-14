@@ -29,6 +29,13 @@ export class DrawerComponent implements OnInit, OnDestroy {
 
   tab: number = 0;
 
+  public contactsUnreadMessages: number = 8;
+  public groupsUnreadMessages: number = 100;
+  public invitesUnreadMessages: number = 5;
+
+  private activatedRoute: any; // Subject<string>;
+  public settingsPanel = false;
+
   constructor(
     private logger: LoggerService,
     private notificationsService: NotificationsService
@@ -52,12 +59,26 @@ export class DrawerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   handleOpening(selectTab) {
+    if (selectTab === -1) {
+      if (this.opened) {
+        return;
+      }
+      this.open.emit(this.tab);
+      this.opened = true;
+      return;
+    }
+
     this.tab = selectTab;
     if (this.opened) {
       return;
     }
     this.open.emit(selectTab);
     this.opened = true;
+  }
+
+  toggleMute() {
+    this.mute = !this.mute;
+    this.notificationsService.emitAudioMuted(this.mute);
   }
 
   ngOnDestroy(): void {
