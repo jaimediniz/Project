@@ -15,24 +15,22 @@ body {
 //   --main-bg-color: white;
 //   --main-txt-color: rgb(0, 0, 0);
 //   --main-txt-font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
-//   --main-drawer-width: 300px;
-//   --main-drawer-width-closed: 50px;
+//   --main-drawer1-width: 300px;
+//   --main-drawer1-width-closed: 50px;
 //   --main-header-color: rgb(92, 187, 128);
 //   --main-body-color: white;
 //   --main-color-faded: rgba(0, 0, 0, 0.12);
 //   --main-header-height: 50px;
 //   --main-padding: 16px;
+//   --font-size-small: 12px;
+//   --font-size-normal: 18px;
+//   --font-size-icons: 20px;
+//   --font-size-large: 24px;
+//   --font-size-icons: 24px;
 // }
 
-$font-sizes: (
-  "small": 12px,
-  "normal": 18px,
-  "big": 20px,
-  "large": 24px,
-);
-
 .mat-button {
-  min-width: var(--main-drawer-width-closed) !important;
+  min-width: var(--main-drawer1-width-closed) !important;
   &:focus {
     outline: none;
   }
@@ -43,9 +41,23 @@ $font-sizes: (
 }
 
 .mat-icon {
-  height: map-get($font-sizes, big) !important;
-  width: map-get($font-sizes, big) !important;
-  font-size: map-get($font-sizes, big) !important;
+  height: var(--font-size-icons) !important;
+  width: var(--font-size-icons) !important;
+  font-size: var(--font-size-icons) !important;
+}
+
+.mat-badge-content {
+  width: auto !important;
+  height: auto !important;
+  display: grid;
+  min-width: var(--font-size-icons);
+  min-height: var(--font-size-icons);
+  line-height: var(--font-size-icons) !important;
+  text-align: center;
+  align-items: center;
+  vertical-align: middle;
+  top: calc(6px - var(--font-size-icons)) !important;
+  right: calc(11px - var(--font-size-icons)) !important;
 }
 
 .invisible-tabs {
