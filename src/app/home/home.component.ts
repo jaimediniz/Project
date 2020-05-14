@@ -11,10 +11,10 @@ export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-header-color", value: "rgb(92, 187, 128)" },
   { key: "--main-body-color", value: "white" },
   { key: "--main-color-faded", value: "rgba(0, 0, 0, 0.12)" },
-  { key: "--main-drawer1-width", value: "300px" },
-  { key: "--main-drawer1-width-closed", value: "55px" },
-  { key: "--main-drawer2-width", value: "600px" },
-  { key: "--main-drawer2-width-closed", value: "0px" },
+  { key: "--main-drawer-width", value: "300px" },
+  { key: "--main-drawer-width-closed", value: "55px" },
+  { key: "--main-viewer2-width", value: "600px" },
+  { key: "--main-viewer2-width-closed", value: "0px" },
   { key: "--main-header-height", value: "50px" },
   { key: "--main-padding", value: "16px" },
   { key: "--font-size-small", value: "12px" },
@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }>;
-  drawer1 = true;
-  drawer2 = false;
+  sidePanel1 = true;
+  sidePanel2 = false;
 
   constructor(private userService: UserService, private logger: LoggerService) {
     for (const property of rootVariables) {
@@ -63,15 +63,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  handleOpening(drawer, selectTab) {
+  handleOpening(panel, selectTab) {
     this.logger.infoLog({
       className: "HomeComponent",
       functionName: "handleOpening",
-      description: `Open drawer ${drawer} in selectTab`,
+      description: `Open drawer ${panel} in selectTab`,
       variable: "selectTab",
       value: selectTab,
     });
-    this[`drawer${drawer}`] = true;
+    this[`sidePanel${panel}`] = true;
   }
 
   ngOnDestroy() {

@@ -1,26 +1,26 @@
 <!-- Drawer 1 -->
-<div class="drawer1 h-100" [class.firstDrawerClosed]="!drawer1">
+<div class="drawer h-100" [class.firstDrawerClosed]="!sidePanel1">
   <app-drawer
-    [opened]="drawer1"
+    [opened]="sidePanel1"
     (open)="handleOpening(1, $event)"
-    (close)="drawer1 = false"
+    (close)="sidePanel1 = false"
   ></app-drawer>
 </div>
 
 <!-- Viewer -->
 <div
   class="viewer h-100"
-  [class.firstDrawerClosed]="!drawer1"
-  [class.secondDrawerClosed]="!drawer2"
+  [class.firstDrawerClosed]="!sidePanel1"
+  [class.secondDrawerClosed]="!sidePanel2"
 >
   <app-viewer> </app-viewer>
 </div>
 
-<!-- Drawer 1 -->
-<div class="drawer2 h-100" [class.secondDrawerClosed]="!drawer2">
-  <app-drawer
-    [opened]="drawer2"
+<!-- Viewer 1 -->
+<!-- <div class="viewer2 h-100" [class.secondDrawerClosed]="!sidePanel2">
+  <app-viewer2
+    [opened]="sidePanel2"
     (open)="handleOpening(2, $event)"
-    (close)="drawer2 = false"
-  ></app-drawer>
-</div>
+    (close)="sidePanel2 = false"
+  ></app-viewer2>
+</div> -->

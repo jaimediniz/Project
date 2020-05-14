@@ -2,55 +2,55 @@
   --transition-duration: 300ms;
 }
 
-.drawer1 {
+.drawer {
   position: absolute;
   left: 0;
-  width: var(--main-drawer1-width) !important;
+  width: var(--main-drawer-width) !important;
   transition: transform ease var(--transition-duration);
   background-color: var(--main-body-color);
   &.firstDrawerClosed {
     transform: translate(
-      calc(var(--main-drawer1-width-closed) - var(--main-drawer1-width))
+      calc(var(--main-drawer-width-closed) - var(--main-drawer-width))
     ) !important;
   }
 }
 
 .viewer {
   position: absolute;
-  margin-left: var(--main-drawer1-width) !important;
-  margin-right: var(--main-drawer2-width-closed) !important;
+  margin-left: var(--main-drawer-width) !important;
+  margin-right: var(--main-viewer2-width-closed) !important;
   width: calc(
-    100% - var(--main-drawer1-width) - var(--main-drawer2-width-closed)
+    100% - var(--main-drawer-width) - var(--main-viewer2-width-closed)
   ) !important;
   transition: all ease var(--transition-duration);
   &.firstDrawerClosed {
     width: calc(
-      100% - var(--main-drawer1-width-closed) - var(--main-drawer2-width)
+      100% - var(--main-drawer-width-closed) - var(--main-viewer2-width)
     ) !important;
-    margin-left: var(--main-drawer1-width-closed) !important;
+    margin-left: var(--main-drawer-width-closed) !important;
   }
   &.secondDrawerClosed {
     width: calc(
-      100% - var(--main-drawer1-width) - var(--main-drawer2-width-closed)
+      100% - var(--main-drawer-width) - var(--main-viewer2-width-closed)
     ) !important;
-    margin-right: var(--main-drawer2-width-closed) !important;
+    margin-right: var(--main-viewer2-width-closed) !important;
   }
   &.firstDrawerClosed.secondDrawerClosed {
     width: calc(
-      100% - var(--main-drawer1-width-closed) - var(--main-drawer2-width-closed)
+      100% - var(--main-drawer-width-closed) - var(--main-viewer2-width-closed)
     ) !important;
   }
 }
 
-.drawer2 {
+.viewer2 {
   position: absolute;
   right: 0;
-  width: var(--main-drawer2-width) !important;
+  width: var(--main-viewer2-width) !important;
   transition: transform ease var(--transition-duration);
   background-color: var(--main-body-color);
   &.secondDrawerClosed {
     transform: translate(
-      calc(var(--main-drawer2-width) - var(--main-drawer2-width-closed))
+      calc(var(--main-viewer2-width) - var(--main-viewer2-width-closed))
     ) !important;
   }
 }
