@@ -1,0 +1,34 @@
+::ng-deep .cal-days,
+::ng-deep .cal-time-events {
+  overflow: hidden;
+}
+
+.date {
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
+.btn {
+  margin-right: 5px;
+  margin-left: 5px;
+  min-width: 75px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: gray;
+  border-color: gray;
+  &.active {
+  }
+}
+
+.calendar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: calc(100% - 146px - 1rem);
+  transition: all ease var(--transition-duration);
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,26 @@
+<!-- Drawer 1 -->
+<div class="drawer" [class.firstDrawerClosed]="!sidePanel1">
+  <app-drawer
+    [opened]="sidePanel1"
+    (open)="handleOpening(1, $event)"
+    (close)="sidePanel1 = false"
+  ></app-drawer>
+</div>
+
+<!-- Viewer -->
+<div
+  class="viewer"
+  [class.firstDrawerClosed]="!sidePanel1"
+  [class.secondDrawerClosed]="!sidePanel2"
+>
+  <app-viewer> </app-viewer>
+</div>
+
+<!-- Viewer 1 -->
+<!-- <div class="viewer2" [class.secondDrawerClosed]="!sidePanel2">
+  <app-viewer2
+    [opened]="sidePanel2"
+    (open)="handleOpening(2, $event)"
+    (close)="sidePanel2 = false"
+  ></app-viewer2>
+</div> -->

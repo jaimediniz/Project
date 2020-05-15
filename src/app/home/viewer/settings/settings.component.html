@@ -1,0 +1,22 @@
+<form #checkoutForm="ngForm">
+  <table>
+    <tr>
+      <th>Key:</th>
+      <th>Value</th>
+    </tr>
+    <tr *ngFor="let property of rootVariables">
+      <td>{{ property.key }}:</td>
+      <td>
+        <input
+          type="text"
+          name="{{ property.key }}"
+          [(ngModel)]="property.value"
+          class="propertiesInput"
+        />
+      </td>
+    </tr>
+  </table>
+  <button type="button" (click)="saveProperties(checkoutForm.value)">
+    Save
+  </button>
+</form>

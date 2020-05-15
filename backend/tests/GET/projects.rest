@@ -1,0 +1,15 @@
+###
+GET http://{{host}}/api/{{version}}/projects
+Content-Type: application/json
+
+{
+    "userId": 1
+}
+
+###
+GET http://{{host}}/api/{{version}}/projects/1
+Content-Type: application/json
+
+{
+    "userId": 1
+}

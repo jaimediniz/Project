@@ -1,0 +1,82 @@
+:host {
+  --transition-duration: 300ms;
+}
+
+.drawer {
+  position: absolute;
+  bottom: 0;
+  height: var(--main-header-height);
+  width: 100%;
+  z-index: 4;
+}
+.viewer {
+  position: absolute;
+  bottom: var(--main-header-height);
+  width: 100%;
+  height: calc(100% - var(--main-header-height)) !important;
+  z-index: 3;
+}
+
+@media (min-width: 769px) {
+  .drawer,
+  .viewer {
+    bottom: unset;
+  }
+
+  .drawer {
+    position: absolute;
+    left: 0;
+    width: var(--main-drawer-width) !important;
+    height: 100% !important;
+    transition: transform ease var(--transition-duration);
+    background-color: var(--main-body-color);
+    &.firstDrawerClosed {
+      transform: translate(
+        calc(var(--main-drawer-width-closed) - var(--main-drawer-width))
+      ) !important;
+    }
+  }
+
+  .viewer {
+    position: absolute;
+    margin-left: var(--main-drawer-width) !important;
+    margin-right: var(--main-viewer2-width-closed) !important;
+    width: calc(
+      100% - var(--main-drawer-width) - var(--main-viewer2-width-closed)
+    ) !important;
+    height: 100% !important;
+    transition: all ease var(--transition-duration);
+    &.firstDrawerClosed {
+      width: calc(
+        100% - var(--main-drawer-width-closed) - var(--main-viewer2-width)
+      ) !important;
+      margin-left: var(--main-drawer-width-closed) !important;
+    }
+    &.secondDrawerClosed {
+      width: calc(
+        100% - var(--main-drawer-width) - var(--main-viewer2-width-closed)
+      ) !important;
+      margin-right: var(--main-viewer2-width-closed) !important;
+    }
+    &.firstDrawerClosed.secondDrawerClosed {
+      width: calc(
+        100% - var(--main-drawer-width-closed) -
+          var(--main-viewer2-width-closed)
+      ) !important;
+    }
+  }
+
+  .viewer2 {
+    position: absolute;
+    right: 0;
+    width: var(--main-viewer2-width) !important;
+    height: 100% !important;
+    transition: transform ease var(--transition-duration);
+    background-color: var(--main-body-color);
+    &.secondDrawerClosed {
+      transform: translate(
+        calc(var(--main-viewer2-width) - var(--main-viewer2-width-closed))
+      ) !important;
+    }
+  }
+}

@@ -1,1 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// :root {
+//   --main-bg-color: white;
+//   --main-txt-color: rgb(0, 0, 0);
+//   --main-txt-font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+//   --main-drawer-width: 300px;
+//   --main-drawer-width-closed: 50px;
+//   --main-header-color: rgb(92, 187, 128);
+//   --main-body-color: white;
+//   --main-color-faded: rgba(0, 0, 0, 0.12);
+//   --main-header-height: 50px;
+//   --main-padding: 16px;
+//   --font-size-small: 12px;
+//   --font-size-normal: 18px;
+//   --font-size-icons: 20px;
+//   --font-size-large: 24px;
+//   --font-size-icons: 24px;
+// }
+
+.mat-button {
+  min-width: var(--main-drawer-width-closed) !important;
+  &:focus {
+    outline: none;
+  }
+}
+
+.mat-button-focus-overlay {
+  background-color: transparent;
+}
+
+.mat-icon {
+  height: var(--font-size-icons) !important;
+  width: var(--font-size-icons) !important;
+  font-size: var(--font-size-icons) !important;
+}
+
+.mat-badge-content {
+  width: auto !important;
+  height: auto !important;
+  display: grid;
+  min-width: var(--font-size-icons);
+  min-height: var(--font-size-icons);
+  line-height: var(--font-size-icons) !important;
+  text-align: center;
+  align-items: center;
+  vertical-align: middle;
+  top: calc(6px - var(--font-size-icons)) !important;
+  right: calc(11px - var(--font-size-icons)) !important;
+}
+
+.invisible-tabs {
+  // > .mat-tab-header {
+  //   display: none;
+  // }
+  .mat-tab-list {
+    transform: translateY(0) !important;
+    height: 48px;
+  }
+  width: 100%;
+  .mat-tab-header-pagination {
+    display: none !important;
+  }
+  .mat-tab-labels {
+    flex-direction: column;
+    transition: all ease var(--transition-duration);
+  }
+  .mat-tab-body-content {
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

@@ -1,24 +1,57 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CalendarModule, DateAdapter } from "angular-calendar";
+import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+import { IConfig, NgxMaskModule } from "ngx-mask";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ContactsComponentComponent } from './home/drawer/contacts/contacts-component/contacts-component.component';
-import { ContactsComponent } from './home/drawer/contacts/contacts.component';
-import { InvitesComponent } from './home/drawer/invites/invites.component';
+import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Routes } from "@angular/router";
+
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { ContactsComponent } from "./home/drawer/contacts/contacts.component";
+import { DrawerComponent } from "./home/drawer/drawer.component";
+import { InvitesComponent } from "./home/drawer/invites/invites.component";
+import { HomeComponent } from "./home/home.component";
+import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
+import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
+import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
+import { ViewerComponent } from "./home/viewer/viewer.component";
+import { MaterialModule } from "./material.module";
+import { SettingsComponent } from "./home/viewer/settings/settings.component";
+import { Viewer2Component } from "./home/viewer2/viewer2.component";
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactsComponentComponent,
     ContactsComponent,
-    InvitesComponent
+    InvitesComponent,
+    DrawerComponent,
+    ViewerComponent,
+    HomeComponent,
+    UserInfoComponent,
+    CreateInviteComponent,
+    CalendarComponent,
+    SettingsComponent,
+    Viewer2Component,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    MaterialModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgxMaskModule.forRoot(options),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
+  exports: [AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
