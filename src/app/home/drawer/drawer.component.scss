@@ -1,7 +1,9 @@
 .header,
 .body,
 .view,
-.menuButton {
+.menuButton,
+.muteButton,
+.settingsButton {
   display: none;
 }
 
@@ -23,7 +25,11 @@
   [class*="Button"] {
     height: var(--main-header-height);
   }
-  .settingsButton {
+  .homeButton,
+  .contactsButton,
+  .groupsButton,
+  .invitesButton,
+  .calendarButton {
     margin-left: auto;
   }
 }
@@ -42,6 +48,24 @@
       -webkit-transform: rotateZ(60deg);
       transform: rotateZ(60deg);
     }
+  }
+}
+
+@media (min-width: 400px) {
+  .muteButton,
+  .settingsButton {
+    display: flex;
+  }
+  .homeButton,
+  .contactsButton,
+  .groupsButton,
+  .invitesButton,
+  .calendarButton {
+    margin-left: 0 !important;
+  }
+
+  .settingsButton {
+    margin-left: auto;
   }
 }
 
