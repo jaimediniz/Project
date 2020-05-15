@@ -1,8 +1,8 @@
-import { Subscription } from 'rxjs';
-import { LoggerService } from 'src/app/services/logger.service';
-import { UserService } from 'src/app/services/user.service';
+import { Subscription } from "rxjs";
+import { LoggerService } from "src/app/services/logger.service";
+import { UserService } from "src/app/services/user.service";
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-user-info",
@@ -16,11 +16,13 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   userSub: any; // Subscription
 
   constructor(private userService: UserService, private logger: LoggerService) {
-    this.user = this.userService.selectedUser;
-    this.userSub = this.userService.selectedUserSub
+    this.user = this.userService.selectedContact;
+    console.log(this.user);
+    this.userSub = this.userService.selectedContactSub
       .asObservable()
       .subscribe((selectedUser) => {
         this.user = selectedUser;
+        console.log(selectedUser);
       });
     this.userSub.subscriberName = "UserInfoComponent";
 
@@ -28,7 +30,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       webPackage: this.webPackage,
       className: "UserInfoComponent",
       functionName: "constructor",
-      values: ["Subscribed to users list"],
+      values: ["Subscribed to selected user"],
     });
   }
 
@@ -41,7 +43,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       webPackage: this.webPackage,
       className: "UserInfoComponent",
       functionName: "ngOnDestroy",
-      values: ["Unsubscribed from users list"],
+      values: ["Unsubscribed from selected user"],
     });
   }
 }

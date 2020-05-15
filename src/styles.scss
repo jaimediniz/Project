@@ -36,7 +36,15 @@ body {
   }
 }
 
-.mat-button-focus-overlay {
+mat-card {
+  border-radius: 0px;
+  &:focus {
+    outline: unset;
+  }
+}
+
+.mat-button-focus-overlay,
+.mat-focus-indicator {
   background-color: transparent;
 }
 

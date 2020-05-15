@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { LoggerService } from "src/app/services/logger.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
@@ -11,43 +11,44 @@ import { RouteExtensionService } from "src/app/services/route-extension.service"
 export class InvitesComponent implements OnInit {
   webPackage = "./src/app/home/drawer/invites/invites.component.ts";
 
+  @Input() selectedUserId: number;
+  @Output() selectedUserIdChange: EventEmitter<number> = new EventEmitter<
+    number
+  >();
+
   invitesSubscription: any; // Subscription
   invites: Array<{ id: number; name: string }> = [
-    { id: 0, name: "Invite 0" },
-    { id: 1, name: "Invite 1" },
-    { id: 2, name: "Invite 2" },
-    { id: 3, name: "Invite 3" },
-    { id: 4, name: "Invite 4" },
-    { id: 5, name: "Invite 5" },
-    { id: 6, name: "Invite 6" },
-    { id: 7, name: "Invite 7" },
-    { id: 8, name: "Invite 8" },
-    { id: 9, name: "Invite 9" },
-    { id: 10, name: "Invite 10" },
-    { id: 11, name: "Invite 11" },
-    { id: 12, name: "Invite 12" },
-    { id: 13, name: "Invite 13" },
-    { id: 14, name: "Invite 14" },
-    { id: 15, name: "Invite 15" },
-    { id: 16, name: "Invite 16" },
-    { id: 17, name: "Invite 17" },
-    { id: 18, name: "Invite 18" },
-    { id: 19, name: "Invite 19" },
-    { id: 20, name: "Invite 20" },
+    { id: 300, name: "Invite 0" },
+    { id: 301, name: "Invite 1" },
+    { id: 302, name: "Invite 2" },
+    { id: 303, name: "Invite 3" },
+    { id: 304, name: "Invite 4" },
+    { id: 305, name: "Invite 5" },
+    { id: 306, name: "Invite 6" },
+    { id: 307, name: "Invite 7" },
+    { id: 308, name: "Invite 8" },
+    { id: 309, name: "Invite 9" },
+    { id: 310, name: "Invite 10" },
+    { id: 311, name: "Invite 11" },
+    { id: 312, name: "Invite 12" },
+    { id: 313, name: "Invite 13" },
+    { id: 314, name: "Invite 14" },
+    { id: 315, name: "Invite 15" },
+    { id: 316, name: "Invite 16" },
+    { id: 317, name: "Invite 17" },
+    { id: 318, name: "Invite 18" },
+    { id: 319, name: "Invite 19" },
+    { id: 320, name: "Invite 20" },
   ];
 
   selectUserSubscription: any; // Subscription
-  selectedUserId: number;
 
-  constructor(
-    private logger: LoggerService,
-    private userService: UserService,
-    private route: RouteExtensionService
-  ) {
+  constructor(private logger: LoggerService, private userService: UserService) {
     this.invites = this.userService.invites
       ? this.userService.invites
       : this.invites;
-    this.invitesSubscription = this.userService.usersSub
+    this.userService.emitInvites(this.invites);
+    this.invitesSubscription = this.userService.invitesSub
       .asObservable()
       .subscribe((invites) => {
         this.invites = invites;
@@ -62,28 +63,5 @@ export class InvitesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.selectedUserId = this.userService.selectedUser
-      ? this.userService.selectedUser.id
-      : undefined;
-    this.selectUserSubscription = this.route.paramsSubject
-      .asObservable()
-      .subscribe((urlAfterRedirects) => {
-        this.selectedUserId = parseInt(
-          urlAfterRedirects.split("/inviteInfo/")[1]
-        );
-      });
-    this.selectUserSubscription.subscriberName = "InvitesComponent";
-
-    this.logger.functionLog({
-      webPackage: this.webPackage,
-      className: "InvitesComponent",
-      functionName: "ngOnInit",
-      values: ["Subscribed to route"],
-    });
-  }
-
-  selectTarget(userID): void {
-    this.userService.emitSelectedInvite(this.invites[userID]);
-  }
+  ngOnInit(): void {}
 }

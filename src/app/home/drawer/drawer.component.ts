@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
 } from "@angular/core";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
   selector: "app-drawer",
@@ -24,6 +25,9 @@ export class DrawerComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter<boolean>();
   @Output("selectedUser") selected = new EventEmitter<number>();
 
+  @Input() selectedUserId: number;
+  @Output() selectedUserIdChange = new EventEmitter<number>();
+
   private muteAudioSub: any; // Subject
   public mute = false;
 
@@ -33,12 +37,13 @@ export class DrawerComponent implements OnInit, OnDestroy {
   public groupsUnreadMessages: number = 100;
   public invitesUnreadMessages: number = 5;
 
-  private activatedRoute: any; // Subject<string>;
+  private selectedUserIdSub: any; // Subject<number>;
   public settingsPanel = false;
 
   constructor(
     private logger: LoggerService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private userService: UserService
   ) {
     this.mute = this.notificationsService.muteAudio;
     this.muteAudioSub = this.notificationsService.muteAudioSub
@@ -48,11 +53,19 @@ export class DrawerComponent implements OnInit, OnDestroy {
       });
     this.muteAudioSub.subscriberName = "DrawerComponent";
 
+    this.selectedUserId = this.userService.selectedUserId;
+    this.selectedUserIdSub = this.userService.selectedUserIdSub
+      .asObservable()
+      .subscribe((selectedUserId) => {
+        this.selectedUserId = selectedUserId;
+      });
+    this.selectedUserIdSub.subscriberName = "DrawerComponent";
+
     this.logger.functionLog({
       webPackage: this.webPackage,
       className: "DrawerComponent",
       functionName: "constructor",
-      values: ["Subscribed to audio status"],
+      values: ["Subscribed to audio status", "Subscribe to selected user"],
     });
   }
 

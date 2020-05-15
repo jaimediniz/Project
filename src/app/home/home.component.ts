@@ -45,8 +45,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       document.documentElement.style.setProperty(property.key, property.value);
     }
 
-    this.users = this.userService.users;
-    this.usersSubscription = this.userService.usersSub
+    this.users = this.userService.contacts;
+    this.usersSubscription = this.userService.contactsSub
       .asObservable()
       .subscribe((users) => {
         this.users = users;

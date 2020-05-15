@@ -10,8 +10,8 @@ import { InvitesComponent } from "./home/drawer/invites/invites.component";
 const routes: Routes = [
   { path: "home", component: HomeViewerComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "userInfo/:id", component: UserInfoComponent },
-  { path: "inviteInfo/:id", component: InvitesComponent },
+  { path: "contacts/:id", component: UserInfoComponent },
+  // { path: "invites/:id", component: InvitesComponent },
   { path: "calendar", component: CalendarComponent },
   { path: "settings", component: SettingsComponent },
   { path: "**", redirectTo: "/home" },

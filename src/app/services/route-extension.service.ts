@@ -10,6 +10,8 @@ import {
 
 import { LoggerService } from "./logger.service";
 
+import { UserService } from "./user.service";
+
 @Injectable({
   providedIn: "root",
 })
@@ -17,46 +19,73 @@ export class RouteExtensionService {
   lastRoute: string;
   paramsSubject = new Subject<string>();
 
-  constructor(private logger: LoggerService, private route: Router) {
+  constructor(
+    private logger: LoggerService,
+    private route: Router,
+    private userService: UserService
+  ) {
     this.route.onSameUrlNavigation = "reload";
+
+    this.lastRoute = this.route.url;
     this.route.events.subscribe(async (event) => {
       if (event instanceof NavigationStart) {
-        // Show loading indicator
-
-        if (this.lastRoute === event.url) {
-          if (event.url !== "/home") {
-            this.route.navigate(["/home"]);
-          }
-          return;
-        }
+        this.navigationStart(event);
+      } else if (event instanceof NavigationEnd) {
+        this.navigationEnd(event);
+      } else if (event instanceof NavigationError) {
+        this.navigationError(event);
       }
+    });
+  }
 
-      if (event instanceof NavigationEnd) {
-        // Hide loading indicator
+  navigationStart(event) {
+    // Show loading indicator
 
-        this.logger.emitLog({
-          className: "RouteExtensionService",
-          functionName: "constructor",
-          description: "Emit new string",
-          variable: "urlAfterRedirects",
-          value: event.urlAfterRedirects,
-          subscribers: this.paramsSubject.observers,
-        });
-        this.lastRoute = event.urlAfterRedirects;
-        this.paramsSubject.next(event.urlAfterRedirects);
+    if (this.lastRoute === event.url) {
+      if (event.url !== "/home") {
+        console.log("change");
+        this.route.navigate(["/home"]);
       }
+    }
+  }
 
-      if (event instanceof NavigationError) {
-        // Hide loading indicator
+  navigationEnd(event) {
+    // Hide loading indicator
 
-        this.logger.errorLog({
-          className: "RouteExtensionService",
-          functionName: "constructor",
-          description: "Navigation Error!",
-          variable: "Error",
-          value: event.error,
-        });
-      }
+    this.logger.emitLog({
+      className: "RouteExtensionService",
+      functionName: "navigationEnd",
+      description: "Emit new string",
+      variable: "urlAfterRedirects",
+      value: event.urlAfterRedirects,
+      subscribers: this.paramsSubject.observers,
+    });
+    this.lastRoute = event.urlAfterRedirects;
+    this.paramsSubject.next(event.urlAfterRedirects);
+    const params = event.urlAfterRedirects.split("/");
+    const finalRoute = params[1];
+    const valueToEmit = parseInt(params[2]);
+    if (finalRoute === "contacts") {
+      this.userService.emitSelectedContact(valueToEmit);
+    } else if (finalRoute === "groups") {
+      this.userService.emitSelectedGroup(valueToEmit);
+    } else if (finalRoute === "invites") {
+      this.userService.emitSelectedInvite(valueToEmit);
+    } else {
+      this.userService.emitSelectedUserId(undefined);
+    }
+    // Emit selectedUser
+  }
+
+  navigationError(event) {
+    // Hide loading indicator
+
+    this.logger.errorLog({
+      className: "RouteExtensionService",
+      functionName: "navigationError",
+      description: "Navigation Error!",
+      variable: "Error",
+      value: event.error,
     });
   }
 }

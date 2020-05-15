@@ -13,11 +13,16 @@ export interface User {
   providedIn: "root",
 })
 export class UserService {
-  users: Array<User>;
-  usersSub = new Subject<Array<User>>();
+  activatedRoute: any;
 
-  selectedUser: User;
-  selectedUserSub = new Subject<User>();
+  selectedUserId: number;
+  selectedUserIdSub = new Subject<number>();
+
+  contacts: Array<User>;
+  contactsSub = new Subject<Array<User>>();
+
+  selectedContact: User;
+  selectedContactSub = new Subject<User>();
 
   groups: Array<User>;
   groupsSub = new Subject<Array<User>>();
@@ -31,63 +36,89 @@ export class UserService {
   selectedInvite: User;
   selectedInviteSub = new Subject<User>();
 
-  emitLog(functionName, variable, subscribers) {
+  emitLog(functionName, variableName, variable, subscribers) {
     this.logger.emitLog({
       className: "UserService",
       functionName,
       description: "Emit new value",
-      variable,
+      variable: variableName,
       value: variable,
       subscribers,
     });
   }
 
-  emitUsers(users: Array<User>): void {
-    this.emitLog("emitUsers", users, this.usersSub.observers);
-    this.users = users;
-    this.usersSub.next(users);
+  emitSelectedUserId(selectedUserId: number): void {
+    this.emitLog(
+      "emitSelectedUserId",
+      "selectedUserId",
+      selectedUserId,
+      this.selectedUserIdSub.observers
+    );
+    this.selectedUserId = selectedUserId;
+    this.selectedUserIdSub.next(this.selectedUserId);
   }
 
-  emitSelectedUser(selectedUser: User): void {
+  emitContacts(contacts: Array<User>): void {
     this.emitLog(
-      "emitSelectedUser",
-      selectedUser,
-      this.selectedUserSub.observers
+      "emitContacts",
+      "contacts",
+      contacts,
+      this.contactsSub.observers
     );
-    this.selectedUser = selectedUser;
-    this.selectedUserSub.next(selectedUser);
+    this.contacts = contacts;
+    this.contactsSub.next(contacts);
+  }
+
+  emitSelectedContact(selectedContact: number): void {
+    this.emitLog(
+      "emitSelectedContact",
+      "selectedContact",
+      selectedContact,
+      this.selectedContactSub.observers
+    );
+    this.selectedContact = this.contacts.filter(
+      (contact) => contact.id === selectedContact
+    )[0];
+    console.log(selectedContact);
+    this.selectedContactSub.next(this.selectedContact);
   }
 
   emitGroups(groups: Array<User>): void {
-    this.emitLog("emitGroups", groups, this.groupsSub.observers);
+    this.emitLog("emitGroups", "groups", groups, this.groupsSub.observers);
     this.groups = groups;
     this.groupsSub.next(groups);
   }
 
-  emitSelectedGroup(selectedGroup: User): void {
+  emitSelectedGroup(selectedGroup: number): void {
     this.emitLog(
       "emitSelectedGroup",
+      "selectedGroup",
       selectedGroup,
       this.selectedGroupSub.observers
     );
-    this.selectedGroup = selectedGroup;
-    this.selectedGroupSub.next(selectedGroup);
+    this.selectedGroup = this.groups.filter(
+      (group) => group.id === selectedGroup
+    )[0];
+    this.selectedGroupSub.next(this.selectedGroup);
   }
 
-  emitInvites(users: Array<User>): void {
-    this.emitLog("emitInvites", users, this.usersSub.observers);
-    this.users = users;
-    this.usersSub.next(users);
+  emitInvites(invites: Array<User>): void {
+    this.emitLog("emitInvites", "invites", invites, this.invitesSub.observers);
+    this.invites = invites;
+    this.invitesSub.next(invites);
   }
 
-  emitSelectedInvite(selectedInvite: User): void {
+  emitSelectedInvite(selectedInvite: number): void {
     this.emitLog(
       "emitSelectedInvite",
+      "selectedInvite",
       selectedInvite,
       this.selectedInviteSub.observers
     );
-    this.selectedInvite = selectedInvite;
-    this.selectedInviteSub.next(selectedInvite);
+    this.selectedInvite = this.invites.filter(
+      (invite) => invite.id === selectedInvite
+    )[0];
+    this.selectedInviteSub.next(this.selectedInvite);
   }
 
   constructor(private logger: LoggerService) {}

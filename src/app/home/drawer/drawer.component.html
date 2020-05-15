@@ -154,7 +154,7 @@
         <ng-template mat-tab-label>
           <mat-icon>contacts</mat-icon> Contacts
         </ng-template>
-        <app-contacts></app-contacts>
+        <app-contacts [(selectedUserId)]="selectedUserId"></app-contacts>
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>
@@ -165,7 +165,7 @@
         <ng-template mat-tab-label>
           <mat-icon>insert_invitation</mat-icon> Invites
         </ng-template>
-        <app-invites></app-invites>
+        <app-invites [(selectedUserId)]="selectedUserId"></app-invites>
       </mat-tab>
     </mat-tab-group>
   </div>

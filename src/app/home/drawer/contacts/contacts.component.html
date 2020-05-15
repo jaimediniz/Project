@@ -5,9 +5,13 @@
     [ngStyle]="{
       'background-color': selectedUserId === user.id ? 'lightblue' : 'white'
     }"
-    [routerLink]="['/userInfo', user.id]"
+    [routerLink]="['/contacts', user.id]"
     routerLinkActive="active"
-    (click)="selectTarget($event)"
+    (click)="
+      selectedUserId === user.id
+        ? selectedUserIdChange.emit(undefined)
+        : selectedUserIdChange.emit(user.id)
+    "
   >
     <mat-card-content>
       <mat-card-title> {{ user.name }}</mat-card-title>
