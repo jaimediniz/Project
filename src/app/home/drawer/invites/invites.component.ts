@@ -70,7 +70,7 @@ export class InvitesComponent implements OnInit {
       .asObservable()
       .subscribe((urlAfterRedirects) => {
         this.selectedUserId = parseInt(
-          urlAfterRedirects.split("/userInfo/")[1]
+          urlAfterRedirects.split("/inviteInfo/")[1]
         );
       });
     this.selectUserSubscription.subscriberName = "InvitesComponent";

@@ -5,7 +5,7 @@
     [ngStyle]="{
       'background-color': selectedUserId === invite.id ? 'lightblue' : 'white'
     }"
-    [routerLink]="['/userInfo', invite.id]"
+    [routerLink]="['/inviteInfo', invite.id]"
     routerLinkActive="active"
     (click)="selectTarget($event)"
   >
