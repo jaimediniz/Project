@@ -82,6 +82,6 @@ export class ContactsComponent implements OnInit {
   }
 
   selectTarget(userID): void {
-    this.userService.emitSelected(this.users[userID]);
+    this.userService.emitSelectedUser(this.users[userID]);
   }
 }
