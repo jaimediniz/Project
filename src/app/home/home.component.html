@@ -1,5 +1,5 @@
 <!-- Drawer 1 -->
-<div class="drawer h-100" [class.firstDrawerClosed]="!sidePanel1">
+<div class="drawer" [class.firstDrawerClosed]="!sidePanel1">
   <app-drawer
     [opened]="sidePanel1"
     (open)="handleOpening(1, $event)"
@@ -9,7 +9,7 @@
 
 <!-- Viewer -->
 <div
-  class="viewer h-100"
+  class="viewer"
   [class.firstDrawerClosed]="!sidePanel1"
   [class.secondDrawerClosed]="!sidePanel2"
 >
@@ -17,7 +17,7 @@
 </div>
 
 <!-- Viewer 1 -->
-<!-- <div class="viewer2 h-100" [class.secondDrawerClosed]="!sidePanel2">
+<!-- <div class="viewer2" [class.secondDrawerClosed]="!sidePanel2">
   <app-viewer2
     [opened]="sidePanel2"
     (open)="handleOpening(2, $event)"

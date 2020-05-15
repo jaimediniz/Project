@@ -4,7 +4,7 @@
   </div>
 
   <!-- Side Bar -->
-  <div class="d-flex flex-column h-100 sideBar" [ngClass]="{ mute: mute }">
+  <div class="d-flex h-100 sideBar" [ngClass]="{ mute: mute }">
     <!-- Close Menu Button -->
     <button
       mat-button
@@ -22,7 +22,7 @@
     <!-- Home Button -->
     <button
       mat-button
-      class="menuButton"
+      class="homeButton"
       matTooltip="Home"
       matTooltipPosition="after"
       [routerLink]="['/home']"
@@ -93,7 +93,7 @@
     <!-- Calendar -->
     <button
       mat-button
-      class="mt-auto calendarButton"
+      class="calendarButton"
       matTooltip="Calendar"
       matTooltipPosition="after"
       disableRipple
@@ -144,9 +144,11 @@
   <!-- Body -->
   <div class="body">
     <mat-tab-group
+      [class]="['firstView', 'secondView', 'thirdView'][tab]"
       [(selectedIndex)]="tab"
       class="invisible-tabs"
       [@.disabled]="true"
+      #tabGroup
     >
       <mat-tab>
         <ng-template mat-tab-label>

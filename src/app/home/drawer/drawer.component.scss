@@ -1,54 +1,18 @@
-@mixin changeStyle($bgColor, $color, $width) {
-  background-color: $bgColor;
-  border: $width solid $color;
+.header,
+.body,
+.view,
+.menuButton {
+  display: none;
 }
 
-$font-sizes: (
-  "small": 12px,
-  "normal": 18px,
-  "large": 24px,
-);
-
-.header {
-  width: calc(100% - var(--main-drawer-width-closed));
-  background-color: var(--main-header-color);
-  height: var(--main-header-height);
-  transition: background-color var(--transition-duration) linear;
-  -webkit-transition: background-color var(--transition-duration) linear;
-  -ms-transition: background-color var(--transition-duration) linear;
-  &.mute {
-    background-color: var(--main-color-faded);
-  }
-}
-
-.body {
-  width: calc(100% - var(--main-drawer-width-closed));
-  height: calc(100% - var(--main-header-height)) !important;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  ::ng-deep .mat-tab-body-wrapper {
-    height: inherit;
-  }
-}
-
-.view {
-  width: calc(100% - var(--main-drawer-width-closed));
-  height: 100%;
-  .menuButton {
-    position: absolute;
-    height: var(--main-header-height);
-    right: var(--main-drawer-width-closed);
-  }
-}
 .sideBar {
-  width: var(--main-drawer-width-closed);
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
+  flex-direction: row;
+  width: 100%;
+  height: var(--main-header-height);
+  bottom: 0;
+  left: 0;
+
   transition: background-color var(--transition-duration) linear;
   -webkit-transition: background-color var(--transition-duration) linear;
   -ms-transition: background-color var(--transition-duration) linear;
@@ -58,6 +22,9 @@ $font-sizes: (
   }
   [class*="Button"] {
     height: var(--main-header-height);
+  }
+  .settingsButton {
+    margin-left: auto;
   }
 }
 
@@ -78,10 +45,77 @@ $font-sizes: (
   }
 }
 
-@media (max-width: 769px) {
-  .header {
-    @include changeStyle(blue, black, 2px);
+@media (min-width: 769px) {
+  .header,
+  .body,
+  .view,
+  .menuButton {
+    display: flex;
+  }
 
-    font-size: var(--font-size-big);
+  .header {
+    width: calc(100% - var(--main-drawer-width-closed));
+    background-color: var(--main-header-color);
+    height: var(--main-header-height);
+    transition: background-color var(--transition-duration) linear;
+    -webkit-transition: background-color var(--transition-duration) linear;
+    -ms-transition: background-color var(--transition-duration) linear;
+    &.mute {
+      background-color: var(--main-color-faded);
+    }
+  }
+
+  .body {
+    width: calc(100% - var(--main-drawer-width-closed));
+    height: calc(100% - var(--main-header-height)) !important;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    ::ng-deep .mat-tab-body-wrapper {
+      height: inherit;
+    }
+    mat-tab-group {
+      &.firstView {
+        ::ng-deep .mat-tab-labels {
+          transform: translateY(0) !important;
+        }
+      }
+      &.secondView {
+        ::ng-deep .mat-tab-labels {
+          transform: translateY(-48px) !important;
+        }
+      }
+      &.thirdView {
+        ::ng-deep .mat-tab-labels {
+          transform: translateY(-2 * 48px) !important;
+        }
+      }
+    }
+  }
+
+  .view {
+    width: calc(100% - var(--main-drawer-width-closed));
+    height: 100%;
+    .menuButton {
+      position: absolute;
+      height: var(--main-header-height);
+      right: var(--main-drawer-width-closed);
+    }
+  }
+
+  .sideBar {
+    flex-direction: column;
+    width: var(--main-drawer-width-closed);
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: unset;
+    left: unset;
+    .settingsButton {
+      margin-left: unset;
+      margin-top: auto;
+    }
   }
 }
