@@ -1,6 +1,6 @@
 ::ng-deep .cal-days,
 ::ng-deep .cal-time-events {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .date {
@@ -25,7 +25,6 @@
 .calendar {
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: calc(100% - 146px - 1rem);
   transition: all ease var(--transition-duration);
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
