@@ -64,7 +64,22 @@ body {
   // > .mat-tab-header {
   //   display: none;
   // }
+  .mat-tab-list {
+    transform: translateY(0) !important;
+    height: 48px;
+  }
+  width: 100%;
   .mat-tab-header-pagination {
     display: none !important;
+  }
+  .mat-tab-labels {
+    flex-direction: column;
+    transition: all ease var(--transition-duration);
+  }
+  .mat-tab-body-content {
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
