@@ -1,4 +1,4 @@
-import { Subject } from "rxjs";
+import { Subject, BehaviorSubject } from "rxjs";
 
 import { Injectable } from "@angular/core";
 import {
@@ -16,10 +16,8 @@ import { UserService } from "./user.service";
   providedIn: "root",
 })
 export class RouteExtensionService {
-  lastRoute: string;
-  paramsSubject = new Subject<string>();
-
-  routeSubject = new Subject<string>();
+  paramsSubject = new BehaviorSubject<string>("");
+  routeSubject = new BehaviorSubject<string>("app");
 
   constructor(
     private logger: LoggerService,
@@ -28,7 +26,6 @@ export class RouteExtensionService {
   ) {
     this.route.onSameUrlNavigation = "reload";
 
-    this.lastRoute = this.route.url;
     this.route.events.subscribe(async (event) => {
       if (event instanceof NavigationStart) {
         this.navigationStart(event);
@@ -42,13 +39,8 @@ export class RouteExtensionService {
 
   navigationStart(event) {
     // Show loading indicator
-    if (event.url === "/login" || event.url === "/register") {
-      this.routeSubject.next("auth");
-      return;
-    }
-    this.routeSubject.next("app");
 
-    if (this.lastRoute === event.url) {
+    if (this.paramsSubject.value === event.url) {
       if (event.url !== "/home") {
         this.route.navigate(["/home"]);
       }
@@ -57,6 +49,15 @@ export class RouteExtensionService {
 
   navigationEnd(event) {
     // Hide loading indicator
+    console.log(this.routeSubject);
+    if (
+      event.urlAfterRedirects === "/login" ||
+      event.urlAfterRedirects === "/register"
+    ) {
+      this.routeSubject.next("auth");
+      return;
+    }
+    this.routeSubject.next("app");
 
     this.logger.emitLog({
       className: "RouteExtensionService",
@@ -66,8 +67,8 @@ export class RouteExtensionService {
       value: event.urlAfterRedirects,
       subscribers: this.paramsSubject.observers,
     });
-    this.lastRoute = event.urlAfterRedirects;
     this.paramsSubject.next(event.urlAfterRedirects);
+    console.log(this.paramsSubject);
     const params = event.urlAfterRedirects.split("/");
     const finalRoute = params[1];
     const valueToEmit = parseInt(params[2]);
