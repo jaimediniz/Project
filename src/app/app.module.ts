@@ -21,6 +21,8 @@ import { ViewerComponent } from "./home/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
 import { SettingsComponent } from "./home/viewer/settings/settings.component";
 import { Viewer2Component } from "./home/viewer2/viewer2.component";
+import { LoginComponent } from "./auth/login/login.component";
+import { RegisterComponent } from "./auth/register/register.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -37,6 +39,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CalendarComponent,
     SettingsComponent,
     Viewer2Component,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

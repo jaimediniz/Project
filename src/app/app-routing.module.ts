@@ -5,16 +5,21 @@ import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
 import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
 import { HomeViewerComponent } from "./home/viewer/home-viewer/home-viewer.component";
 import { SettingsComponent } from "./home/viewer/settings/settings.component";
-import { InvitesComponent } from "./home/drawer/invites/invites.component";
+import { LoginComponent } from "./auth/login/login.component";
+import { RegisterComponent } from "./auth/register/register.component";
 
 const routes: Routes = [
+  // Auth
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
+  // App
   { path: "home", component: HomeViewerComponent },
-  { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "contacts/:id", component: UserInfoComponent },
-  // { path: "invites/:id", component: InvitesComponent },
   { path: "calendar", component: CalendarComponent },
   { path: "settings", component: SettingsComponent },
-  { path: "**", redirectTo: "/home" },
+  // Error handlers
+  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "**", redirectTo: "/login" },
 ];
 
 @NgModule({
