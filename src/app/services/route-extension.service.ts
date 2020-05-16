@@ -19,6 +19,8 @@ export class RouteExtensionService {
   lastRoute: string;
   paramsSubject = new Subject<string>();
 
+  routeSubject = new Subject<string>();
+
   constructor(
     private logger: LoggerService,
     private route: Router,
@@ -40,10 +42,14 @@ export class RouteExtensionService {
 
   navigationStart(event) {
     // Show loading indicator
+    if (event.url === "/login" || event.url === "/register") {
+      this.routeSubject.next("auth");
+      return;
+    }
+    this.routeSubject.next("app");
 
     if (this.lastRoute === event.url) {
       if (event.url !== "/home") {
-        console.log("change");
         this.route.navigate(["/home"]);
       }
     }

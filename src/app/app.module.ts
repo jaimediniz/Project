@@ -23,6 +23,7 @@ import { SettingsComponent } from "./home/viewer/settings/settings.component";
 import { Viewer2Component } from "./home/viewer2/viewer2.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
+import { AuthComponent } from "./auth/auth.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -39,6 +40,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CalendarComponent,
     SettingsComponent,
     Viewer2Component,
+    AuthComponent,
     LoginComponent,
     RegisterComponent,
   ],

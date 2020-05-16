@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { RouteExtensionService } from "./services/route-extension.service";
 
 @Component({
   selector: "app-root",
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = "project";
+  appRoute = "app";
+
+  constructor(private route: RouteExtensionService) {
+    this.route.routeSubject.asObservable().subscribe((routeSubject) => {
+      this.appRoute = routeSubject;
+    });
+  }
 }
