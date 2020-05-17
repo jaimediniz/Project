@@ -6,9 +6,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Routes } from "@angular/router";
 
-import { AppRoutingModule } from "./app-routing.module";
+import { AppRoutingModule } from "./app.routes";
 import { AppComponent } from "./app.component";
 import { ContactsComponent } from "./components/home/drawer/contacts/contacts.component";
 import { DrawerComponent } from "./components/home/drawer/drawer.component";

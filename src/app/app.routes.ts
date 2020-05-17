@@ -7,16 +7,21 @@ import { HomeViewerComponent } from "./components/home/viewer/home-viewer/home-v
 import { SettingsComponent } from "./components/home/viewer/settings/settings.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { RegisterComponent } from "./components/auth/register/register.component";
+import { AuthGuardService as AuthGuard } from "./guards/auth-guard.service";
 
 const routes: Routes = [
   // Auth
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   // App
-  { path: "home", component: HomeViewerComponent },
-  { path: "contacts/:id", component: UserInfoComponent },
-  { path: "calendar", component: CalendarComponent },
-  { path: "settings", component: SettingsComponent },
+  { path: "home", component: HomeViewerComponent, canActivate: [AuthGuard] },
+  {
+    path: "contacts/:id",
+    component: UserInfoComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: "calendar", component: CalendarComponent, canActivate: [AuthGuard] },
+  { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
   // Error handlers
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", redirectTo: "/login" },

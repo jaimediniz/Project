@@ -49,7 +49,7 @@ export class RouteExtensionService {
 
   navigationEnd(event) {
     // Hide loading indicator
-    console.log(this.routeSubject);
+
     if (
       event.urlAfterRedirects === "/login" ||
       event.urlAfterRedirects === "/register"
