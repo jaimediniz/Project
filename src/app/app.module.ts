@@ -10,20 +10,20 @@ import { Routes } from "@angular/router";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ContactsComponent } from "./home/drawer/contacts/contacts.component";
-import { DrawerComponent } from "./home/drawer/drawer.component";
-import { InvitesComponent } from "./home/drawer/invites/invites.component";
-import { HomeComponent } from "./home/home.component";
-import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
-import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
-import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
-import { ViewerComponent } from "./home/viewer/viewer.component";
+import { ContactsComponent } from "./components/home/drawer/contacts/contacts.component";
+import { DrawerComponent } from "./components/home/drawer/drawer.component";
+import { InvitesComponent } from "./components/home/drawer/invites/invites.component";
+import { HomeComponent } from "./components/home/home.component";
+import { CalendarComponent } from "./components/home/viewer/calendar/calendar.component";
+import { CreateInviteComponent } from "./components/home/viewer/create-invite/create-invite.component";
+import { UserInfoComponent } from "./components/home/viewer/user-info/user-info.component";
+import { ViewerComponent } from "./components/home/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
-import { SettingsComponent } from "./home/viewer/settings/settings.component";
-import { Viewer2Component } from "./home/viewer2/viewer2.component";
-import { LoginComponent } from "./auth/login/login.component";
-import { RegisterComponent } from "./auth/register/register.component";
-import { AuthComponent } from "./auth/auth.component";
+import { SettingsComponent } from "./components/home/viewer/settings/settings.component";
+import { Viewer2Component } from "./components/home/viewer2/viewer2.component";
+import { LoginComponent } from "./components/auth/login/login.component";
+import { RegisterComponent } from "./components/auth/register/register.component";
+import { AuthComponent } from "./components/auth/auth.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 

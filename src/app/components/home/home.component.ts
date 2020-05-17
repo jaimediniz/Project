@@ -2,8 +2,8 @@ import { Subscription } from "rxjs";
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
 
-import { LoggerService } from "../services/logger.service";
-import { UserService } from "../services/user.service";
+import { LoggerService } from "../../services/logger.service";
+import { UserService } from "../../services/user.service";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-bg-color", value: "white" },
