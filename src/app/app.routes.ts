@@ -8,12 +8,40 @@ import { SettingsComponent } from "./components/viewer/settings/settings.compone
 import { LoginComponent } from "./components/viewer/auth/login/login.component";
 import { RegisterComponent } from "./components/viewer/auth/register/register.component";
 import { RoleGuardService as RoleGuard } from "./guards/role-guard.service";
+import { ContactsComponent } from "./components/drawer/contacts/contacts.component";
+import { InvitesComponent } from "./components/drawer/invites/invites.component";
+import { NavbarGuardService } from "./guards/navbar-guard.service";
 
 const routes: Routes = [
   // Auth
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  // App
+  // Navbar
+  {
+    path: "contacts",
+    component: ContactsComponent,
+    canActivate: [NavbarGuardService],
+    data: {
+      tab: 0,
+    },
+  },
+  // {
+  //   path: "groups",
+  //   component: GroupsComponent,
+  //   canActivate: [RoleGuard],
+  //   data: {
+  //     tab: 1,
+  //   },
+  // },
+  {
+    path: "invites",
+    component: InvitesComponent,
+    canActivate: [NavbarGuardService],
+    data: {
+      tab: 2,
+    },
+  },
+  // Content
   {
     path: "home",
     component: HomeViewerComponent,
