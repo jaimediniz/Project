@@ -68,7 +68,6 @@ export class RouteExtensionService {
       subscribers: this.paramsSubject.observers,
     });
     this.paramsSubject.next(event.urlAfterRedirects);
-    console.log(this.paramsSubject);
     const params = event.urlAfterRedirects.split("/");
     const finalRoute = params[1];
     const valueToEmit = parseInt(params[2]);

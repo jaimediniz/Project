@@ -33,7 +33,6 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {}
 
   saveProperties(event): void {
-    console.log(event);
     for (const property in event) {
       document.documentElement.style.setProperty(property, event[property]);
     }

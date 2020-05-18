@@ -79,7 +79,6 @@ export class UserService {
     this.selectedContact = this.contacts.filter(
       (contact) => contact.id === selectedContact
     )[0];
-    console.log(selectedContact);
     this.selectedContactSub.next(this.selectedContact);
   }
 

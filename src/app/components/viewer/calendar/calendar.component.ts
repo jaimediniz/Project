@@ -77,7 +77,6 @@ export class CalendarComponent implements OnInit {
         this.viewDate.getDate() + 1 * multiplier
       );
     }
-    console.log(newDate.getMonth(), this.viewDate.getMonth());
     if (newDate.getMonth() !== this.viewDate.getMonth()) {
       this.viewDate = newDate;
       this.fetchEvents();

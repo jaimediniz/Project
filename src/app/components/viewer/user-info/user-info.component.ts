@@ -17,12 +17,10 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService, private logger: LoggerService) {
     this.user = this.userService.selectedContact;
-    console.log(this.user);
     this.userSub = this.userService.selectedContactSub
       .asObservable()
       .subscribe((selectedUser) => {
         this.user = selectedUser;
-        console.log(selectedUser);
       });
     this.userSub.subscriberName = "UserInfoComponent";
 
