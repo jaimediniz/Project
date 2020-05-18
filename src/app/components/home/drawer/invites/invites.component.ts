@@ -9,7 +9,7 @@ import { RouteExtensionService } from "src/app/services/route-extension.service"
   styleUrls: ["./invites.component.scss"],
 })
 export class InvitesComponent implements OnInit {
-  webPackage = "./src/app/home/drawer/invites/invites.component.ts";
+  webPackage = "./src/app/components/home/drawer/invites/invites.component.ts";
 
   @Input() selectedUserId: number;
   @Output() selectedUserIdChange: EventEmitter<number> = new EventEmitter<

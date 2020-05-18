@@ -10,7 +10,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
   styleUrls: ["./viewer.component.scss"],
 })
 export class ViewerComponent implements OnInit, OnDestroy {
-  webPackage = "./src/app/home/viewer/viewer.component.ts";
+  webPackage = "./src/app/components/home/viewer/viewer.component.ts";
 
   conditionExpression: any = false;
   selectedViewerSub: any;

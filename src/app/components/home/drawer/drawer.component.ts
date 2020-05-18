@@ -18,7 +18,7 @@ import { UserService } from "src/app/services/user.service";
   styleUrls: ["./drawer.component.scss"],
 })
 export class DrawerComponent implements OnInit, OnDestroy {
-  webPackage = "./src/app/home/drawer/drawer.component.ts";
+  webPackage = "./src/app/components/home/drawer/drawer.component.ts";
 
   @Input() opened: boolean;
   @Output() open = new EventEmitter<number>();

@@ -1,5 +1,9 @@
 <!-- Drawer 1 -->
-<div class="drawer" [class.firstDrawerClosed]="!sidePanel1">
+<div
+  class="drawer"
+  [class.firstDrawerClosed]="!sidePanel1"
+  [class.hide]="appRoute !== 'app'"
+>
   <app-drawer
     [opened]="sidePanel1"
     (open)="handleOpening(1, $event)"
@@ -12,6 +16,7 @@
   class="viewer"
   [class.firstDrawerClosed]="!sidePanel1"
   [class.secondDrawerClosed]="!sidePanel2"
+  [class.fullScreen]="appRoute !== 'app'"
 >
   <app-viewer> </app-viewer>
 </div>

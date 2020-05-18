@@ -20,9 +20,8 @@ import { ViewerComponent } from "./components/home/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
 import { SettingsComponent } from "./components/home/viewer/settings/settings.component";
 import { Viewer2Component } from "./components/home/viewer2/viewer2.component";
-import { LoginComponent } from "./components/auth/login/login.component";
-import { RegisterComponent } from "./components/auth/register/register.component";
-import { AuthComponent } from "./components/auth/auth.component";
+import { LoginComponent } from "./components/home/viewer/auth/login/login.component";
+import { RegisterComponent } from "./components/home/viewer/auth/register/register.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -39,7 +38,6 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CalendarComponent,
     SettingsComponent,
     Viewer2Component,
-    AuthComponent,
     LoginComponent,
     RegisterComponent,
   ],

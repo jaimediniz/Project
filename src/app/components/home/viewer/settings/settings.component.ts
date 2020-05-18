@@ -9,7 +9,8 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
-  webPackage = "./src/app/home/viewer/settings/settings.component.ts";
+  webPackage =
+    "./src/app/components/home/viewer/settings/settings.component.ts";
 
   public rootVariables = rootVariables;
 

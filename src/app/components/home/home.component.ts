@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 
 import { LoggerService } from "../../services/logger.service";
 import { UserService } from "../../services/user.service";
+import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-bg-color", value: "white" },
@@ -33,17 +34,26 @@ export const rootVariables: Array<{ key: string; value: string }> = [
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  webPackage = "./src/app/home/home.component.ts";
+  webPackage = "./src/app/components/home/home.component.ts";
 
   usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }>;
   sidePanel1 = true;
   sidePanel2 = false;
+  appRoute: string;
 
-  constructor(private userService: UserService, private logger: LoggerService) {
+  constructor(
+    private userService: UserService,
+    private logger: LoggerService,
+    private route: RouteExtensionService
+  ) {
     for (const property of rootVariables) {
       document.documentElement.style.setProperty(property.key, property.value);
     }
+
+    this.route.routeSubject.asObservable().subscribe((routeSubject) => {
+      this.appRoute = routeSubject;
+    });
 
     this.users = this.userService.contacts;
     this.usersSubscription = this.userService.contactsSub
