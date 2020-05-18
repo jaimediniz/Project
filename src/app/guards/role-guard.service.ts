@@ -18,12 +18,19 @@ export class RoleGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole: string = route.data.expectedRole || "any";
-    return true;
+    return true; // To-Do
+    return this.checkRole(expectedRole);
+  }
+
+  checkRole(expectedRole: string) {
     if (expectedRole === "none") return true;
 
-    this.functionLog("RoleGuardService", "canActivate", [
-      `user is authenticated: ${expectedRole}`,
-    ]);
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "RoleGuardService",
+      functionName: "canActivate",
+      values: [`user is authenticated: ${expectedRole}`],
+    });
 
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(["login"]);
@@ -38,14 +45,5 @@ export class RoleGuardService implements CanActivate {
     }
 
     return true;
-  }
-
-  functionLog(className, functionName, values) {
-    this.logger.functionLog({
-      webPackage: this.webPackage,
-      className,
-      functionName,
-      values,
-    });
   }
 }
