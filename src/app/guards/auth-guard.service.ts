@@ -7,7 +7,7 @@ import { LoggerService } from "../services/logger.service";
   providedIn: "root",
 })
 export class AuthGuardService implements CanActivate {
-  webPackage = "";
+  webPackage = "./src/app/guards/auth-guard.service.ts";
 
   constructor(
     public auth: AuthService,
@@ -17,9 +17,11 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): boolean {
     const isAuthenticated = false; //this.auth.isAuthenticated();
+
     this.functionLog("AuthGuardService", "canActivate", [
       `user is authenticated: ${isAuthenticated}`,
     ]);
+
     if (!isAuthenticated) {
       this.router.navigate(["login"]);
       return false;

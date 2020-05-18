@@ -29,6 +29,7 @@
     "angular-calendar": "^0.28.13",
     "bootstrap": "^4.4.1",
     "date-fns": "^2.13.0",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.25.3",
     "ngx-mask": "^9.0.0",
     "nodemon": "^2.0.3",

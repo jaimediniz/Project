@@ -5,14 +5,14 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   providedIn: "root",
 })
 export class AuthService {
+  webPackage = "./src/app/guards/auth.service.ts";
+
   public jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() {}
-  // ...
+
   public isAuthenticated(): boolean {
     const token = localStorage.getItem("token");
-    // Check whether the token is expired and return
-    // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
 }
