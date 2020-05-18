@@ -5,6 +5,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { LoggerService } from "../services/logger.service";
 import { UserService } from "../services/user.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
+import { NavBarService } from "../services/navbar.service";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-bg-color", value: "white" },
@@ -37,6 +38,7 @@ export class MainComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/components/main.component.ts";
 
   usersSubscription: any; // Subscription
+  selectedTabSub: any;
   users: Array<{ id: number; name: string }>;
   sidePanel1 = true;
   sidePanel2 = false;
@@ -45,11 +47,19 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private logger: LoggerService,
-    private route: RouteExtensionService
+    private route: RouteExtensionService,
+    private navbar: NavBarService
   ) {
     for (const property of rootVariables) {
       document.documentElement.style.setProperty(property.key, property.value);
     }
+
+    this.selectedTabSub = this.navbar.changeTabSub
+      .asObservable()
+      .subscribe((changeTab) => {
+        this.handleOpening(1, changeTab);
+      });
+    this.selectedTabSub.subscriberName = "MainComponent";
 
     this.route.routeSubject.asObservable().subscribe((routeSubject) => {
       this.appRoute = routeSubject;
@@ -67,7 +77,7 @@ export class MainComponent implements OnInit, OnDestroy {
       webPackage: this.webPackage,
       className: "MainComponent",
       functionName: "constructor",
-      values: ["Subscribed to users list"],
+      values: ["Subscribed to change in Tab", "Subscribed to users list"],
     });
   }
 

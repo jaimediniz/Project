@@ -23,6 +23,7 @@ import { Viewer2Component } from "./components/viewer2/viewer2.component";
 import { LoginComponent } from "./components/viewer/auth/login/login.component";
 import { RegisterComponent } from "./components/viewer/auth/register/register.component";
 
+import { AngularResizedEventModule } from "angular-resize-event";
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
@@ -52,6 +53,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    AngularResizedEventModule,
   ],
   exports: [AppRoutingModule],
   providers: [],

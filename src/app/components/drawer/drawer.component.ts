@@ -1,6 +1,5 @@
 import { Subscription } from "rxjs";
 import { LoggerService } from "src/app/services/logger.service";
-import { NotificationsService } from "src/app/services/notifications.service";
 
 import {
   Component,
@@ -11,6 +10,7 @@ import {
   Output,
 } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
+import { NavBarService } from "src/app/services/navbar.service";
 
 @Component({
   selector: "app-drawer",
@@ -38,15 +38,24 @@ export class DrawerComponent implements OnInit, OnDestroy {
   public invitesUnreadMessages: number = 5;
 
   private selectedUserIdSub: any; // Subject<number>;
+  private selectedTabSub: any;
   public settingsPanel = false;
 
   constructor(
     private logger: LoggerService,
-    private notificationsService: NotificationsService,
+    private navbar: NavBarService,
     private userService: UserService
   ) {
-    this.mute = this.notificationsService.muteAudio;
-    this.muteAudioSub = this.notificationsService.muteAudioSub
+    this.mute = this.navbar.muteAudio;
+
+    this.selectedTabSub = this.navbar.changeTabSub
+      .asObservable()
+      .subscribe((changeTab) => {
+        this.handleOpening(changeTab);
+      });
+    this.selectedTabSub.subscriberName = "DrawerComponent";
+
+    this.muteAudioSub = this.navbar.muteAudioSub
       .asObservable()
       .subscribe((muteAudio) => {
         this.mute = muteAudio;
@@ -91,7 +100,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
 
   toggleMute() {
     this.mute = !this.mute;
-    this.notificationsService.emitAudioMuted(this.mute);
+    this.navbar.emitAudioMuted(this.mute);
   }
 
   ngOnDestroy(): void {
