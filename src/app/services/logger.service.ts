@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 declare global {
   interface Window {
@@ -49,7 +49,7 @@ export class LoggerService {
 
   setVerbosity(verbosity: number): string {
     window.verbosity = verbosity;
-    return `Verbosity set to -> ${window.verbosity}`;
+    return `Verbosity set to -> ${window.logLevel[window.verbosity]}`;
   }
 
   infoLog({
