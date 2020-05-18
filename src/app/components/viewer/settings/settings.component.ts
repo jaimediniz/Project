@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LoggerService } from "src/app/services/logger.service";
-import { rootVariables } from "../../home.component";
+import { rootVariables } from "../../main.component";
 import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
@@ -9,8 +9,7 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
-  webPackage =
-    "./src/app/components/home/viewer/settings/settings.component.ts";
+  webPackage = "./src/app/components/viewer/settings/settings.component.ts";
 
   public rootVariables = rootVariables;
 

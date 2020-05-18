@@ -2,8 +2,8 @@ import { Subscription } from "rxjs";
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
 
-import { LoggerService } from "../../services/logger.service";
-import { UserService } from "../../services/user.service";
+import { LoggerService } from "../services/logger.service";
+import { UserService } from "../services/user.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
@@ -29,12 +29,12 @@ export const rootVariables: Array<{ key: string; value: string }> = [
   },
 ];
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  webPackage = "./src/app/components/home/home.component.ts";
+export class MainComponent implements OnInit, OnDestroy {
+  webPackage = "./src/app/components/main.component.ts";
 
   usersSubscription: any; // Subscription
   users: Array<{ id: number; name: string }>;
@@ -61,11 +61,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((users) => {
         this.users = users;
       });
-    this.usersSubscription.subscriberName = "HomeComponent";
+    this.usersSubscription.subscriberName = "MainComponent";
 
     this.logger.functionLog({
       webPackage: this.webPackage,
-      className: "HomeComponent",
+      className: "MainComponent",
       functionName: "constructor",
       values: ["Subscribed to users list"],
     });
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   handleOpening(panel, selectTab) {
     this.logger.infoLog({
-      className: "HomeComponent",
+      className: "MainComponent",
       functionName: "handleOpening",
       description: `Open drawer ${panel} in selectTab`,
       variable: "selectTab",
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.logger.functionLog({
       webPackage: this.webPackage,
-      className: "HomeComponent",
+      className: "MainComponent",
       functionName: "ngOnDestroy",
       values: ["Unsubscribed to users list"],
     });

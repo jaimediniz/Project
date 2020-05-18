@@ -10,8 +10,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
   styleUrls: ["./user-info.component.scss"],
 })
 export class UserInfoComponent implements OnInit, OnDestroy {
-  webPackage =
-    "./src/app/components/home/viewer/user-info/user-info.component.ts";
+  webPackage = "./src/app/components/viewer/user-info/user-info.component.ts";
 
   user: { id: number; name: string };
   userSub: any; // Subscription

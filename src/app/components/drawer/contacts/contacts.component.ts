@@ -9,8 +9,7 @@ import { RouteExtensionService } from "src/app/services/route-extension.service"
   styleUrls: ["./contacts.component.scss"],
 })
 export class ContactsComponent implements OnInit {
-  webPackage =
-    "./src/app/components/home/drawer/contacts/contacts.component.ts";
+  webPackage = "./src/app/components/drawer/contacts/contacts.component.ts";
 
   @Input() selectedUserId: number;
   @Output() selectedUserIdChange: EventEmitter<number> = new EventEmitter<

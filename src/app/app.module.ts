@@ -9,19 +9,19 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app.routes";
 import { AppComponent } from "./app.component";
-import { ContactsComponent } from "./components/home/drawer/contacts/contacts.component";
-import { DrawerComponent } from "./components/home/drawer/drawer.component";
-import { InvitesComponent } from "./components/home/drawer/invites/invites.component";
-import { HomeComponent } from "./components/home/home.component";
-import { CalendarComponent } from "./components/home/viewer/calendar/calendar.component";
-import { CreateInviteComponent } from "./components/home/viewer/create-invite/create-invite.component";
-import { UserInfoComponent } from "./components/home/viewer/user-info/user-info.component";
-import { ViewerComponent } from "./components/home/viewer/viewer.component";
+import { ContactsComponent } from "./components/drawer/contacts/contacts.component";
+import { DrawerComponent } from "./components/drawer/drawer.component";
+import { InvitesComponent } from "./components/drawer/invites/invites.component";
+import { MainComponent } from "./components/main.component";
+import { CalendarComponent } from "./components/viewer/calendar/calendar.component";
+import { CreateInviteComponent } from "./components/viewer/create-invite/create-invite.component";
+import { UserInfoComponent } from "./components/viewer/user-info/user-info.component";
+import { ViewerComponent } from "./components/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
-import { SettingsComponent } from "./components/home/viewer/settings/settings.component";
-import { Viewer2Component } from "./components/home/viewer2/viewer2.component";
-import { LoginComponent } from "./components/home/viewer/auth/login/login.component";
-import { RegisterComponent } from "./components/home/viewer/auth/register/register.component";
+import { SettingsComponent } from "./components/viewer/settings/settings.component";
+import { Viewer2Component } from "./components/viewer2/viewer2.component";
+import { LoginComponent } from "./components/viewer/auth/login/login.component";
+import { RegisterComponent } from "./components/viewer/auth/register/register.component";
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -32,7 +32,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     InvitesComponent,
     DrawerComponent,
     ViewerComponent,
-    HomeComponent,
+    MainComponent,
     UserInfoComponent,
     CreateInviteComponent,
     CalendarComponent,
