@@ -21,6 +21,17 @@
       "problemMatcher": [],
       "label": "npm: b-end",
       "detail": "nodemon index.js"
+    },
+    {
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-p", "."],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$tsc",
+      "label": "Tsc: Errors",
+      "detail": "Search for errors"
     }
   ]
 }

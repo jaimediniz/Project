@@ -15,5 +15,16 @@
       "token": "{{$shared prodToken}}",
       "secretKey": "prodSecret"
     }
-  }
+  },
+  "cSpell.words": [
+    "Datepicker",
+    "Paginator",
+    "Sidenav",
+    "codelyzer",
+    "devkit",
+    "downlevel",
+    "esnext",
+    "jasminewd",
+    "tslib"
+  ]
 }
