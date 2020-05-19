@@ -37,7 +37,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   public groupsUnreadMessages: number = 100;
   public invitesUnreadMessages: number = 5;
 
-  private selectedUserIdSub: any; // Subject<number>;
+  private selectedUserSub: any; // Subject<number>;
   private selectedTabSub: any;
   public settingsPanel = false;
 
@@ -62,13 +62,13 @@ export class DrawerComponent implements OnInit, OnDestroy {
       });
     this.muteAudioSub.subscriberName = "DrawerComponent";
 
-    this.selectedUserId = this.userService.selectedUserId;
-    this.selectedUserIdSub = this.userService.selectedUserIdSub
+    this.selectedUserId = this.userService.selectedUser.id;
+    this.selectedUserSub = this.userService.selectedUserSub
       .asObservable()
-      .subscribe((selectedUserId) => {
-        this.selectedUserId = selectedUserId;
+      .subscribe((selectedUser) => {
+        this.selectedUserId = selectedUser.id;
       });
-    this.selectedUserIdSub.subscriberName = "DrawerComponent";
+    this.selectedUserSub.subscriberName = "DrawerComponent";
 
     this.logger.functionLog({
       webPackage: this.webPackage,

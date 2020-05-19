@@ -71,15 +71,7 @@ export class RouteExtensionService {
     const params = event.urlAfterRedirects.split("/");
     const finalRoute = params[1];
     const valueToEmit = parseInt(params[2]);
-    if (finalRoute === "contacts") {
-      this.userService.emitSelectedContact(valueToEmit);
-    } else if (finalRoute === "groups") {
-      this.userService.emitSelectedGroup(valueToEmit);
-    } else if (finalRoute === "invites") {
-      this.userService.emitSelectedInvite(valueToEmit);
-    } else {
-      this.userService.emitSelectedUserId(undefined);
-    }
+    this.userService.emitSelectedUserId(valueToEmit);
     // Emit selectedUser
   }
 

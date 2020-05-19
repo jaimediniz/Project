@@ -15,26 +15,18 @@ export interface User {
 export class UserService {
   activatedRoute: any;
 
-  selectedUserId: number;
-  selectedUserIdSub = new Subject<number>();
+  selectedUserId: number = 0;
+  selectedUser: User = { id: 0, name: "" };
+  selectedUserSub = new Subject<User>();
 
   contacts: Array<User>;
   contactsSub = new Subject<Array<User>>();
 
-  selectedContact: User;
-  selectedContactSub = new Subject<User>();
-
   groups: Array<User>;
   groupsSub = new Subject<Array<User>>();
 
-  selectedGroup: User;
-  selectedGroupSub = new Subject<User>();
-
   invites: Array<User>;
   invitesSub = new Subject<Array<User>>();
-
-  selectedInvite: User;
-  selectedInviteSub = new Subject<User>();
 
   emitLog(functionName, variableName, variable, subscribers) {
     this.logger.emitLog({
@@ -48,76 +40,64 @@ export class UserService {
   }
 
   emitSelectedUserId(selectedUserId: number): void {
+    if (!selectedUserId)
+      return this.emitSelectedUser({ id: undefined, name: "" });
+
+    if (this.selectedUserId !== selectedUserId) {
+      for (const list of [this.contacts, this.groups, this.invites]) {
+        for (const user of Object.values(list)) {
+          if (user.id === selectedUserId) {
+            return this.emitSelectedUser(user);
+          }
+        }
+      }
+    }
+  }
+
+  emitSelectedUser(user: User) {
     this.emitLog(
-      "emitSelectedUserId",
-      "selectedUserId",
-      selectedUserId,
-      this.selectedUserIdSub.observers
+      "emitSelectedUser",
+      "user",
+      user,
+      this.selectedUserSub.observers
     );
-    this.selectedUserId = selectedUserId;
-    this.selectedUserIdSub.next(this.selectedUserId);
+    this.selectedUser = user;
+    this.selectedUserId = user.id;
+    this.selectedUserSub.next(this.selectedUser);
   }
 
   emitContacts(contacts: Array<User>): void {
-    this.emitLog(
-      "emitContacts",
-      "contacts",
-      contacts,
-      this.contactsSub.observers
-    );
-    this.contacts = contacts;
-    this.contactsSub.next(contacts);
-  }
-
-  emitSelectedContact(selectedContact: number): void {
-    this.emitLog(
-      "emitSelectedContact",
-      "selectedContact",
-      selectedContact,
-      this.selectedContactSub.observers
-    );
-    this.selectedContact = this.contacts.filter(
-      (contact) => contact.id === selectedContact
-    )[0];
-    this.selectedContactSub.next(this.selectedContact);
+    if (this.contacts !== contacts) {
+      this.emitLog(
+        "emitContacts",
+        "contacts",
+        contacts,
+        this.contactsSub.observers
+      );
+      this.contacts = contacts;
+      this.contactsSub.next(contacts);
+    }
   }
 
   emitGroups(groups: Array<User>): void {
-    this.emitLog("emitGroups", "groups", groups, this.groupsSub.observers);
-    this.groups = groups;
-    this.groupsSub.next(groups);
-  }
-
-  emitSelectedGroup(selectedGroup: number): void {
-    this.emitLog(
-      "emitSelectedGroup",
-      "selectedGroup",
-      selectedGroup,
-      this.selectedGroupSub.observers
-    );
-    this.selectedGroup = this.groups.filter(
-      (group) => group.id === selectedGroup
-    )[0];
-    this.selectedGroupSub.next(this.selectedGroup);
+    if (this.groups !== groups) {
+      this.emitLog("emitGroups", "groups", groups, this.groupsSub.observers);
+      this.groups = groups;
+      this.groupsSub.next(groups);
+    }
   }
 
   emitInvites(invites: Array<User>): void {
-    this.emitLog("emitInvites", "invites", invites, this.invitesSub.observers);
-    this.invites = invites;
-    this.invitesSub.next(invites);
-  }
-
-  emitSelectedInvite(selectedInvite: number): void {
-    this.emitLog(
-      "emitSelectedInvite",
-      "selectedInvite",
-      selectedInvite,
-      this.selectedInviteSub.observers
-    );
-    this.selectedInvite = this.invites.filter(
-      (invite) => invite.id === selectedInvite
-    )[0];
-    this.selectedInviteSub.next(this.selectedInvite);
+    if (this.invites !== invites) {
+      this.emitLog(
+        "emitInvites",
+        "invites",
+        invites,
+        this.invitesSub.observers
+      );
+      this.invites = invites;
+      this.invitesSub.next(invites);
+    }
   }
 
   constructor(private logger: LoggerService) {}

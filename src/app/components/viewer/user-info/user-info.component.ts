@@ -16,8 +16,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   userSub: any; // Subscription
 
   constructor(private userService: UserService, private logger: LoggerService) {
-    this.user = this.userService.selectedContact;
-    this.userSub = this.userService.selectedContactSub
+    this.user = this.userService.selectedUser;
+    this.userSub = this.userService.selectedUserSub
       .asObservable()
       .subscribe((selectedUser) => {
         this.user = selectedUser;
