@@ -9,6 +9,9 @@ import { ViewerService } from "src/app/services/viewer-service.service";
   selector: "app-viewer",
   templateUrl: "./viewer.component.html",
   styleUrls: ["./viewer.component.scss"],
+  host: {
+    "(window:resize)": "onWindowResize($event)",
+  },
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/components/viewer/viewer.component.ts";
@@ -19,7 +22,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   width: number = window.innerWidth;
   height: number = window.innerHeight;
-  mobileWidth: number = 768;
+  mobileWidth: number = 769;
   isMobile: boolean = false;
 
   constructor(
@@ -49,6 +52,17 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (this.isMobile !== this.width < this.mobileWidth) {
       this.isMobile = this.width < this.mobileWidth;
       this.viewerService.emitIsMobile(this.isMobile);
+    }
+  }
+
+  onWindowResize(event) {
+    if (
+      event.target.innerWidth > this.mobileWidth &&
+      (this.route.paramsSubject.value === "/contacts" ||
+        this.route.paramsSubject.value === "/groups" ||
+        this.route.paramsSubject.value === "/invites")
+    ) {
+      this.route.navigate(["home"]);
     }
   }
 

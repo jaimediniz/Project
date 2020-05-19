@@ -37,6 +37,10 @@ export class RouteExtensionService {
     });
   }
 
+  navigate(route: Array<string>) {
+    this.route.navigate(route);
+  }
+
   navigationStart(event) {
     // Show loading indicator
 
