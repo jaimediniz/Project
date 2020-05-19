@@ -4,9 +4,10 @@ import { Injectable } from "@angular/core";
 
 import { LoggerService } from "./logger.service";
 
-export interface User {
+export interface UserInterface {
   id: number;
   name: string;
+  active: boolean;
 }
 
 @Injectable({
@@ -16,17 +17,17 @@ export class UserService {
   activatedRoute: any;
 
   selectedUserId: number = 0;
-  selectedUser: User = { id: 0, name: "" };
-  selectedUserSub = new Subject<User>();
+  selectedUser: UserInterface = { id: 0, name: "", active: false };
+  selectedUserSub = new Subject<UserInterface>();
 
-  contacts: Array<User>;
-  contactsSub = new Subject<Array<User>>();
+  contacts: Array<UserInterface>;
+  contactsSub = new Subject<Array<UserInterface>>();
 
-  groups: Array<User>;
-  groupsSub = new Subject<Array<User>>();
+  groups: Array<UserInterface>;
+  groupsSub = new Subject<Array<UserInterface>>();
 
-  invites: Array<User>;
-  invitesSub = new Subject<Array<User>>();
+  invites: Array<UserInterface>;
+  invitesSub = new Subject<Array<UserInterface>>();
 
   emitLog(functionName, variableName, variable, subscribers) {
     this.logger.emitLog({
@@ -41,7 +42,7 @@ export class UserService {
 
   emitSelectedUserId(selectedUserId: number): void {
     if (!selectedUserId)
-      return this.emitSelectedUser({ id: undefined, name: "" });
+      return this.emitSelectedUser({ id: undefined, name: "", active: false });
 
     if (this.selectedUserId !== selectedUserId) {
       for (const list of [this.contacts, this.groups, this.invites]) {
@@ -54,7 +55,7 @@ export class UserService {
     }
   }
 
-  emitSelectedUser(user: User) {
+  emitSelectedUser(user: UserInterface) {
     this.emitLog(
       "emitSelectedUser",
       "user",
@@ -66,7 +67,7 @@ export class UserService {
     this.selectedUserSub.next(this.selectedUser);
   }
 
-  emitContacts(contacts: Array<User>): void {
+  emitContacts(contacts: Array<UserInterface>): void {
     if (this.contacts !== contacts) {
       this.emitLog(
         "emitContacts",
@@ -79,7 +80,7 @@ export class UserService {
     }
   }
 
-  emitGroups(groups: Array<User>): void {
+  emitGroups(groups: Array<UserInterface>): void {
     if (this.groups !== groups) {
       this.emitLog("emitGroups", "groups", groups, this.groupsSub.observers);
       this.groups = groups;
@@ -87,7 +88,7 @@ export class UserService {
     }
   }
 
-  emitInvites(invites: Array<User>): void {
+  emitInvites(invites: Array<UserInterface>): void {
     if (this.invites !== invites) {
       this.emitLog(
         "emitInvites",

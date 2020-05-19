@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { UserService } from "src/app/services/user.service";
+import { UserInterface, UserService } from "src/app/services/user.service";
 import { LoggerService } from "src/app/services/logger.service";
 
 @Component({
@@ -16,28 +16,28 @@ export class GroupsComponent implements OnInit {
   >();
 
   groupsSubscription: any; // Subscription
-  groups: Array<{ id: number; name: string }> = [
-    { id: 200, name: "Group 0" },
-    { id: 201, name: "Group 1" },
-    { id: 202, name: "Group 2" },
-    { id: 203, name: "Group 3" },
-    { id: 204, name: "Group 4" },
-    { id: 205, name: "Group 5" },
-    { id: 206, name: "Group 6" },
-    { id: 207, name: "Group 7" },
-    { id: 208, name: "Group 8" },
-    { id: 209, name: "Group 9" },
-    { id: 210, name: "Group 10" },
-    { id: 211, name: "Group 11" },
-    { id: 212, name: "Group 12" },
-    { id: 213, name: "Group 13" },
-    { id: 214, name: "Group 14" },
-    { id: 215, name: "Group 15" },
-    { id: 216, name: "Group 16" },
-    { id: 217, name: "Group 17" },
-    { id: 218, name: "Group 18" },
-    { id: 219, name: "Group 19" },
-    { id: 220, name: "Group 20" },
+  groups: Array<UserInterface> = [
+    { id: 300, name: "Group 0", active: false },
+    { id: 301, name: "Group 1", active: true },
+    { id: 302, name: "Group 2", active: false },
+    { id: 303, name: "Group 3", active: true },
+    { id: 304, name: "Group 4", active: false },
+    { id: 305, name: "Group 5", active: true },
+    { id: 306, name: "Group 6", active: false },
+    { id: 307, name: "Group 7", active: true },
+    { id: 308, name: "Group 8", active: false },
+    { id: 309, name: "Group 9", active: true },
+    { id: 310, name: "Group 10", active: false },
+    { id: 311, name: "Group 11", active: true },
+    { id: 312, name: "Group 12", active: false },
+    { id: 313, name: "Group 13", active: true },
+    { id: 314, name: "Group 14", active: false },
+    { id: 315, name: "Group 15", active: true },
+    { id: 316, name: "Group 16", active: false },
+    { id: 317, name: "Group 17", active: true },
+    { id: 318, name: "Group 18", active: false },
+    { id: 319, name: "Group 19", active: true },
+    { id: 320, name: "Group 20", active: false },
   ];
 
   selectUserSubscription: any; // Subscription

@@ -14,7 +14,13 @@
     "
   >
     <mat-card-content>
-      <mat-card-title> {{ invite.name }}</mat-card-title>
+      <mat-card-title
+        matBadge="."
+        matBadgeColor="warn"
+        [matBadgeHidden]="invite.active"
+      >
+        {{ invite.name }}
+      </mat-card-title>
     </mat-card-content>
   </mat-card>
 </div>
