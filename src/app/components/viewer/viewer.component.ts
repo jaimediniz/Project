@@ -3,7 +3,7 @@ import { LoggerService } from "src/app/services/logger.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 import { Component, OnDestroy, OnInit, Output } from "@angular/core";
-import { ViewerService } from "src/app/services/viewer-service.service";
+import { MobileService } from "src/app/services/mobile.service";
 
 @Component({
   selector: "app-viewer",
@@ -21,14 +21,16 @@ export class ViewerComponent implements OnInit, OnDestroy {
   activatedRoute: any; // Subscription
 
   width: number = window.innerWidth;
-  height: number = window.innerHeight;
+  windowWidth: number = window.innerWidth;
+
   mobileWidth: number = 769;
   isMobile: boolean = false;
+  windowIsMobile: boolean = false;
 
   constructor(
     private logger: LoggerService,
     private route: RouteExtensionService,
-    private viewerService: ViewerService
+    private viewerService: MobileService
   ) {}
 
   ngOnInit(): void {
@@ -51,18 +53,15 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.width = event.newWidth;
     if (this.isMobile !== this.width < this.mobileWidth) {
       this.isMobile = this.width < this.mobileWidth;
-      this.viewerService.emitIsMobile(this.isMobile);
+      this.viewerService.emitViewerMobile(this.isMobile);
     }
   }
 
   onWindowResize(event) {
-    if (
-      event.target.innerWidth > this.mobileWidth &&
-      (this.route.paramsSubject.value === "/contacts" ||
-        this.route.paramsSubject.value === "/groups" ||
-        this.route.paramsSubject.value === "/invites")
-    ) {
-      this.route.navigate(["home"]);
+    this.windowWidth = event.target.innerWidth;
+    if (this.windowIsMobile !== this.windowWidth < this.mobileWidth) {
+      this.windowIsMobile = this.windowWidth < this.mobileWidth;
+      this.viewerService.emitIsMobile(this.windowIsMobile);
     }
   }
 
