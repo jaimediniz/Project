@@ -20,27 +20,60 @@ const routes: Routes = [
   // Navbar
   {
     path: "contacts",
-    component: ContactsComponent,
-    canActivate: [NavbarGuardService],
-    data: {
-      tab: 0,
-    },
+    children: [
+      {
+        path: "",
+        component: ContactsComponent,
+        canActivate: [NavbarGuardService],
+        data: {
+          tab: 0,
+        },
+      },
+      {
+        path: ":id",
+        component: UserInfoComponent,
+        canActivate: [RoleGuard],
+      },
+      { path: "**", redirectTo: "/contacts" },
+    ],
   },
   {
     path: "groups",
-    component: GroupsComponent,
-    canActivate: [NavbarGuardService],
-    data: {
-      tab: 1,
-    },
+    children: [
+      {
+        path: "",
+        component: GroupsComponent,
+        canActivate: [NavbarGuardService],
+        data: {
+          tab: 1,
+        },
+      },
+      {
+        path: ":id",
+        component: UserInfoComponent,
+        canActivate: [RoleGuard],
+      },
+      { path: "**", redirectTo: "/groups" },
+    ],
   },
   {
     path: "invites",
-    component: InvitesComponent,
-    canActivate: [NavbarGuardService],
-    data: {
-      tab: 2,
-    },
+    children: [
+      {
+        path: "",
+        component: InvitesComponent,
+        canActivate: [NavbarGuardService],
+        data: {
+          tab: 2,
+        },
+      },
+      {
+        path: ":id",
+        component: UserInfoComponent,
+        canActivate: [RoleGuard],
+      },
+      { path: "**", redirectTo: "/invites" },
+    ],
   },
   // Content
   {
@@ -50,11 +83,6 @@ const routes: Routes = [
     data: {
       expectedRole: "none",
     },
-  },
-  {
-    path: "contacts/:id",
-    component: UserInfoComponent,
-    canActivate: [RoleGuard],
   },
   { path: "calendar", component: CalendarComponent, canActivate: [RoleGuard] },
   { path: "settings", component: SettingsComponent, canActivate: [RoleGuard] },
