@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { LoggerService } from "src/app/services/logger.service";
-import { RouteExtensionService } from "src/app/services/route-extension.service";
 
 @Component({
   selector: "app-contacts",

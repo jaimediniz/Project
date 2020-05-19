@@ -11,6 +11,7 @@ import { RoleGuardService as RoleGuard } from "./guards/role-guard.service";
 import { ContactsComponent } from "./components/drawer/contacts/contacts.component";
 import { InvitesComponent } from "./components/drawer/invites/invites.component";
 import { NavbarGuardService } from "./guards/navbar-guard.service";
+import { GroupsComponent } from "./components/drawer/groups/groups.component";
 
 const routes: Routes = [
   // Auth
@@ -25,14 +26,14 @@ const routes: Routes = [
       tab: 0,
     },
   },
-  // {
-  //   path: "groups",
-  //   component: GroupsComponent,
-  //   canActivate: [RoleGuard],
-  //   data: {
-  //     tab: 1,
-  //   },
-  // },
+  {
+    path: "groups",
+    component: GroupsComponent,
+    canActivate: [NavbarGuardService],
+    data: {
+      tab: 1,
+    },
+  },
   {
     path: "invites",
     component: InvitesComponent,
