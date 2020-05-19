@@ -24,6 +24,7 @@ import { LoginComponent } from "./components/viewer/auth/login/login.component";
 import { RegisterComponent } from "./components/viewer/auth/register/register.component";
 
 import { AngularResizedEventModule } from "angular-resize-event";
+import { GroupsComponent } from "./components/drawer/groups/groups.component";
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
@@ -31,6 +32,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     AppComponent,
     ContactsComponent,
     InvitesComponent,
+    GroupsComponent,
     DrawerComponent,
     ViewerComponent,
     MainComponent,
