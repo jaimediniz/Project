@@ -83,6 +83,9 @@ mat-card {
   .mat-tab-labels {
     flex-direction: column;
     transition: all ease var(--transition-duration);
+    .mat-tab-label {
+      cursor: default;
+    }
   }
   .mat-tab-body-content {
     -ms-overflow-style: none;
