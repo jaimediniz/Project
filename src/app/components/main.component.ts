@@ -6,6 +6,7 @@ import { LoggerService } from "../services/logger.service";
 import { UserService } from "../services/user.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
 import { NavBarService } from "../services/navbar.service";
+import { MobileService } from "../services/mobile.service";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-bg-color", value: "white" },
@@ -33,6 +34,9 @@ export const rootVariables: Array<{ key: string; value: string }> = [
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
+  host: {
+    "(window:resize)": "onWindowResize($event)",
+  },
 })
 export class MainComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/components/main.component.ts";
@@ -44,11 +48,15 @@ export class MainComponent implements OnInit, OnDestroy {
   sidePanel2 = false;
   appRoute: string;
 
+  windowWidth: number = window.innerWidth;
+  windowIsMobile: boolean = false;
+
   constructor(
     private userService: UserService,
     private logger: LoggerService,
     private route: RouteExtensionService,
-    private navbar: NavBarService
+    private navbar: NavBarService,
+    private mobileService: MobileService
   ) {
     for (const property of rootVariables) {
       document.documentElement.style.setProperty(property.key, property.value);
@@ -82,6 +90,15 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
+
+  onWindowResize(event) {
+    this.windowWidth = event.target.innerWidth;
+    const newValue: boolean = this.windowWidth < this.mobileService.mobileWidth;
+    if (this.windowIsMobile !== newValue) {
+      this.windowIsMobile = newValue;
+      this.mobileService.emitIsMobile(this.windowIsMobile);
+    }
+  }
 
   handleOpening(panel, selectTab) {
     this.logger.infoLog({

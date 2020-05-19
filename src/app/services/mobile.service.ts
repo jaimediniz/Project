@@ -7,6 +7,8 @@ import { RouteExtensionService } from "./route-extension.service";
   providedIn: "root",
 })
 export class MobileService {
+  mobileWidth: number = 769;
+
   emitLog(functionName, variableName, variable, subscribers) {
     this.logger.emitLog({
       className: "MobileService",

@@ -9,9 +9,6 @@ import { MobileService } from "src/app/services/mobile.service";
   selector: "app-viewer",
   templateUrl: "./viewer.component.html",
   styleUrls: ["./viewer.component.scss"],
-  host: {
-    "(window:resize)": "onWindowResize($event)",
-  },
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/components/viewer/viewer.component.ts";
@@ -21,16 +18,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
   activatedRoute: any; // Subscription
 
   width: number = window.innerWidth;
-  windowWidth: number = window.innerWidth;
-
-  mobileWidth: number = 769;
   isMobile: boolean = false;
-  windowIsMobile: boolean = false;
 
   constructor(
     private logger: LoggerService,
     private route: RouteExtensionService,
-    private viewerService: MobileService
+    private mobileService: MobileService
   ) {}
 
   ngOnInit(): void {
@@ -51,17 +44,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   onResized(event) {
     this.width = event.newWidth;
-    if (this.isMobile !== this.width < this.mobileWidth) {
-      this.isMobile = this.width < this.mobileWidth;
-      this.viewerService.emitViewerMobile(this.isMobile);
-    }
-  }
-
-  onWindowResize(event) {
-    this.windowWidth = event.target.innerWidth;
-    if (this.windowIsMobile !== this.windowWidth < this.mobileWidth) {
-      this.windowIsMobile = this.windowWidth < this.mobileWidth;
-      this.viewerService.emitIsMobile(this.windowIsMobile);
+    const newValue: boolean = this.width < this.mobileService.mobileWidth;
+    if (this.isMobile !== newValue) {
+      this.isMobile = newValue;
+      this.mobileService.emitViewerMobile(this.isMobile);
     }
   }
 
