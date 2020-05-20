@@ -7,7 +7,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 export class AuthService {
   webPackage = "./src/app/guards/auth.service.ts";
 
-  public jwtHelper: JwtHelperService = new JwtHelperService();
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() {}
 
