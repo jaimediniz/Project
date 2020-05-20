@@ -21,7 +21,7 @@ export class NavbarGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     // check if is log in, with any role
-    //if (!this.roleGuard.checkRole("any")) return false;
+    //if (!this.auth.isAuthenticated()) return false;
 
     // check if not mobile, change tab to select one and return false
     if (window.innerWidth > this.mobile.mobileWidth) {

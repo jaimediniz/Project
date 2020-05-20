@@ -24,32 +24,37 @@ export class RoleGuardService implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const expectedRole: string = route.data.expectedRole || "any";
-    return this.checkRole(this.roles[expectedRole]);
+    const expectedRole: number = this.roles[route.data.expectedRole] || 1;
+    const { canActivate, newRoute } = this.checkRole(expectedRole);
+    this.router.navigate([newRoute]);
+    return canActivate;
   }
 
-  checkRole(expectedRole: number) {
-    if (expectedRole === 0) return true;
+  checkRole(expectedRole: number): { canActivate: boolean; newRoute: string } {
+    if (expectedRole === 0) return { canActivate: true, newRoute: "" };
+
+    const isAuthenticated = this.auth.isAuthenticated();
 
     this.logger.functionLog({
       webPackage: this.webPackage,
       className: "RoleGuardService",
       functionName: "canActivate",
-      values: [`user is authenticated: ${expectedRole}`],
+      values: [
+        `user is authenticated: ${isAuthenticated}`,
+        `user has to be at least level: ${expectedRole}`,
+      ],
     });
 
-    if (!this.auth.isAuthenticated()) {
-      this.router.navigate(["login"]);
-      return false;
+    if (!isAuthenticated) {
+      return { canActivate: false, newRoute: "login" };
     }
 
     const token = localStorage.getItem("token");
     const tokenPayload = decode(token);
     if (tokenPayload.role < expectedRole) {
-      this.router.navigate(["home"]);
-      return false;
+      return { canActivate: false, newRoute: "home" };
     }
 
-    return true;
+    return { canActivate: true, newRoute: "" };
   }
 }
