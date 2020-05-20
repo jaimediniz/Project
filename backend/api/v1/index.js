@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { loginFunction } = require("../functions/functions");
+const { loginFunction } = require("./functions/functions");
 
 router.use("/login", loginFunction);
 
-module.exports = app;
+module.exports = router;

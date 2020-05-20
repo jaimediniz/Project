@@ -1,38 +1,52 @@
 const { dataBase } = require("../data");
-import * as jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
-function validateEmailAndPassword() {
+function validEmailAndPassword() {
   return true;
 }
 
-function findUserIdForEmail(email) {}
+function findUserIdForEmail(email) {
+  return { userId: 0, userRole: "basic" };
+}
 
-module.exports = (req, res) => {
-  // return res.status(200).json({
-  //   error: false,
-  //   msg: "Home Page",
-  //   data: {},
-  // });
+const RSA_PRIVATE_KEY = fs.readFileSync(
+  "backend/api/v1/functions/demo/private.key"
+);
 
-  const email = req.body.email;
-  const password = req.body.password;
+const generateToken = (req, res) => {
+  const { email, password } = req.body;
 
-  // if (validateEmailAndPassword()) {
-  if (true()) {
-    // const { userId, userRole } = findUserUserByEmail(email);
-    const { userId, userRole } = { userId: 0, userRole: "basic" };
-
-    const jwtBearerToken = jwt.sign(
-      {
-        subject: userId,
-        role: userRole,
-      },
-      "shhhhh",
-      {
-        algorithm: "RS256",
-        expiresIn: "1h",
-        typ: "JWT",
-      }
-    );
+  if (!validEmailAndPassword()) {
+    // send status 400 Bad Request
+    res.sendStatus(400).json({ error: true, msg: "Email or password invalid" });
   }
+
+  const userInfo = findUserIdForEmail(email);
+  if (!userInfo) {
+    // send status 404 Not Found
+    res.sendStatus(404).json({ error: true, msg: "User not founded" });
+  }
+
+  const jwtBearerToken = jwt.sign(
+    {
+      subject: userInfo.userId,
+      role: userInfo.userRole,
+    },
+    RSA_PRIVATE_KEY, // process.env.JWT_SECRET
+    {
+      algorithm: "RS256",
+      expiresIn: "1h",
+    }
+  );
+
+  return res
+    .cookie("clientToken", jwtBearerToken, {
+      expires: new Date(Date.now() + 3600000),
+      secure: false, // set to true if your using https
+      httpOnly: true,
+    })
+    .json({ error: false, msg: "Success" });
 };
+
+module.exports = generateToken;
