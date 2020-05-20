@@ -10,6 +10,13 @@ import { LoggerService } from "../services/logger.service";
 export class RoleGuardService implements CanActivate {
   webPackage = "./src/app/guards/role-guard.service.ts";
 
+  roles = {
+    none: 0,
+    basic: 1,
+    admin: 2,
+    superAdmin: 3,
+  };
+
   constructor(
     public auth: AuthService,
     public router: Router,
@@ -18,12 +25,11 @@ export class RoleGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole: string = route.data.expectedRole || "any";
-    return true; // To-Do
-    return this.checkRole(expectedRole);
+    return this.checkRole(this.roles[expectedRole]);
   }
 
-  checkRole(expectedRole: string) {
-    if (expectedRole === "none") return true;
+  checkRole(expectedRole: number) {
+    if (expectedRole === 0) return true;
 
     this.logger.functionLog({
       webPackage: this.webPackage,
@@ -39,7 +45,7 @@ export class RoleGuardService implements CanActivate {
 
     const token = localStorage.getItem("token");
     const tokenPayload = decode(token);
-    if (tokenPayload.role !== expectedRole) {
+    if (tokenPayload.role < expectedRole) {
       this.router.navigate(["home"]);
       return false;
     }
