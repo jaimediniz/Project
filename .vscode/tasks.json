@@ -17,7 +17,7 @@
       "presentation": {
         "group": "test",
         "panel": "shared",
-        "reveal": "silent",
+        "reveal": "always",
         "focus": true
       },
       "options": {
@@ -35,7 +35,7 @@
       "presentation": {
         "group": "test",
         "panel": "shared",
-        "reveal": "silent",
+        "reveal": "always",
         "focus": true
       },
       "options": {
