@@ -14,23 +14,29 @@ const RSA_PRIVATE_KEY = fs.readFileSync(
   "backend/api/v1/functions/demo/private.key"
 );
 
-const generateToken = (req, res) => {
+const generateToken = async (req, res) => {
   const { email, password } = req.body;
 
   if (!validEmailAndPassword()) {
     // send status 400 Bad Request
-    res.sendStatus(400).json({ error: true, msg: "Email or password invalid" });
+    res.statusCode = 400;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Invalid email and/or password ");
+    return;
   }
 
   const userInfo = findUserIdForEmail(email);
   if (!userInfo) {
     // send status 404 Not Found
-    res.sendStatus(404).json({ error: true, msg: "User not founded" });
+    res.statusCode = 404;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("User not founded");
+    return;
   }
 
   const jwtBearerToken = jwt.sign(
     {
-      subject: userInfo.userId,
+      userId: userInfo.userId,
       role: userInfo.userRole,
     },
     RSA_PRIVATE_KEY, // process.env.JWT_SECRET
@@ -40,13 +46,22 @@ const generateToken = (req, res) => {
     }
   );
 
-  return res
-    .cookie("clientToken", jwtBearerToken, {
-      expires: new Date(Date.now() + 3600000),
-      secure: false, // set to true if your using https
-      httpOnly: true,
-    })
-    .json({ error: false, msg: "Success" });
+  const data = {
+    userId: userInfo.userId,
+    role: userInfo.userRole,
+    clientToken: jwtBearerToken,
+  };
+
+  console.log("Set");
+  res.cookie("clientToken", jwtBearerToken, {
+    maxAge: 3600000,
+    secure: false, // set to true if your using https
+    httpOnly: false,
+  });
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json");
+  res.json(data);
+  res.end();
 };
 
 module.exports = generateToken;

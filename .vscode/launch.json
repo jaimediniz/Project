@@ -8,14 +8,17 @@
       "type": "chrome",
       "request": "launch",
       "name": "PORT:3000",
-      "url": "http://localhost:3000",
+      "url": "http://127.0.0.1:3000",
       "webRoot": "${workspaceFolder}"
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "PORT:4200",
-      "url": "http://localhost:4200",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "url": "http://127.0.0.1:4200",
       "webRoot": "${workspaceFolder}"
     }
   ]

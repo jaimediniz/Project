@@ -13,14 +13,43 @@
       "script": "f-end",
       "problemMatcher": [],
       "label": "npm: f-end",
-      "detail": "ng serve"
+      "detail": "ng serve",
+      "presentation": {
+        "group": "test",
+        "panel": "shared",
+        "reveal": "silent",
+        "focus": true
+      },
+      "options": {
+        "statusbar": {
+          "hide": true
+        }
+      }
     },
     {
       "type": "npm",
       "script": "b-end",
       "problemMatcher": [],
       "label": "npm: b-end",
-      "detail": "nodemon index.js"
+      "detail": "nodemon index.js",
+      "presentation": {
+        "group": "test",
+        "panel": "shared",
+        "reveal": "silent",
+        "focus": true
+      },
+      "options": {
+        "statusbar": {
+          "hide": true
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "problemMatcher": [],
+      "label": "Build App",
+      "detail": "nodemon index.js",
+      "dependsOn": ["npm: f-end", "npm: b-end"]
     },
     {
       "type": "shell",

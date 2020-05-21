@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
 import { AuthService } from "./auth.service";
-import { decode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { LoggerService } from "../services/logger.service";
 
 @Injectable({
@@ -25,13 +25,11 @@ export class RoleGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole: number = this.roles[route.data.expectedRole] || 1;
-    const { canActivate, newRoute } = this.checkRole(expectedRole);
-    this.router.navigate([newRoute]);
-    return canActivate;
+    return this.checkRole(expectedRole);
   }
 
-  checkRole(expectedRole: number): { canActivate: boolean; newRoute: string } {
-    if (expectedRole === 0) return { canActivate: true, newRoute: "" };
+  checkRole(expectedRole: number): boolean {
+    if (expectedRole === 0) return true;
 
     const isAuthenticated = this.auth.isAuthenticated();
 
@@ -46,15 +44,17 @@ export class RoleGuardService implements CanActivate {
     });
 
     if (!isAuthenticated) {
-      return { canActivate: false, newRoute: "login" };
+      this.router.navigate(["login"]);
+      return false;
     }
 
-    const token = localStorage.getItem("token");
-    const tokenPayload = decode(token);
-    if (tokenPayload.role < expectedRole) {
-      return { canActivate: false, newRoute: "home" };
+    const token = localStorage.getItem("clientToken");
+    const tokenPayload = jwtDecode(token);
+    if (this.roles[tokenPayload.role] < expectedRole) {
+      this.router.navigate(["home"]);
+      return false;
     }
 
-    return { canActivate: true, newRoute: "" };
+    return true;
   }
 }
