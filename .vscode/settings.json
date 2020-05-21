@@ -14,6 +14,12 @@
       "host": "127.0.0.1:3000",
       "token": "{{$shared prodToken}}",
       "secretKey": "prodSecret"
+    },
+    "test": {
+      "version": "vTest",
+      "host": "127.0.0.1:3000",
+      "token": "b775f131cd461195e82174a7ef236d50",
+      "secretKey": "9C?Dgg9CiQJPmPD4'MQgO7;iZUsQ+uIg|>}O-/8~Yo1JFfM*"
     }
   },
   "cSpell.words": [

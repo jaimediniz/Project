@@ -11,7 +11,7 @@ function findUserIdForEmail(email) {
 }
 
 const RSA_PRIVATE_KEY = fs.readFileSync(
-  "backend/api/v1/functions/demo/private.key"
+  "backend/api/v0/functions/demo/private.key"
 );
 
 const generateToken = async (req, res) => {

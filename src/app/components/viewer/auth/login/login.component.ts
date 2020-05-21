@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   handleLogin() {
     this.http
-      .get("http://127.0.0.1:3000/api/v1/login", {
+      .get("http://127.0.0.1:3000/api/v0/login", {
         withCredentials: true,
       })
       .subscribe(
