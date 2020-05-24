@@ -1,43 +1,104 @@
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs";
 
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { LoggerService } from './logger.service';
+import { LoggerService } from "./logger.service";
+
+export interface UserInterface {
+  id: number;
+  name: string;
+  active: boolean;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
-  users: Array<{ id: number; name: string }>;
-  usersSub = new Subject<Array<{ id: number; name: string }>>();
+  activatedRoute: any;
 
-  selectedUser: { id: number; name: string };
-  selectedUserSub = new Subject<{ id: number; name: string }>();
+  selectedUserId: number = 0;
+  selectedUser: UserInterface = { id: 0, name: "", active: false };
+  selectedUserSub = new Subject<UserInterface>();
 
-  emitUsers(users: Array<{ id: number; name: string }>): void {
+  contacts: Array<UserInterface>;
+  contactsSub = new Subject<Array<UserInterface>>();
+
+  groups: Array<UserInterface>;
+  groupsSub = new Subject<Array<UserInterface>>();
+
+  invites: Array<UserInterface>;
+  invitesSub = new Subject<Array<UserInterface>>();
+
+  emitLog(functionName, variableName, variable, subscribers) {
     this.logger.emitLog({
       className: "UserService",
-      functionName: "emitUsers",
-      description: "Emit new Array<{ id: number; name: string }>",
-      variable: "users",
-      value: users,
-      subscribers: this.usersSub.observers,
+      functionName,
+      description: "Emit new value",
+      variable: variableName,
+      value: variable,
+      subscribers,
     });
-    this.users = users;
-    this.usersSub.next(users);
   }
 
-  emitSelected(selectedUser: { id: number; name: string }): void {
-    this.logger.emitLog({
-      className: "UserService",
-      functionName: "emitSelected",
-      description: "Emit new { id: number; name: string }",
-      variable: "selectedUser",
-      value: selectedUser,
-      subscribers: this.selectedUserSub.observers,
-    });
-    this.selectedUser = selectedUser;
-    this.selectedUserSub.next(selectedUser);
+  emitSelectedUserId(selectedUserId: number): void {
+    if (!selectedUserId)
+      return this.emitSelectedUser({ id: undefined, name: "", active: false });
+
+    if (this.selectedUserId !== selectedUserId) {
+      for (const list of [this.contacts, this.groups, this.invites]) {
+        for (const user of Object.values(list)) {
+          if (user.id === selectedUserId) {
+            return this.emitSelectedUser(user);
+          }
+        }
+      }
+    }
+  }
+
+  emitSelectedUser(user: UserInterface) {
+    this.emitLog(
+      "emitSelectedUser",
+      "user",
+      user,
+      this.selectedUserSub.observers
+    );
+    this.selectedUser = user;
+    this.selectedUserId = user.id;
+    this.selectedUserSub.next(this.selectedUser);
+  }
+
+  emitContacts(contacts: Array<UserInterface>): void {
+    if (this.contacts !== contacts) {
+      this.emitLog(
+        "emitContacts",
+        "contacts",
+        contacts,
+        this.contactsSub.observers
+      );
+      this.contacts = contacts;
+      this.contactsSub.next(contacts);
+    }
+  }
+
+  emitGroups(groups: Array<UserInterface>): void {
+    if (this.groups !== groups) {
+      this.emitLog("emitGroups", "groups", groups, this.groupsSub.observers);
+      this.groups = groups;
+      this.groupsSub.next(groups);
+    }
+  }
+
+  emitInvites(invites: Array<UserInterface>): void {
+    if (this.invites !== invites) {
+      this.emitLog(
+        "emitInvites",
+        "invites",
+        invites,
+        this.invitesSub.observers
+      );
+      this.invites = invites;
+      this.invitesSub.next(invites);
+    }
   }
 
   constructor(private logger: LoggerService) {}

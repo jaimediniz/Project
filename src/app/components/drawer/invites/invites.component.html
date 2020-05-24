@@ -1,0 +1,26 @@
+<div class="d-flex flex-column">
+  <mat-card
+    class="contactDiv"
+    *ngFor="let invite of invites"
+    [ngStyle]="{
+      'background-color': selectedUserId === invite.id ? 'lightblue' : 'white'
+    }"
+    [routerLink]="['/invites', invite.id]"
+    routerLinkActive="active"
+    (click)="
+      selectedUserId === invite.id
+        ? selectedUserIdChange.emit(undefined)
+        : selectedUserIdChange.emit(invite.id)
+    "
+  >
+    <mat-card-content>
+      <mat-card-title
+        matBadge="."
+        matBadgeColor="warn"
+        [matBadgeHidden]="invite.active"
+      >
+        {{ invite.name }}
+      </mat-card-title>
+    </mat-card-content>
+  </mat-card>
+</div>

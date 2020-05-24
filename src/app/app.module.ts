@@ -6,22 +6,25 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Routes } from "@angular/router";
 
-import { AppRoutingModule } from "./app-routing.module";
+import { AppRoutingModule } from "./app.routes";
 import { AppComponent } from "./app.component";
-import { ContactsComponent } from "./home/drawer/contacts/contacts.component";
-import { DrawerComponent } from "./home/drawer/drawer.component";
-import { InvitesComponent } from "./home/drawer/invites/invites.component";
-import { HomeComponent } from "./home/home.component";
-import { CalendarComponent } from "./home/viewer/calendar/calendar.component";
-import { CreateInviteComponent } from "./home/viewer/create-invite/create-invite.component";
-import { UserInfoComponent } from "./home/viewer/user-info/user-info.component";
-import { ViewerComponent } from "./home/viewer/viewer.component";
+import { ContactsComponent } from "./components/drawer/contacts/contacts.component";
+import { DrawerComponent } from "./components/drawer/drawer.component";
+import { InvitesComponent } from "./components/drawer/invites/invites.component";
+import { MainComponent } from "./components/main.component";
+import { CalendarComponent } from "./components/viewer/calendar/calendar.component";
+import { CreateInviteComponent } from "./components/viewer/create-invite/create-invite.component";
+import { UserInfoComponent } from "./components/viewer/user-info/user-info.component";
+import { ViewerComponent } from "./components/viewer/viewer.component";
 import { MaterialModule } from "./material.module";
-import { SettingsComponent } from "./home/viewer/settings/settings.component";
-import { Viewer2Component } from "./home/viewer2/viewer2.component";
+import { SettingsComponent } from "./components/viewer/settings/settings.component";
+import { Viewer2Component } from "./components/viewer2/viewer2.component";
+import { LoginComponent } from "./components/viewer/auth/login/login.component";
+import { RegisterComponent } from "./components/viewer/auth/register/register.component";
 
+import { AngularResizedEventModule } from "angular-resize-event";
+import { GroupsComponent } from "./components/drawer/groups/groups.component";
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
@@ -29,14 +32,17 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     AppComponent,
     ContactsComponent,
     InvitesComponent,
+    GroupsComponent,
     DrawerComponent,
     ViewerComponent,
-    HomeComponent,
+    MainComponent,
     UserInfoComponent,
     CreateInviteComponent,
     CalendarComponent,
     SettingsComponent,
     Viewer2Component,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    AngularResizedEventModule,
   ],
   exports: [AppRoutingModule],
   providers: [],

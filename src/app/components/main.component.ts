@@ -1,0 +1,130 @@
+import { fromEvent } from "rxjs";
+
+import { Component, OnDestroy, OnInit } from "@angular/core";
+
+import { LoggerService } from "../services/logger.service";
+import { UserService } from "../services/user.service";
+import { RouteExtensionService } from "src/app/services/route-extension.service";
+import { NavBarService } from "../services/navbar.service";
+import { MobileService } from "../services/mobile.service";
+import { debounceTime } from "rxjs/operators";
+
+export const rootVariables: Array<{ key: string; value: string }> = [
+  { key: "--main-bg-color", value: "white" },
+  { key: "--main-txt-color", value: "rgb(0, 0, 0)" },
+  { key: "--main-header-color", value: "rgb(92, 187, 128)" },
+  { key: "--main-body-color", value: "white" },
+  { key: "--main-color-faded", value: "rgba(0, 0, 0, 0.12)" },
+  { key: "--main-drawer-width", value: "300px" },
+  { key: "--main-drawer-width-closed", value: "55px" },
+  { key: "--main-viewer2-width", value: "600px" },
+  { key: "--main-viewer2-width-closed", value: "0px" },
+  { key: "--main-header-height", value: "50px" },
+  { key: "--main-padding", value: "16px" },
+  { key: "--font-size-small", value: "12px" },
+  { key: "--font-size-normal", value: "18px" },
+  { key: "--font-size-big", value: "20px" },
+  { key: "--font-size-large", value: "24px" },
+  { key: "--font-size-icons", value: "24px" },
+  {
+    key: "--main-txt-font",
+    value: '400 14px/20px Roboto, "Helvetica Neue", sans-serif',
+  },
+];
+@Component({
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
+})
+export class MainComponent implements OnInit, OnDestroy {
+  webPackage = "./src/app/components/main.component.ts";
+
+  windowResize = fromEvent(window, "resize").pipe(debounceTime(150));
+
+  usersSubscription: any; // Subscription
+  selectedTabSub: any;
+  users: Array<{ id: number; name: string }>;
+  sidePanel1 = true;
+  sidePanel2 = false;
+  appRoute: string;
+
+  windowWidth: number = window.innerWidth;
+  windowIsMobile: boolean = false;
+
+  constructor(
+    private userService: UserService,
+    private logger: LoggerService,
+    private route: RouteExtensionService,
+    private navbar: NavBarService,
+    private mobileService: MobileService
+  ) {
+    for (const property of rootVariables) {
+      document.documentElement.style.setProperty(property.key, property.value);
+    }
+
+    this.windowResize.subscribe((event: any) => {
+      this.windowWidth = event.target.innerWidth;
+      const newValue: boolean =
+        this.windowWidth < this.mobileService.mobileWidth;
+      console.log(this.windowWidth, newValue);
+      if (this.windowIsMobile !== newValue) {
+        this.windowIsMobile = newValue;
+        this.mobileService.emitIsMobile(this.windowIsMobile);
+      }
+    });
+
+    this.selectedTabSub = this.navbar.changeTabSub
+      .asObservable()
+      .subscribe((changeTab) => {
+        this.handleOpening(1, changeTab);
+      });
+    this.selectedTabSub.subscriberName = "MainComponent";
+
+    this.route.routeSubject.asObservable().subscribe((routeSubject) => {
+      this.appRoute = routeSubject;
+    });
+
+    this.users = this.userService.contacts;
+    this.usersSubscription = this.userService.contactsSub
+      .asObservable()
+      .subscribe((users) => {
+        this.users = users;
+      });
+    this.usersSubscription.subscriberName = "MainComponent";
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "MainComponent",
+      functionName: "constructor",
+      values: [
+        "Subscribed to window size",
+        "Subscribed to change in Tab",
+        "Subscribed to users list",
+      ],
+    });
+  }
+
+  ngOnInit(): void {}
+
+  handleOpening(panel, selectTab) {
+    this.logger.infoLog({
+      className: "MainComponent",
+      functionName: "handleOpening",
+      description: `Open drawer ${panel} in selectTab`,
+      variable: "selectTab",
+      value: selectTab,
+    });
+    this[`sidePanel${panel}`] = true;
+  }
+
+  ngOnDestroy() {
+    this.usersSubscription.unsubscribe();
+
+    this.logger.functionLog({
+      webPackage: this.webPackage,
+      className: "MainComponent",
+      functionName: "ngOnDestroy",
+      values: ["Unsubscribed to users list"],
+    });
+  }
+}

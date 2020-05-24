@@ -1,0 +1,179 @@
+<div class="d-flex flex-column w-100 h-100">
+  <div class="header" [ngClass]="{ mute: mute }">
+    <p></p>
+  </div>
+
+  <!-- Side Bar -->
+  <div class="d-flex h-100 sideBar" [ngClass]="{ mute: mute }">
+    <!-- Close Menu Button -->
+    <button
+      mat-button
+      (click)="opened ? close.emit(false) : handleOpening(-1)"
+      class="menuButton"
+      [matTooltip]="opened ? 'Close Menu' : 'Open Menu'"
+      matTooltipPosition="after"
+      disableRipple
+    >
+      <mat-icon>
+        {{ opened ? "arrow_back_ios" : "arrow_forward_ios" }}
+      </mat-icon>
+    </button>
+
+    <!-- Home Button -->
+    <button
+      mat-button
+      class="homeButton"
+      matTooltip="Home"
+      matTooltipPosition="after"
+      [routerLink]="['/home']"
+      routerLinkActive="active"
+      disableRipple
+    >
+      <mat-icon>
+        home
+      </mat-icon>
+    </button>
+
+    <!-- Contacts -->
+    <button
+      mat-button
+      (click)="handleOpening(0)"
+      class="contactsButton"
+      matTooltip="Contacts"
+      matTooltipPosition="after"
+      [routerLink]="['/contacts']"
+      routerLinkActive="active"
+      disableRipple
+    >
+      <mat-icon
+        [matBadge]="
+          contactsUnreadMessages > 99 ? '+99' : contactsUnreadMessages
+        "
+        matBadgeColor="warn"
+        [matBadgeHidden]="mute"
+      >
+        contacts
+      </mat-icon>
+    </button>
+
+    <!-- Groups -->
+    <button
+      mat-button
+      (click)="handleOpening(1)"
+      class="groupsButton"
+      matTooltip="Groups"
+      matTooltipPosition="after"
+      [routerLink]="['/groups']"
+      routerLinkActive="active"
+      disableRipple
+    >
+      <mat-icon
+        [matBadge]="groupsUnreadMessages > 99 ? '+99' : groupsUnreadMessages"
+        matBadgeColor="warn"
+        [matBadgeHidden]="mute"
+      >
+        group
+      </mat-icon>
+    </button>
+
+    <!-- Invites -->
+    <button
+      mat-button
+      (click)="handleOpening(2)"
+      class="invitesButton"
+      matTooltip="Invites"
+      matTooltipPosition="after"
+      [routerLink]="['/invites']"
+      routerLinkActive="active"
+      disableRipple
+    >
+      <mat-icon
+        [matBadge]="invitesUnreadMessages > 99 ? '+99' : invitesUnreadMessages"
+        matBadgeColor="warn"
+        [matBadgeHidden]="mute"
+      >
+        insert_invitation
+      </mat-icon>
+    </button>
+
+    <!-- Calendar -->
+    <button
+      mat-button
+      class="calendarButton"
+      matTooltip="Calendar"
+      matTooltipPosition="after"
+      disableRipple
+      [routerLink]="['/calendar']"
+      routerLinkActive="active"
+    >
+      <mat-icon>
+        calendar_today
+      </mat-icon>
+    </button>
+
+    <!-- Settings -->
+    <button
+      mat-button
+      class="settingsButton"
+      matTooltip="Settings"
+      matTooltipPosition="after"
+      disableRipple
+      (click)="this.settingsPanel = !this.settingsPanel"
+      [routerLink]="['/settings']"
+      routerLinkActive="active"
+    >
+      <mat-icon [class.spinOpen]="this.settingsPanel">
+        settings
+      </mat-icon>
+    </button>
+
+    <!-- Mute Button -->
+    <button
+      mat-button
+      (click)="toggleMute()"
+      class="muteButton"
+      [matTooltip]="mute ? 'Activate notifications' : 'Mute notifications'"
+      matTooltipPosition="after"
+      disableRipple
+    >
+      <mat-icon
+        [matBadge]="'!'"
+        matBadgeColor="accent"
+        [matBadgeHidden]="!mute"
+        class="warningBadge"
+      >
+        {{ mute ? "volume_up" : "volume_off" }}
+      </mat-icon>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+    <mat-tab-group
+      [class]="['firstView', 'secondView', 'thirdView'][tab]"
+      [(selectedIndex)]="tab"
+      class="invisible-tabs"
+      [@.disabled]="true"
+      #tabGroup
+    >
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>contacts</mat-icon> Contacts
+        </ng-template>
+        <app-contacts [(selectedUserId)]="selectedUserId"></app-contacts>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>group</mat-icon> Groups
+        </ng-template>
+        <app-groups [(selectedUserId)]="selectedUserId"></app-groups>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_invitation</mat-icon> Invites
+        </ng-template>
+        <app-invites [(selectedUserId)]="selectedUserId"></app-invites>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

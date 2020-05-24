@@ -36,7 +36,15 @@ body {
   }
 }
 
-.mat-button-focus-overlay {
+mat-card {
+  border-radius: 0px;
+  &:focus {
+    outline: unset;
+  }
+}
+
+.mat-button-focus-overlay,
+.mat-focus-indicator {
   background-color: transparent;
 }
 
@@ -64,6 +72,10 @@ body {
   // > .mat-tab-header {
   //   display: none;
   // }
+  mat-card-title,
+  mat-card {
+    cursor: pointer;
+  }
   .mat-tab-list {
     transform: translateY(0) !important;
     height: 48px;
@@ -75,6 +87,9 @@ body {
   .mat-tab-labels {
     flex-direction: column;
     transition: all ease var(--transition-duration);
+    .mat-tab-label {
+      cursor: default;
+    }
   }
   .mat-tab-body-content {
     -ms-overflow-style: none;

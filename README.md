@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/jaimediniz/Project?branch=master&token=6badd949933f3620294480e2413155528b9c1251)](https://bettercodehub.com/)
+
 # Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.

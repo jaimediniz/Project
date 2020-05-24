@@ -1,0 +1,26 @@
+<div class="d-flex flex-column">
+  <mat-card
+    class="contactDiv"
+    *ngFor="let group of groups"
+    [ngStyle]="{
+      'background-color': selectedUserId === group.id ? 'lightblue' : 'white'
+    }"
+    [routerLink]="['/groups', group.id]"
+    routerLinkActive="active"
+    (click)="
+      selectedUserId === group.id
+        ? selectedUserIdChange.emit(undefined)
+        : selectedUserIdChange.emit(group.id)
+    "
+  >
+    <mat-card-content>
+      <mat-card-title
+        matBadge="."
+        matBadgeColor="warn"
+        [matBadgeHidden]="group.active"
+      >
+        {{ group.name }}
+      </mat-card-title>
+    </mat-card-content>
+  </mat-card>
+</div>
