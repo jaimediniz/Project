@@ -1,4 +1,4 @@
-import { Subscription } from "rxjs";
+import { fromEvent } from "rxjs";
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
 
@@ -7,6 +7,7 @@ import { UserService } from "../services/user.service";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
 import { NavBarService } from "../services/navbar.service";
 import { MobileService } from "../services/mobile.service";
+import { debounceTime } from "rxjs/operators";
 
 export const rootVariables: Array<{ key: string; value: string }> = [
   { key: "--main-bg-color", value: "white" },
@@ -34,12 +35,11 @@ export const rootVariables: Array<{ key: string; value: string }> = [
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
-  host: {
-    "(window:resize)": "onWindowResize($event)",
-  },
 })
 export class MainComponent implements OnInit, OnDestroy {
   webPackage = "./src/app/components/main.component.ts";
+
+  windowResize = fromEvent(window, "resize").pipe(debounceTime(150));
 
   usersSubscription: any; // Subscription
   selectedTabSub: any;
@@ -61,6 +61,17 @@ export class MainComponent implements OnInit, OnDestroy {
     for (const property of rootVariables) {
       document.documentElement.style.setProperty(property.key, property.value);
     }
+
+    this.windowResize.subscribe((event: any) => {
+      this.windowWidth = event.target.innerWidth;
+      const newValue: boolean =
+        this.windowWidth < this.mobileService.mobileWidth;
+      console.log(this.windowWidth, newValue);
+      if (this.windowIsMobile !== newValue) {
+        this.windowIsMobile = newValue;
+        this.mobileService.emitIsMobile(this.windowIsMobile);
+      }
+    });
 
     this.selectedTabSub = this.navbar.changeTabSub
       .asObservable()
@@ -85,20 +96,15 @@ export class MainComponent implements OnInit, OnDestroy {
       webPackage: this.webPackage,
       className: "MainComponent",
       functionName: "constructor",
-      values: ["Subscribed to change in Tab", "Subscribed to users list"],
+      values: [
+        "Subscribed to window size",
+        "Subscribed to change in Tab",
+        "Subscribed to users list",
+      ],
     });
   }
 
   ngOnInit(): void {}
-
-  onWindowResize(event) {
-    this.windowWidth = event.target.innerWidth;
-    const newValue: boolean = this.windowWidth < this.mobileService.mobileWidth;
-    if (this.windowIsMobile !== newValue) {
-      this.windowIsMobile = newValue;
-      this.mobileService.emitIsMobile(this.windowIsMobile);
-    }
-  }
 
   handleOpening(panel, selectTab) {
     this.logger.infoLog({
