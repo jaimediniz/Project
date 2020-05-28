@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouteExtensionService } from "src/app/services/route-extension.service";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "src/app/guards/auth.service";
+import { BackendService } from "src/app/services/backend.service";
 
 @Component({
   templateUrl: "./login.component.html",
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: RouteExtensionService,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private backendService: BackendService
   ) {
     // the client has a token & is a valid one
     if (this.authService.isAuthenticated()) {
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   handleLogin() {
     this.http
-      .get("http://127.0.0.1:3000/api/v0/login", {
+      .get(this.backendService.backendEndPoints("login"), {
         withCredentials: true,
       })
       .subscribe(

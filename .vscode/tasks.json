@@ -23,6 +23,11 @@
       "options": {
         "statusbar": {
           "hide": true
+        },
+        "env": {
+          "ENV": "dev",
+          "ORIGIN": "127.0.0.1:3000",
+          "PORT": "4200"
         }
       }
     },
@@ -41,6 +46,11 @@
       "options": {
         "statusbar": {
           "hide": true
+        },
+        "env": {
+          "ENV": "dev",
+          "ORIGIN": "127.0.0.1:4200",
+          "PORT": "3000"
         }
       }
     },
