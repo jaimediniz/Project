@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { UserInfoComponent } from "./components/viewer/user-info/user-info.component";
 import { CalendarComponent } from "./components/viewer/calendar/calendar.component";
-import { HomeViewerComponent } from "./components/viewer/home-viewer/home-viewer.component";
 import { SettingsComponent } from "./components/viewer/settings/settings.component";
 import { LoginComponent } from "./components/viewer/auth/login/login.component";
 import { RegisterComponent } from "./components/viewer/auth/register/register.component";
@@ -12,6 +11,7 @@ import { ContactsComponent } from "./components/drawer/contacts/contacts.compone
 import { InvitesComponent } from "./components/drawer/invites/invites.component";
 import { NavbarGuardService } from "./guards/navbar-guard.service";
 import { GroupsComponent } from "./components/drawer/groups/groups.component";
+import { DashboardComponent } from "./components/viewer/dashboard/dashboard.component";
 
 const routes: Routes = [
   // Auth
@@ -78,7 +78,7 @@ const routes: Routes = [
   // Content
   {
     path: "home",
-    component: HomeViewerComponent,
+    component: DashboardComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: "none",

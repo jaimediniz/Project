@@ -25,24 +25,44 @@ import { RegisterComponent } from "./components/viewer/auth/register/register.co
 
 import { AngularResizedEventModule } from "angular-resize-event";
 import { GroupsComponent } from "./components/drawer/groups/groups.component";
+import { DashboardComponent } from "./components/viewer/dashboard/dashboard.component";
+import { ComponentsCollectionComponent } from "./components/viewer/dashboard/components-collection/components-collection.component";
+import { GraphComponent } from "./components/viewer/dashboard/graph/graph.component";
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   declarations: [
+    // App
     AppComponent,
-    ContactsComponent,
-    InvitesComponent,
-    GroupsComponent,
-    DrawerComponent,
-    ViewerComponent,
+    //// Main
     MainComponent,
-    UserInfoComponent,
-    CreateInviteComponent,
-    CalendarComponent,
-    SettingsComponent,
-    Viewer2Component,
+    ////// Drawer
+    DrawerComponent,
+    ContactsComponent,
+    GroupsComponent,
+    InvitesComponent,
+    //////
+    ////// Viewer
+    ViewerComponent,
+    //////// Auth
     LoginComponent,
     RegisterComponent,
+    ////////
+    CalendarComponent,
+    CreateInviteComponent,
+    //////// Dashboard=
+    DashboardComponent,
+    ComponentsCollectionComponent,
+    GraphComponent,
+    ////////
+    SettingsComponent,
+    UserInfoComponent,
+    //////
+    ////// Viewer 2
+    Viewer2Component,
+    //////
+    ////
+    //
   ],
   imports: [
     BrowserModule,
