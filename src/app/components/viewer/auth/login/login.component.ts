@@ -4,11 +4,40 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "src/app/guards/auth.service";
 import { BackendService } from "src/app/services/backend.service";
 
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
+  }
+}
+
 @Component({
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+  emailFormControl = new FormControl("", [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  matcher = new MyErrorStateMatcher();
+
   constructor(
     private router: RouteExtensionService,
     private http: HttpClient,
@@ -23,7 +52,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  handleLogin() {
+  handleLogin(form) {
+    console.log(form);
     this.http
       .get(this.backendService.backendEndPoints("login"), {
         withCredentials: true,
