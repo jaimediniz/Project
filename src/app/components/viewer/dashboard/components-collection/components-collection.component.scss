@@ -1,0 +1,73 @@
+.loginWrapper {
+  align-items: center;
+  flex-direction: column !important;
+}
+
+.branch {
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+  span {
+    font-size: 40px !important;
+  }
+  mat-icon {
+    color: var(--main-header-color);
+    font-size: 40px !important;
+    position: relative;
+    top: 5px;
+  }
+}
+
+.loginForm {
+  width: 100%;
+  margin-bottom: auto;
+  // overflow-y: scroll;
+
+  form {
+    max-width: min(300px, 95%);
+    margin: auto;
+  }
+
+  .showPassword {
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background-color: var(--main-header-color);
+}
+
+.loginButton {
+  background-color: var(--main-header-color);
+}
+
+.guestButton {
+  background-color: var(--main-color-faded);
+}
+
+// @media (min-width: 769px) // Viewer min-width: 769px
+.notMobile {
+  &.loginWrapper {
+    align-items: center;
+    flex-direction: row !important;
+  }
+  .branch {
+    position: relative;
+  }
+
+  .loginForm,
+  .branch {
+    margin: auto;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .footer {
+  }
+}
