@@ -78,7 +78,7 @@
   }
 
   .header {
-    width: calc(100% - var(--main-drawer-width-closed));
+    width: calc(100% - var(--main-drawer-width-closed) + 1px);
     background-color: var(--main-header-color);
     height: var(--main-header-height);
     transition: background-color var(--transition-duration) linear;
